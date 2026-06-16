@@ -1,65 +1,72 @@
+import { useTranslation } from 'react-i18next';
 import styles from './DestinationsSection.module.css';
 import SectionWrapper from '../components/SectionWrapper';
 
-const destinationsData = [
-  {
-    id: 1,
-    title: "Estadio Monumental - River Plate",
-    desc: "El más grande de Argentina",
-    bgImage: "/images/monumental.jpg",
-    isLarge: true,
-    gridClass: styles.itemMonumental,
-  },
-  {
-    id: 2,
-    title: "La Bombonera - Boca Juniors",
-    desc: "El estadio más pasional del mundo",
-    bgImage: "/images/bombonera.jpg",
-    isLarge: false,
-    gridClass: styles.itemBombonera,
-  },
-  {
-    id: 3,
-    title: "Tecnópolis",
-    desc: "El parque tecnológico más grande de Latinoamérica",
-    bgImage: "/images/tecnopolis.jpg",
-    isLarge: false,
-    gridClass: styles.itemTecnopolis,
-  },
-  {
-    id: 4,
-    title: "Recitales y Shows",
-    desc: "Luna Park, Movistar Arena, Vélez y más",
-    bgImage: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&q=80",
-    isLarge: false,
-    gridClass: styles.itemRecitales,
-  },
-  {
-    id: 5,
-    title: "Caminito - La Boca",
-    desc: "El barrio más colorido de Buenos Aires",
-    bgImage: "/images/caminito.jpg",
-    isLarge: false,
-    gridClass: styles.itemCaminito,
-  },
-  {
-    id: 6,
-    title: "Puerto Madero",
-    desc: "El moderno corazón porteño",
-    bgImage: "/images/puerto-madero.jpg",
-    isLarge: true,
-    gridClass: styles.itemPuertoMadero,
-  },
-];
-
 export default function DestinationsSection() {
+  const { t } = useTranslation();
+
+  const destinationsData = [
+    {
+      id: 1,
+      title: t('destinations.d1Title'),
+      desc: t('destinations.d1Desc'),
+      bgImage: "/images/monumental.jpg",
+      isLarge: true,
+      gridClass: styles.itemMonumental,
+    },
+    {
+      id: 2,
+      title: t('destinations.d2Title'),
+      desc: t('destinations.d2Desc'),
+      bgImage: "/images/bombonera.jpg",
+      isLarge: false,
+      gridClass: styles.itemBombonera,
+    },
+    {
+      id: 3,
+      title: t('destinations.d3Title'),
+      desc: t('destinations.d3Desc'),
+      bgImage: "/images/tecnopolis.jpg",
+      isLarge: false,
+      gridClass: styles.itemTecnopolis,
+    },
+    {
+      id: 4,
+      title: t('destinations.d4Title'),
+      desc: t('destinations.d4Desc'),
+      bgImage: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&q=80",
+      isLarge: false,
+      gridClass: styles.itemRecitales,
+    },
+    {
+      id: 5,
+      title: t('destinations.d5Title'),
+      desc: t('destinations.d5Desc'),
+      bgImage: "/images/caminito.jpg",
+      isLarge: false,
+      gridClass: styles.itemCaminito,
+    },
+    {
+      id: 6,
+      title: t('destinations.d6Title'),
+      desc: t('destinations.d6Desc'),
+      bgImage: "/images/puerto-madero.jpg",
+      isLarge: true,
+      gridClass: styles.itemPuertoMadero,
+    },
+  ];
+
   return (
     <SectionWrapper id="destinations" className={styles.section}>
       <div className="container">
         <div className={styles.titleGroup}>
-          <h2 className={styles.title}>Te llevamos a todos lados</h2>
+          <span className={styles.badge}>{t('destinations.badge')}</span>
+          <h2 className={styles.title}>
+            {t('destinations.title1')} <br />
+            <span className="text-gradient">{t('destinations.title2')}</span>
+          </h2>
           <p className={styles.subtitle}>
-            Estadios, eventos, turismo y más — donde vayas, llegás con Transporter
+            {t('destinations.subtitle')}
           </p>
         </div>
 
@@ -106,17 +113,18 @@ export default function DestinationsSection() {
         </div>
 
         <div className={styles.ctaWrapper}>
-          <p className={styles.ctaText}>¿Vas a un evento? Reservá tu traslado</p>
+          <p className={styles.ctaText}>{t('destinations.cta')}</p>
           <a
             href="https://wa.me/541126281011"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.ctaBtn}
           >
-            Reservar en WhatsApp
+            {t('testimonials.cta')}
           </a>
         </div>
       </div>
     </SectionWrapper>
   );
 }
+

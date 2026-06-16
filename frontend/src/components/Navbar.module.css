@@ -208,3 +208,42 @@
     display: flex;
   }
 }
+
+.langSelectorWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.langSelector {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 6px 12px;
+  color: white;
+  font-size: 13px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px; /* space for arrow */
+}
+
+.langSelector:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.langSelector:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 10px rgba(79, 142, 247, 0.3);
+}
+
+.drawerLangWrapper {
+  margin-top: 1rem;
+}

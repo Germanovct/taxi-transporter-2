@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import styles from './HeroSection.module.css';
 
 export default function HeroSection() {
   const whatsappUrl = "https://wa.me/541126281011";
+  const { t } = useTranslation();
 
   return (
     <section id="hero" className={styles.hero}>
@@ -35,28 +37,28 @@ export default function HeroSection() {
       <div className={styles.content}>
         {/* Badge */}
         <div className={styles.badge}>
-          ✦ SERVICIO PREMIUM DE TRASLADOS ✦
+          {t('hero.badge')}
         </div>
 
         {/* Headline */}
         <h1 className={styles.headline}>
-          <span className={styles.lineWhite}>RÁPIDO.</span>
-          <span className={styles.lineGradient}>SEGURO.</span>
-          <span className={styles.lineWhite}>IMPARABLE.</span>
+          <span className={styles.lineWhite}>{t('hero.line1')}</span>
+          <span className={styles.lineGradient}>{t('hero.line2')}</span>
+          <span className={styles.lineWhite}>{t('hero.line3')}</span>
         </h1>
 
         {/* Subtitle */}
         <h2 className={styles.subtitle}>
-          Buenos Aires · Aeropuertos · Larga Distancia · City Tours
+          {t('hero.subtitle')}
         </h2>
 
         {/* Quick Features */}
         <div className={styles.features}>
-          <span className={styles.featureItem}>⏱ Puntualidad garantizada</span>
+          <span className={styles.featureItem}>⏱ {t('hero.feature1')}</span>
           <span className={styles.divider}>|</span>
-          <span className={styles.featureItem}>🛡 Viaje seguro</span>
+          <span className={styles.featureItem}>🛡 {t('hero.feature2')}</span>
           <span className={styles.divider}>|</span>
-          <span className={styles.featureItem}>💳 Todos los medios de pago</span>
+          <span className={styles.featureItem}>💳 {t('hero.feature3')}</span>
         </div>
 
         {/* CTAs */}
@@ -67,7 +69,7 @@ export default function HeroSection() {
             rel="noopener noreferrer"
             className={styles.primaryCta}
           >
-            RESERVAR POR WHATSAPP
+            {t('hero.ctaWhatsapp')}
           </a>
         </div>
       </div>

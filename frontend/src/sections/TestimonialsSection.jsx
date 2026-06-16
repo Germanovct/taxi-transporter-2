@@ -1,45 +1,48 @@
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './TestimonialsSection.module.css';
 
-const testimonialsData = [
-  {
-    id: 1,
-    name: "Cristian T",
-    quote: "Tenía vuelo Rosario→Buenos Aires, demorado, reprogramado y cancelado en el mismo día. Me contacté con la empresa y estuvieron súper atentos en todo momento reprogramándome la reserva del auto. RECOMENDADOS.",
-    initials: "CT",
-    stars: 5
-  },
-  {
-    id: 2,
-    name: "Melinda Pereyra",
-    quote: "Excelente servicio, auto impecable, chofer super atento. Súper puntual para recogerme a la madrugada hacia Ezeiza. Volvería a contratarlos sin dudarlo.",
-    initials: "MP",
-    stars: 5
-  },
-  {
-    id: 3,
-    name: "Emanuel Montiel",
-    quote: "Vehículos nuevos y limpios, chofer con excelente predisposición. Se adaptó a nuestro retraso en el arribo y nos ayudó con el equipaje. Recomiendo 100%.",
-    initials: "EM",
-    stars: 5
-  },
-  {
-    id: 4,
-    name: "Luis Olivieri",
-    quote: "El móvil un lujo, servicio de 10, honesto y muy profesional. Todo coordinado de forma ágil mediante WhatsApp. Excelente opción de traslados.",
-    initials: "LO",
-    stars: 5
-  },
-  {
-    id: 5,
-    name: "Edward Rosemblit",
-    quote: "Servicio confiable. Puntualidad, responsabilidad y amabilidad por sobre todas las cosas. Hace años viajo con ellos y siempre impecable.",
-    initials: "ER",
-    stars: 5
-  }
-];
-
 export default function TestimonialsSection() {
+  const { t } = useTranslation();
+
+  const testimonialsData = [
+    {
+      id: 1,
+      name: t('testimonials.t1Name'),
+      quote: t('testimonials.t1Text'),
+      initials: "CT",
+      stars: 5
+    },
+    {
+      id: 2,
+      name: t('testimonials.t2Name'),
+      quote: t('testimonials.t2Text'),
+      initials: "MP",
+      stars: 5
+    },
+    {
+      id: 3,
+      name: t('testimonials.t3Name'),
+      quote: t('testimonials.t3Text'),
+      initials: "EM",
+      stars: 5
+    },
+    {
+      id: 4,
+      name: t('testimonials.t4Name'),
+      quote: t('testimonials.t4Text'),
+      initials: "LO",
+      stars: 5
+    },
+    {
+      id: 5,
+      name: t('testimonials.t5Name'),
+      quote: t('testimonials.t5Text'),
+      initials: "ER",
+      stars: 5
+    }
+  ];
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const autoSlideInterval = useRef(null);
@@ -56,7 +59,7 @@ export default function TestimonialsSection() {
         clearInterval(autoSlideInterval.current);
       }
     };
-  }, [isPaused]);
+  }, [isPaused, testimonialsData.length]);
 
   const handlePrev = () => {
     setActiveIndex((prev) => (prev - 1 + testimonialsData.length) % testimonialsData.length);
@@ -86,12 +89,12 @@ export default function TestimonialsSection() {
     <section id="testimonials" className={styles.section}>
       <div className="container">
         <div className={styles.header}>
-          <span className={styles.badge}>✦ TESTIMONIOS ✦</span>
+          <span className={styles.badge}>{t('testimonials.badge')}</span>
           <h2 className={styles.title}>
-            LO QUE DICEN <br />
-            <span className="text-gradient">NUESTROS PASAJEROS</span>
+            {t('testimonials.title1')} <br />
+            <span className="text-gradient">{t('testimonials.title2')}</span>
           </h2>
-          <p className={styles.subtitle}>Opiniones reales de quienes nos eligen todos los días</p>
+          <p className={styles.subtitle}>{t('testimonials.subtitle')}</p>
         </div>
 
         <div 
@@ -127,7 +130,7 @@ export default function TestimonialsSection() {
                         <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05" />
                         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335" />
                       </svg>
-                      Cliente Google
+                      {t('testimonials.source')}
                     </span>
                   </div>
                 </div>
@@ -172,14 +175,14 @@ export default function TestimonialsSection() {
 
         {/* CTA FINAL */}
         <div className={styles.ctaContainer}>
-          <p className={styles.ctaText}>¿Querés ser el próximo pasajero satisfecho?</p>
+          <p className={styles.ctaText}>{t('testimonials.ctaText')}</p>
           <a 
             href="https://wa.me/541126281011"
             className={styles.ctaBtn}
             target="_blank"
             rel="noopener noreferrer"
           >
-            RESERVAR POR WHATSAPP
+            {t('testimonials.cta')}
           </a>
         </div>
       </div>

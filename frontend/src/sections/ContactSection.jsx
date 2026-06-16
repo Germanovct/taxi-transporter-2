@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './ContactSection.module.css';
 import SectionWrapper from '../components/SectionWrapper';
 
 export default function ContactSection() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -43,10 +45,14 @@ export default function ContactSection() {
         <div className={styles.grid}>
           {/* Left Column - Contact Details */}
           <div>
-            <h2 className={styles.title}>Contacto</h2>
-            <p className={styles.subtitle}>Estamos a tu disposición en cualquier momento</p>
+            <span className={styles.badge}>{t('contact.badge')}</span>
+            <h2 className={styles.title}>
+              {t('contact.title1')} <br />
+              <span className="text-gradient">{t('contact.title2')}</span>
+            </h2>
+            <p className={styles.subtitle}>{t('contact.subtitle')}</p>
 
-            <h3 className={styles.infoTitle}>Información de contacto</h3>
+            <h3 className={styles.infoTitle}>{t('contact.infoTitle')}</h3>
             
             <ul className={styles.infoList}>
               <li className={styles.infoItem}>
@@ -56,7 +62,7 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div className={styles.infoText}>
-                  <div className={styles.itemLabel}>WhatsApp ejecutivo</div>
+                  <div className={styles.itemLabel}>{t('contact.whatsapp')}</div>
                   <a href={`https://wa.me/${whatsappRaw}`} target="_blank" rel="noopener noreferrer" className={styles.itemValue}>+54 11 2628-1011</a>
                 </div>
               </li>
@@ -68,7 +74,7 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div className={styles.infoText}>
-                  <div className={styles.itemLabel}>Correo electrónico</div>
+                  <div className={styles.itemLabel}>{t('contact.email')}</div>
                   <a href="mailto:taxieltransporter2@gmail.com" className={styles.itemValue}>taxieltransporter2@gmail.com</a>
                 </div>
               </li>
@@ -80,8 +86,8 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div className={styles.infoText}>
-                  <div className={styles.itemLabel}>Horario de atención</div>
-                  <div className={styles.itemValue}>Todos los días - 24 Horas</div>
+                  <div className={styles.itemLabel}>{t('contact.hours')}</div>
+                  <div className={styles.itemValue}>{t('contact.hoursValue')}</div>
                 </div>
               </li>
             </ul>
@@ -107,20 +113,20 @@ export default function ContactSection() {
                 <svg className={styles.successIcon} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                 </svg>
-                <h3 className={styles.successTitle}>¡Gracias!</h3>
-                <p className={styles.successDesc}>Te contactamos pronto.</p>
+                <h3 className={styles.successTitle}>{t('contact.thanks')}</h3>
+                <p className={styles.successDesc}>{t('contact.formSuccess')}</p>
                 <button 
                   className={styles.submitBtn} 
                   style={{ marginTop: '1.5rem', width: 'auto', padding: '0.6rem 1.5rem' }} 
                   onClick={() => setSubmitted(false)}
                 >
-                  Enviar otro mensaje
+                  {t('contact.sendAnother')}
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="name" className={styles.label}>Nombre completo</label>
+                  <label htmlFor="name" className={styles.label}>{t('contact.formName')}</label>
                   <input
                     type="text"
                     id="name"
@@ -133,7 +139,7 @@ export default function ContactSection() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="email" className={styles.label}>Correo electrónico</label>
+                  <label htmlFor="email" className={styles.label}>{t('contact.formEmail')}</label>
                   <input
                     type="email"
                     id="email"
@@ -146,7 +152,7 @@ export default function ContactSection() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="phone" className={styles.label}>Teléfono</label>
+                  <label htmlFor="phone" className={styles.label}>{t('contact.formPhone')}</label>
                   <input
                     type="tel"
                     id="phone"
@@ -159,7 +165,7 @@ export default function ContactSection() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="message" className={styles.label}>Mensaje</label>
+                  <label htmlFor="message" className={styles.label}>{t('contact.formMessage')}</label>
                   <textarea
                     id="message"
                     name="message"
@@ -171,7 +177,7 @@ export default function ContactSection() {
                 </div>
 
                 <button type="submit" className={styles.submitBtn}>
-                  Enviar mensaje
+                  {t('contact.formSubmit')}
                 </button>
               </form>
             )}

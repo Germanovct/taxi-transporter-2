@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './StatsSection.module.css';
 import SectionWrapper from '../components/SectionWrapper';
 
@@ -61,6 +62,8 @@ function Counter({ target, duration = 2000, prefix = '', suffix = '' }) {
 }
 
 export default function StatsSection() {
+  const { t } = useTranslation();
+
   return (
     <SectionWrapper id="stats" className={styles.section}>
       <div className="container">
@@ -69,28 +72,28 @@ export default function StatsSection() {
             <div className={styles.number}>
               <Counter target={10} prefix="+" />
             </div>
-            <div className={styles.label}>Años de experiencia</div>
+            <div className={styles.label}>{t('stats.years')}</div>
           </div>
 
           <div className={styles.statCard}>
             <div className={styles.number}>
               <Counter target={5000} prefix="+" />
             </div>
-            <div className={styles.label}>Viajes realizados</div>
+            <div className={styles.label}>{t('stats.trips')}</div>
           </div>
 
           <div className={styles.statCard}>
             <div className={styles.number}>
               <Counter target={24} suffix="/7" />
             </div>
-            <div className={styles.label}>Disponibilidad</div>
+            <div className={styles.label}>{t('stats.availability')}</div>
           </div>
 
           <div className={styles.statCard}>
             <div className={styles.number}>
               <Counter target={100} suffix="%" />
             </div>
-            <div className={styles.label}>Puntualidad</div>
+            <div className={styles.label}>{t('stats.punctuality')}</div>
           </div>
         </div>
       </div>

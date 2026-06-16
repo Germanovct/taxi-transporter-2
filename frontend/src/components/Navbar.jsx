@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,37 +53,50 @@ export default function Navbar() {
           <ul className={styles.navLinks}>
             <li>
               <a href="#hero" className={styles.navLink} onClick={(e) => handleLinkClick(e, 'hero')}>
-                Inicio
+                {t('nav.inicio')}
               </a>
             </li>
             <li>
               <a href="#services" className={styles.navLink} onClick={(e) => handleLinkClick(e, 'services')}>
-                Servicios
+                {t('nav.servicios')}
               </a>
             </li>
             <li>
               <a href="#destinations" className={styles.navLink} onClick={(e) => handleLinkClick(e, 'destinations')}>
-                Destinos
+                {t('nav.destinos')}
               </a>
             </li>
             <li>
               <a href="#fleet" className={styles.navLink} onClick={(e) => handleLinkClick(e, 'fleet')}>
-                Flota
+                {t('nav.flota')}
               </a>
             </li>
             <li>
               <a href="#whyus" className={styles.navLink} onClick={(e) => handleLinkClick(e, 'whyus')}>
-                ¿Por qué elegirnos?
+                {t('nav.porQueElegirnos')}
               </a>
             </li>
             <li>
               <a href="#contact" className={styles.navLink} onClick={(e) => handleLinkClick(e, 'contact')}>
-                Contacto
+                {t('nav.contacto')}
               </a>
+            </li>
+            <li className={styles.langSelectorWrapper}>
+              <select 
+                className={styles.langSelector} 
+                value={i18n.language || 'es'} 
+                onChange={(e) => i18n.changeLanguage(e.target.value)}
+                aria-label="Change language"
+              >
+                <option value="es">🇦🇷 ES</option>
+                <option value="en">🇺🇸 EN</option>
+                <option value="pt">🇧🇷 PT</option>
+                <option value="fr">🇫🇷 FR</option>
+              </select>
             </li>
             <li>
               <a href="https://wa.me/5491134324040" className={styles.ctaBtn} target="_blank" rel="noopener noreferrer">
-                Reservar
+                {t('nav.reservar')}
               </a>
             </li>
           </ul>
@@ -111,33 +126,49 @@ export default function Navbar() {
         <ul className={styles.drawerLinks}>
           <li>
             <a href="#hero" className={styles.drawerLink} onClick={(e) => handleLinkClick(e, 'hero')}>
-              Inicio
+              {t('nav.inicio')}
             </a>
           </li>
           <li>
             <a href="#services" className={styles.drawerLink} onClick={(e) => handleLinkClick(e, 'services')}>
-              Servicios
+              {t('nav.servicios')}
             </a>
           </li>
           <li>
             <a href="#destinations" className={styles.drawerLink} onClick={(e) => handleLinkClick(e, 'destinations')}>
-              Destinos
+              {t('nav.destinos')}
             </a>
           </li>
           <li>
             <a href="#fleet" className={styles.drawerLink} onClick={(e) => handleLinkClick(e, 'fleet')}>
-              Flota
+              {t('nav.flota')}
             </a>
           </li>
           <li>
             <a href="#whyus" className={styles.drawerLink} onClick={(e) => handleLinkClick(e, 'whyus')}>
-              ¿Por qué elegirnos?
+              {t('nav.porQueElegirnos')}
             </a>
           </li>
           <li>
             <a href="#contact" className={styles.drawerLink} onClick={(e) => handleLinkClick(e, 'contact')}>
-              Contacto
+              {t('nav.contacto')}
             </a>
+          </li>
+          <li className={styles.drawerLangWrapper}>
+            <select 
+              className={styles.langSelector} 
+              value={i18n.language || 'es'} 
+              onChange={(e) => {
+                i18n.changeLanguage(e.target.value);
+                setMobileOpen(false);
+              }}
+              aria-label="Change language"
+            >
+              <option value="es">🇦🇷 ES</option>
+              <option value="en">🇺🇸 EN</option>
+              <option value="pt">🇧🇷 PT</option>
+              <option value="fr">🇫🇷 FR</option>
+            </select>
           </li>
         </ul>
         <div className={styles.drawerCta}>
@@ -148,7 +179,7 @@ export default function Navbar() {
             rel="noopener noreferrer"
             style={{ display: 'block' }}
           >
-            Reservar
+            {t('nav.reservar')}
           </a>
         </div>
       </div>

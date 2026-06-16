@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import styles from './Footer.module.css';
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   const handleLinkClick = (e, targetId) => {
     e.preventDefault();
     const element = document.getElementById(targetId);
@@ -25,38 +28,38 @@ export default function Footer() {
         <div className={styles.logoRow}>
           <div className={styles.logo}>TAXI EL TRANSPORTER 2</div>
           <p className={styles.desc}>
-            Servicio de traslados ejecutivos y de pasajeros premium en Buenos Aires. Comprometidos con tu seguridad, puntualidad y comodidad las 24 horas.
+            {t('footer.tagline')}
           </p>
         </div>
 
         <div className={styles.grid}>
           {/* Col 1 - Navigation */}
           <div className={styles.col}>
-            <h4 className={styles.colTitle}>Navegación</h4>
+            <h4 className={styles.colTitle}>{t('footer.navigation')}</h4>
             <ul className={styles.linksList}>
               <li>
                 <a href="#hero" className={styles.link} onClick={(e) => handleLinkClick(e, 'hero')}>
-                  Inicio
+                  {t('nav.inicio')}
                 </a>
               </li>
               <li>
                 <a href="#services" className={styles.link} onClick={(e) => handleLinkClick(e, 'services')}>
-                  Servicios
+                  {t('nav.servicios')}
                 </a>
               </li>
               <li>
                 <a href="#fleet" className={styles.link} onClick={(e) => handleLinkClick(e, 'fleet')}>
-                  Flota
+                  {t('nav.flota')}
                 </a>
               </li>
               <li>
                 <a href="#whyus" className={styles.link} onClick={(e) => handleLinkClick(e, 'whyus')}>
-                  ¿Por qué elegirnos?
+                  {t('nav.porQueElegirnos')}
                 </a>
               </li>
               <li>
                 <a href="#contact" className={styles.link} onClick={(e) => handleLinkClick(e, 'contact')}>
-                  Contacto
+                  {t('nav.contacto')}
                 </a>
               </li>
             </ul>
@@ -64,7 +67,7 @@ export default function Footer() {
 
           {/* Col 2 - Contact Info */}
           <div className={styles.col}>
-            <h4 className={styles.colTitle}>Contacto</h4>
+            <h4 className={styles.colTitle}>{t('footer.contact')}</h4>
             <ul className={styles.linksList}>
               <li>
                 <a href="https://wa.me/541126281011" target="_blank" rel="noopener noreferrer" className={styles.link}>
@@ -81,7 +84,7 @@ export default function Footer() {
 
           {/* Col 3 - Social Links */}
           <div className={styles.col}>
-            <h4 className={styles.colTitle}>Redes Sociales</h4>
+            <h4 className={styles.colTitle}>{t('footer.socials')}</h4>
             <ul className={styles.linksList}>
               <li>
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.link}>
@@ -100,10 +103,10 @@ export default function Footer() {
         {/* Bottom copyright bar */}
         <div className={styles.bottomBar}>
           <div className={styles.copyright}>
-            &copy; 2025 Taxi El Transporter 2. Todos los derechos reservados.
+            {t('footer.rights')}
           </div>
           <div className={styles.copyright}>
-            Desarrollado por{" "}
+            {t('footer.developedBy')}{" "}
             <a 
               href="https://dtsanddog-studio.com.ar" 
               className={styles.studioLink}
