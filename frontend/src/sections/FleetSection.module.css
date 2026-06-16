@@ -1,0 +1,305 @@
+.section {
+  padding: 7rem 0;
+  background-color: var(--bg-primary);
+}
+
+.titleGroup {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-family: var(--font-title);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-family: var(--font-subtitle);
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Featured Video styling */
+.videoContainer {
+  max-width: 800px;
+  margin: 0 auto 5rem;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  box-shadow: var(--glow-violet);
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+
+.videoElement {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gallery styling */
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.photoCard {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--border-light);
+  background: var(--bg-card);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.photoCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.photoOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(6, 6, 14, 0.9) 0%, rgba(6, 6, 14, 0.3) 50%, transparent 100%);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.photoCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(236, 72, 153, 0.3);
+  box-shadow: var(--glow-magenta);
+}
+
+.photoCard:hover img {
+  transform: scale(1.08);
+}
+
+.photoCard:hover .photoOverlay {
+  opacity: 1;
+}
+
+.photoTitle {
+  font-family: var(--font-subtitle);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+/* Premium fleet card styling */
+.fleetCard {
+  position: relative;
+  height: 320px;
+  background-size: 100%;
+  background-position: center;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  transition: background-size 0.6s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+/* Overlay normal */
+.fleetCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(6, 6, 14, 0.95) 0%,
+    rgba(6, 6, 14, 0.4) 50%,
+    transparent 100%
+  );
+  transition: background 0.4s ease;
+  z-index: 1;
+}
+
+/* Hover — overlay con color del proyecto */
+.fleetCard:hover::before {
+  background: linear-gradient(
+    to top,
+    rgba(6, 6, 14, 0.98) 0%,
+    rgba(79, 142, 247, 0.25) 50%,
+    rgba(168, 85, 247, 0.15) 100%
+  );
+}
+
+/* Imagen de fondo zoom sutil y elevar la card */
+.fleetCard:hover {
+  transform: translateY(-8px);
+  background-size: 110%;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(79, 142, 247, 0.2);
+}
+
+/* Línea de acento top que aparece en hover */
+.fleetCard::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4f8ef7, #a855f7, #ec4899);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+
+.fleetCard:hover::after {
+  opacity: 1;
+}
+
+/* El contenido sube levemente en hover */
+.fleetCardContent {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  z-index: 2;
+  transition: transform 0.4s ease;
+  text-align: left;
+}
+
+.fleetCard:hover .fleetCardContent {
+  transform: translateY(-6px);
+}
+
+/* Badge brilla en hover */
+.fleetBadge {
+  border: 1px solid var(--accent-blue);
+  color: var(--accent-blue);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 8px;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: rgba(79, 142, 247, 0.05);
+  width: fit-content;
+  transition: 
+    background 0.3s ease, 
+    box-shadow 0.3s ease,
+    color 0.3s ease;
+}
+
+.fleetCard:hover .fleetBadge {
+  background: rgba(79, 142, 247, 0.15);
+  box-shadow: 0 0 12px rgba(79, 142, 247, 0.4);
+  color: white;
+}
+
+.fleetModel {
+  font-family: var(--font-title); /* Bebas Neue */
+  font-size: 28px;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.fleetDesc {
+  font-family: var(--font-body); /* Inter */
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Loading Skeletons */
+.skeleton {
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #121225 25%, #181835 50%, #121225 75%);
+  background-size: 200% 100%;
+  animation: loadingShimmer 1.5s infinite;
+}
+
+.ctaWrapper {
+  text-align: center;
+}
+
+.ctaBtn {
+  background: var(--gradient-main);
+  color: #fff;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-family: var(--font-subtitle);
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--glow-violet);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.ctaBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
+}
+
+@keyframes loadingShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive configurations */
+@media (max-width: 1024px) {
+  .galleryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 20px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .title {
+    font-size: clamp(32px, 8vw, 52px);
+    word-break: break-word;
+  }
+
+  .galleryGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .videoContainer {
+    margin-bottom: 3rem;
+  }
+}

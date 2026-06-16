@@ -1,0 +1,421 @@
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: #06060e;
+}
+
+/* Fallback CSS if video not loaded/rendered */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(79, 142, 247, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+    #06060e;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Background video */
+.bgVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.35) saturate(1.2);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Overlay gradient */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(6, 6, 14, 0.85) 0%,
+    rgba(79, 142, 247, 0.15) 40%,
+    rgba(168, 85, 247, 0.15) 70%,
+    rgba(6, 6, 14, 0.9) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Speed lines container */
+.speedLines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.line {
+  position: absolute;
+  width: 350px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-violet), transparent);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.line:nth-child(1) {
+  top: 20%;
+  right: -350px;
+  animation: speedLine 4s linear infinite;
+}
+
+.line:nth-child(2) {
+  top: 45%;
+  right: -350px;
+  animation: speedLine 3s linear infinite 1s;
+}
+
+.line:nth-child(3) {
+  top: 70%;
+  right: -350px;
+  animation: speedLine 5s linear infinite 2s;
+}
+
+.line:nth-child(4) {
+  top: 85%;
+  right: -350px;
+  animation: speedLine 3.5s linear infinite 0.5s;
+}
+
+/* Fallback highway lights simulated inside speedLines container */
+.speedLines::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  filter: blur(8px);
+  opacity: 0.35;
+  z-index: 1;
+  pointer-events: none;
+  animation: highwayLights 12s linear infinite;
+}
+
+/* Content main */
+.content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  max-width: 900px;
+  padding: 80px 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Badge styling */
+.badge {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--accent-blue);
+  border: 1px solid var(--accent-blue);
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  background: rgba(0, 198, 251, 0.04);
+  text-transform: uppercase;
+  animation: fadeInDown 0.6s ease both;
+}
+
+/* Headline styling */
+.headline {
+  font-family: var(--font-title);
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: normal;
+  line-height: 0.95;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.lineWhite {
+  color: #ffffff;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.lineGradient {
+  background: var(--gradient-blue-violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.3));
+}
+
+/* Subtitle styling */
+.subtitle {
+  font-family: var(--font-subtitle);
+  font-size: clamp(16px, 2vw, 22px);
+  color: rgba(240, 240, 240, 0.78);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 16px 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+/* Features list */
+.features {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.8s ease 0.5s both;
+}
+
+.featureItem {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.divider {
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 13px;
+}
+
+/* CTA Buttons */
+.ctaGroup {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+.primaryCta {
+  background: linear-gradient(135deg, #4f8ef7, #a855f7);
+  color: #ffffff;
+  padding: 14px 32px;
+  font-family: var(--font-subtitle);
+  font-size: 16px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(79, 142, 247, 0.4);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.primaryCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.7);
+}
+
+.secondaryCta {
+  background: transparent;
+  border: 1px solid rgba(240, 240, 240, 0.3);
+  color: #ffffff;
+  padding: 14px 32px;
+  font-family: var(--font-subtitle);
+  font-size: 16px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.secondaryCta:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Scroll indicator */
+.scrollIndicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.scrollText {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--text-secondary);
+  writing-mode: vertical-lr;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--text-secondary), transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+.scrollLine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background: #ffffff;
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+/* Keyframe animations */
+@keyframes speedLine {
+  0% {
+    transform: translate(0, 0) rotate(-25deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-120vw, 50vh) rotate(-25deg);
+    opacity: 0;
+  }
+}
+
+@keyframes highwayLights {
+  0% {
+    box-shadow:
+      100vw 30vh 0 2px #ff3333,
+      120vw 35vh 0 2px #ff3333,
+      140vw 45vh 0 2px #ffffcc,
+      160vw 48vh 0 2px #ffffcc,
+      80vw 20vh 0 2px #ff3333,
+      90vw 25vh 0 2px #ffffcc,
+      110vw 55vh 0 2px #ff3333;
+  }
+  100% {
+    box-shadow:
+      -20vw 30vh 0 2px #ff3333,
+      -40vw 35vh 0 2px #ff3333,
+      -60vw 45vh 0 2px #ffffcc,
+      -80vw 48vh 0 2px #ffffcc,
+      -100vw 20vh 0 2px #ff3333,
+      -110vw 25vh 0 2px #ffffcc,
+      -130vw 55vh 0 2px #ff3333;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollBounce {
+  0% {
+    transform: translateY(-100%);
+  }
+  50% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Mobile & Tablet Styles */
+@media (max-width: 768px) {
+  .content {
+    width: 100%;
+    padding: 80px 20px 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .headline {
+    font-size: clamp(48px, 12vw, 72px);
+    word-break: break-word;
+    line-height: 0.9;
+  }
+
+  .badge {
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  .features {
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .features span.divider {
+    display: none;
+  }
+
+  .ctaGroup {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .ctaGroup a, .ctaGroup button, .primaryCta, .secondaryCta {
+    width: 100%;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 15px;
+    box-sizing: border-box;
+  }
+
+  .scrollIndicator {
+    display: none;
+  }
+}

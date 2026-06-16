@@ -1,0 +1,255 @@
+.section {
+  padding: 7rem 0;
+  background-color: var(--bg-primary);
+}
+
+.titleGroup {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-family: var(--font-title);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  text-transform: uppercase;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+/* Base card styling */
+.card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  height: 200px; /* Default mobile height */
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(6, 6, 14, 0.9) 0%,
+    rgba(6, 6, 14, 0.2) 60%,
+    transparent 100%
+  );
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.card:hover::before {
+  opacity: 0.75; /* overlay gets slightly lighter/clearer */
+}
+
+.cardContent {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cardTitle {
+  font-family: var(--font-title);
+  font-size: 24px;
+  color: #ffffff;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cardDesc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+
+/* CTA styling */
+.ctaWrapper {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 2.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  backdrop-filter: blur(10px);
+}
+
+.ctaText {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.ctaBtn {
+  display: inline-block;
+  background: var(--gradient-main);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.ctaBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 198, 251, 0.4);
+}
+
+.destinationCard {
+  position: relative;
+  height: 380px; /* Default height */
+}
+
+.destinationOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  background: linear-gradient(
+    to top,
+    rgba(6, 6, 14, 0.95) 0%,
+    rgba(6, 6, 14, 0.4) 60%,
+    transparent 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+  text-align: left;
+}
+
+.destinationOverlay h3 {
+  font-family: var(--font-title);
+  font-size: 24px;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.destinationOverlay p {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+
+.itemPuertoMadero {
+  height: 380px;
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  .grid {
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 200px 200px 380px;
+  }
+
+  .itemMonumental {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    height: 100%; /* Spans both rows, so 424px automatically */
+  }
+
+  .itemBombonera {
+    grid-column: 2;
+    grid-row: 1;
+    height: 100%;
+  }
+
+  .itemTecnopolis {
+    grid-column: 2;
+    grid-row: 2;
+    height: 100%;
+  }
+
+  .itemRecitales {
+    grid-column: 3;
+    grid-row: 1;
+    height: 100%;
+  }
+
+  .itemCaminito {
+    grid-column: 3;
+    grid-row: 2;
+    height: 100%;
+  }
+
+  .itemPuertoMadero {
+    grid-column: 1 / span 3;
+    grid-row: 3;
+    height: 100%; /* Spans 380px as per the row height */
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 20px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .title {
+    font-size: clamp(32px, 8vw, 52px);
+    word-break: break-word;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card, .destinationCard {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    height: 220px;
+  }
+
+  .cardTitle, .destinationOverlay h3 {
+    font-size: 18px;
+    word-break: break-word;
+    padding-right: 8px;
+  }
+}

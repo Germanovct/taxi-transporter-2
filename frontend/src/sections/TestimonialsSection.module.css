@@ -1,0 +1,410 @@
+.section {
+  padding: 7rem 0;
+  background: 
+    radial-gradient(ellipse at 50% 0%, rgba(79,142,247,0.08) 0%, transparent 50%),
+    #0d0d1a;
+  position: relative;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.badge {
+  display: inline-block;
+  letter-spacing: 4px;
+  font-size: 11px;
+  color: var(--accent-blue);
+  border: 1px solid rgba(79, 142, 247, 0.4);
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--font-title); /* Bebas Neue */
+  font-size: clamp(42px, 5vw, 72px);
+  line-height: 0.95;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* CAROUSEL */
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 50px auto;
+  padding: 0 60px; /* Space for side arrows */
+}
+
+.carousel {
+  position: relative;
+  height: 430px;
+  width: 100%;
+  overflow: visible;
+}
+
+/* CARDS */
+.card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 380px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  transform: translate(-50%, 0) scale(0.7);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: 
+    transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.4s ease,
+    background-color 0.4s ease;
+}
+
+/* Comillas decorativas */
+.card::before {
+  content: '"';
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  font-size: 120px;
+  line-height: 1;
+  font-family: Georgia, serif;
+  color: rgba(79, 142, 247, 0.15);
+  pointer-events: none;
+}
+
+/* Línea de acento top */
+.card::after {
+  content: '';
+  height: 2px;
+  width: 60px;
+  background: var(--gradient-main);
+  position: absolute;
+  top: 0;
+  left: 40px;
+}
+
+/* Card States */
+.cardActive, .card.cardActive {
+  transform: translate(-50%, 0) scale(1);
+  opacity: 1;
+  z-index: 2;
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(79, 142, 247, 0.2);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(79, 142, 247, 0.05);
+}
+
+.cardLeft, .card.cardLeft {
+  transform: translate(-155%, 0) scale(0.85);
+  opacity: 0.5;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.cardRight, .card.cardRight {
+  transform: translate(55%, 0) scale(0.85);
+  opacity: 0.5;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.cardHidden, .card.cardHidden {
+  transform: translate(-50%, 0) scale(0.7);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Card Content */
+.stars {
+  color: #fbbf24;
+  font-size: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 4px;
+}
+
+.quote {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-style: italic;
+  color: rgba(240, 240, 240, 0.85);
+  line-height: 1.8;
+  margin-bottom: 28px;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.separator {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--gradient-blue-violet);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-title); /* Bebas Neue */
+  font-size: 20px;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(79, 142, 247, 0.2);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+}
+
+.source {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+}
+
+.sourceIcon {
+  flex-shrink: 0;
+}
+
+/* NAVEGACIÓN ARROWS */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  transition: all 0.3s ease;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.arrow:hover {
+  background: rgba(79, 142, 247, 0.2);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 15px rgba(79, 142, 247, 0.3);
+}
+
+.arrowLeft {
+  left: 0;
+}
+
+.arrowRight {
+  right: 0;
+}
+
+.arrowIcon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* DOTS INDICATORS */
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.dotButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease;
+}
+
+.dotButton:hover {
+  transform: scale(1.15);
+}
+
+.dotInner {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.dotButtonActive .dotInner, .dotButton.dotButtonActive .dotInner {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--gradient-main);
+}
+
+/* CTA FINAL */
+.ctaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 64px;
+  padding: 0 20px;
+}
+
+.ctaText {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.ctaBtn {
+  background: linear-gradient(135deg, #4f8ef7, #a855f7);
+  color: #ffffff;
+  padding: 14px 32px;
+  font-family: var(--font-subtitle);
+  font-size: 16px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(79, 142, 247, 0.4);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  text-align: center;
+  display: inline-block;
+}
+
+.ctaBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.7);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1023px) {
+  .carouselContainer {
+    padding: 0 20px;
+  }
+  
+  .carousel {
+    height: auto;
+    min-height: 380px;
+  }
+
+  .card {
+    position: relative;
+    left: 0;
+    transform: scale(0.9);
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+    display: none;
+    height: auto;
+    min-height: 320px;
+  }
+
+  .cardActive, .card.cardActive {
+    display: flex;
+    transform: scale(1);
+    opacity: 1;
+    position: relative;
+    pointer-events: auto;
+  }
+
+  .cardLeft, .card.cardLeft, .cardRight, .card.cardRight, .cardHidden, .card.cardHidden {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .arrow {
+    display: none; /* Swipe/dots are used on mobile and tablet */
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 20px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .title {
+    font-size: clamp(32px, 8vw, 52px);
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 30px 24px;
+  }
+  
+  .quote {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .ctaText {
+    font-size: 18px;
+  }
+}
