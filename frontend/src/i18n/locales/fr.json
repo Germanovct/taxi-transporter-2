@@ -168,8 +168,8 @@
     "subtitle": "Choisissez votre service et votre destination — réservation en ligne bientôt",
     "phase2Badge": "🚀 Phase 2 — Prochainement",
     "tabServices": "✈ SERVICES",
-    "tabDestinations": "📍 DESTINATIONS",
-    "tabGastro": "🍽 GASTRONOMIE & TOURISME",
+    "tabDestinations": "📍 DESTINATIONS & TOURISME",
+    "tabGastro": "🍽 VILLAGES GASTRONOMIQUES",
     "gastroTitle": "VILLAGES GASTRONOMIQUES",
     "gastroSubtitle": "Escapades uniques à moins de 2 heures de Buenos Aires",
     "attractionsTitle": "ATTRACTIONS TOURISTIQUES",
@@ -234,7 +234,27 @@
       "a11Title": "Cementerio de la Recoleta",
       "a11Desc": "90 sépultures déclarées Monument Historique National",
       "a12Title": "Feria de Mataderos",
-      "a12Desc": "Artisanat, gastronomie typique et spectacles folkloriques"
-    }
+      "a12Desc": "Artisanat, gastronomie typique et spectacles folkloriques",
+      "a13Title": "El Cabildo",
+      "a13Desc": "Siège du premier gouvernement patriotique",
+      "a14Title": "Floralis Genérica",
+      "a14Desc": "Monument métallique mobile à Recoleta",
+      "a15Title": "Catedral Metropolitana",
+      "a15Desc": "Principal temple catholique d'Argentine",
+      "a16Title": "Palacio Barolo",
+      "a16Desc": "Joyau architectural inspiré de la Divine Comédie",
+      "a17Title": "Museo Nacional de Bellas Artes",
+      "a17Desc": "La plus grande collection d'art du pays",
+      "a18Title": "Reserva Ecológica",
+      "a18Desc": "Espace vert sauvage face au fleuve",
+      "a19Title": "Galerías Pacífico",
+      "a19Desc": "Centre commercial historique avec fresques artistiques",
+      "a20Title": "Plaza Dorrego",
+      "a20Desc": "Foire de San Telmo, antiquités et tango de rue"
+    },
+    "estadiosEventosTitle": "STADES & ÉVÉNEMENTS",
+    "estadiosEventosSubtitle": "Les stades et lieux d'événements les plus importants de Buenos Aires",
+    "turismoCulturaTitle": "TOURISME & CULTURE",
+    "turismoCulturaSubtitle": "Découvrez l'histoire, l'art et les monuments emblématiques de la ville"
   }
 }

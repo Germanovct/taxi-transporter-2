@@ -168,8 +168,8 @@
     "subtitle": "Elegí tu servicio y destino — reserva online próximamente",
     "phase2Badge": "🚀 Fase 2 — Próximamente",
     "tabServices": "✈ SERVICIOS",
-    "tabDestinations": "📍 DESTINOS",
-    "tabGastro": "🍽 GASTRONOMÍA & TURISMO",
+    "tabDestinations": "📍 DESTINOS & TURISMO",
+    "tabGastro": "🍽 PUEBLOS GASTRONÓMICOS",
     "gastroTitle": "PUEBLOS GASTRONÓMICOS",
     "gastroSubtitle": "Escapadas únicas a menos de 2 horas de Buenos Aires",
     "attractionsTitle": "ATRACTIVOS TURÍSTICOS",
@@ -234,7 +234,27 @@
       "a11Title": "Cementerio de la Recoleta",
       "a11Desc": "90 bóvedas declaradas Monumento Histórico",
       "a12Title": "Feria de Mataderos",
-      "a12Desc": "Artesanías, gastronomía típica y shows folclóricos"
-    }
+      "a12Desc": "Artesanías, gastronomía típica y shows folclóricos",
+      "a13Title": "El Cabildo",
+      "a13Desc": "Sede del primer gobierno patrio",
+      "a14Title": "Floralis Genérica",
+      "a14Desc": "Monumento metálico móvil en Recoleta",
+      "a15Title": "Catedral Metropolitana",
+      "a15Desc": "Principal templo católico de Argentina",
+      "a16Title": "Palacio Barolo",
+      "a16Desc": "Joyel arquitectónico inspirado en la Divina Comedia",
+      "a17Title": "Museo Nacional de Bellas Artes",
+      "a17Desc": "La mayor colección de arte del país",
+      "a18Title": "Reserva Ecológica",
+      "a18Desc": "Espacio verde silvestre frente al río",
+      "a19Title": "Galerías Pacífico",
+      "a19Desc": "Centro comercial histórico con murales artísticos",
+      "a20Title": "Plaza Dorrego",
+      "a20Desc": "Feria de San Telmo, antigüedades y tango callejero"
+    },
+    "estadiosEventosTitle": "ESTADIOS & EVENTOS",
+    "estadiosEventosSubtitle": "Los estadios y recintos de eventos más importantes de Buenos Aires",
+    "turismoCulturaTitle": "TURISMO & CULTURA",
+    "turismoCulturaSubtitle": "Recorré la historia, el arte y los monumentos emblemáticos de la ciudad"
   }
 }

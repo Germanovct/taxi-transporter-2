@@ -77,57 +77,159 @@ export default function ServicesDestinationsSection() {
     }
   ];
 
-  const destinationsData = [
+  // 🏟 Subcategory 1 in Tab 2: Estadios & Eventos
+  const stadiumsData = [
     {
       id: 1,
-      title: t('destinations.d1Title'),
+      title: t('destinations.d1Title'), // Estadio Monumental - River Plate
       desc: t('destinations.d1Desc'),
       bgImage: "/images/monumental.jpg",
-      isLarge: true,
-      gridClass: styles.itemMonumental,
     },
     {
       id: 2,
-      title: t('destinations.d2Title'),
+      title: t('destinations.d2Title'), // La Bombonera - Boca Juniors
       desc: t('destinations.d2Desc'),
       bgImage: "/images/bombonera.jpg",
-      isLarge: false,
-      gridClass: styles.itemBombonera,
     },
     {
       id: 3,
-      title: t('destinations.d3Title'),
+      title: t('destinations.d3Title'), // Tecnópolis
       desc: t('destinations.d3Desc'),
       bgImage: "/images/tecnopolis.jpg",
-      isLarge: false,
-      gridClass: styles.itemTecnopolis,
     },
     {
       id: 4,
-      title: t('destinations.d4Title'),
+      title: t('destinations.d4Title'), // Recitales y Shows
       desc: t('destinations.d4Desc'),
       bgImage: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&q=80",
-      isLarge: false,
-      gridClass: styles.itemRecitales,
+    }
+  ];
+
+  // 🗺 Subcategory 2 in Tab 2: Turismo & Cultura
+  const cultureAttractionsData = [
+    {
+      id: 1,
+      title: t('destinations.d5Title'), // Caminito, La Boca
+      desc: t('destinations.d5Desc'),
+      bgImage: "/images/caminito.jpg",
+    },
+    {
+      id: 2,
+      title: t('destinations.d6Title'), // Puerto Madero
+      desc: t('destinations.d6Desc'),
+      bgImage: "/images/puerto-madero.jpg",
+    },
+    {
+      id: 3,
+      title: t('servicesDestinations.attractions.a1Title'), // Teatro Colón
+      desc: t('servicesDestinations.attractions.a1Desc'),
+      bgImage: "/images/gastro/teatro-colon-panoramica-1500x610.jpg",
+    },
+    {
+      id: 4,
+      title: t('servicesDestinations.attractions.a3Title'), // Puente de la Mujer
+      desc: t('servicesDestinations.attractions.a3Desc'),
+      bgImage: "/images/gastro/puente-de-la-mujer-puerto-madero-gente-atardecer1500x610.jpg",
     },
     {
       id: 5,
-      title: t('destinations.d5Title'),
-      desc: t('destinations.d5Desc'),
-      bgImage: "/images/caminito.jpg",
-      isLarge: false,
-      gridClass: styles.itemCaminito,
+      title: t('servicesDestinations.attractions.a4Title'), // Obelisco
+      desc: t('servicesDestinations.attractions.a4Desc'),
+      bgImage: "/images/gastro/obelisco-atardecer-1500x610-2026-cm.jpg",
     },
     {
       id: 6,
-      title: t('destinations.d6Title'),
-      desc: t('destinations.d6Desc'),
-      bgImage: "/images/puerto-madero.jpg",
-      isLarge: true,
-      gridClass: styles.itemPuertoMadero,
+      title: t('servicesDestinations.attractions.a5Title'), // Planetario Galileo Galilei
+      desc: t('servicesDestinations.attractions.a5Desc'),
+      bgImage: "/images/gastro/planetario-noche-luces2025-1500x610.jpg",
     },
+    {
+      id: 7,
+      title: t('servicesDestinations.attractions.a6Title'), // Rosedal de Palermo
+      desc: t('servicesDestinations.attractions.a6Desc'),
+      bgImage: "/images/gastro/rosedal-de-palermo-rosas-1500x610.jpg",
+    },
+    {
+      id: 8,
+      title: t('servicesDestinations.attractions.a8Title'), // Café Tortoni
+      desc: t('servicesDestinations.attractions.a8Desc'),
+      bgImage: "/images/gastro/cafe-tortoni-fachada-muneco1500x610.jpg",
+    },
+    {
+      id: 9,
+      title: t('servicesDestinations.attractions.a9Title'), // El Ateneo Grand Splendid
+      desc: t('servicesDestinations.attractions.a9Desc'),
+      bgImage: "/images/gastro/ateneo_grand_splendid_1500x610.jpg",
+    },
+    {
+      id: 10,
+      title: t('servicesDestinations.attractions.a10Title'), // Casa Rosada
+      desc: t('servicesDestinations.attractions.a10Desc'),
+      bgImage: "/images/gastro/casa_rosada_1200_fachada_sol_4.jpg",
+    },
+    {
+      id: 11,
+      title: t('servicesDestinations.attractions.a11Title'), // Cementerio de la Recoleta
+      desc: t('servicesDestinations.attractions.a11Desc'),
+      bgImage: "/images/gastro/cementerio-recoleta-fachada-1500x610-nn_0.jpg",
+    },
+    {
+      id: 12,
+      title: t('servicesDestinations.attractions.a12Title'), // Feria de Mataderos
+      desc: t('servicesDestinations.attractions.a12Desc'),
+      bgImage: "/images/gastro/feria-mataderos-24-1500x610-show.jpg",
+    },
+    {
+      id: 13,
+      title: t('servicesDestinations.attractions.a13Title'), // El Cabildo
+      desc: t('servicesDestinations.attractions.a13Desc'),
+      bgImage: "/images/gastro/cabildo-0-1500x610_0.jpg",
+    },
+    {
+      id: 14,
+      title: t('servicesDestinations.attractions.a14Title'), // Floralis Genérica
+      desc: t('servicesDestinations.attractions.a14Desc'),
+      bgImage: "/images/gastro/floralis-verano-gente-sol-26-1500x610.jpg",
+    },
+    {
+      id: 15,
+      title: t('servicesDestinations.attractions.a15Title'), // Catedral Metropolitana
+      desc: t('servicesDestinations.attractions.a15Desc'),
+      bgImage: "/images/gastro/catedral-metropolitana-2021-fachada-1500x610.jpg",
+    },
+    {
+      id: 16,
+      title: t('servicesDestinations.attractions.a16Title'), // Palacio Barolo
+      desc: t('servicesDestinations.attractions.a16Desc'),
+      bgImage: "/images/gastro/n_barolo1200_0.jpg",
+    },
+    {
+      id: 17,
+      title: t('servicesDestinations.attractions.a17Title'), // Museo Nacional Bellas Artes
+      desc: t('servicesDestinations.attractions.a17Desc'),
+      bgImage: "/images/gastro/museo-nacional-bellas-artes-1500x610-fachada.jpg",
+    },
+    {
+      id: 18,
+      title: t('servicesDestinations.attractions.a18Title'), // Reserva Ecológica
+      desc: t('servicesDestinations.attractions.a18Desc'),
+      bgImage: "/images/gastro/reserva_picaflor_1500x610.jpg",
+    },
+    {
+      id: 19,
+      title: t('servicesDestinations.attractions.a19Title'), // Galerías Pacífico
+      desc: t('servicesDestinations.attractions.a19Desc'),
+      bgImage: "/images/gastro/galerias_pacifico1200.jpg",
+    },
+    {
+      id: 20,
+      title: t('servicesDestinations.attractions.a20Title'), // Plaza Dorrego
+      desc: t('servicesDestinations.attractions.a20Desc'),
+      bgImage: "/images/gastro/feria_de_san_telmo_1200_plaza_1.jpg",
+    }
   ];
 
+  // 🍽 Tab 3: Pueblos Gastronómicos
   const gastroTownsData = [
     {
       id: 1,
@@ -184,81 +286,6 @@ export default function ServicesDestinationsSection() {
       desc: t('servicesDestinations.towns.t7Desc'),
       distance: t('servicesDestinations.towns.t7Dist'),
       bgImage: null, // Gradient placeholder
-    }
-  ];
-
-  const gastroAttractionsData = [
-    {
-      id: 1,
-      title: t('servicesDestinations.attractions.a1Title'),
-      desc: t('servicesDestinations.attractions.a1Desc'),
-      bgImage: "/images/gastro/teatro-colon-panoramica-1500x610.jpg",
-    },
-    {
-      id: 2,
-      title: t('servicesDestinations.attractions.a2Title'),
-      desc: t('servicesDestinations.attractions.a2Desc'),
-      bgImage: "/images/caminito.jpg",
-    },
-    {
-      id: 3,
-      title: t('servicesDestinations.attractions.a3Title'),
-      desc: t('servicesDestinations.attractions.a3Desc'),
-      bgImage: "/images/gastro/puente-de-la-mujer-puerto-madero-gente-atardecer1500x610.jpg",
-    },
-    {
-      id: 4,
-      title: t('servicesDestinations.attractions.a4Title'),
-      desc: t('servicesDestinations.attractions.a4Desc'),
-      bgImage: "/images/gastro/obelisco-atardecer-1500x610-2026-cm.jpg",
-    },
-    {
-      id: 5,
-      title: t('servicesDestinations.attractions.a5Title'),
-      desc: t('servicesDestinations.attractions.a5Desc'),
-      bgImage: "/images/gastro/planetario-noche-luces2025-1500x610.jpg",
-    },
-    {
-      id: 6,
-      title: t('servicesDestinations.attractions.a6Title'),
-      desc: t('servicesDestinations.attractions.a6Desc'),
-      bgImage: "/images/gastro/rosedal-de-palermo-rosas-1500x610.jpg",
-    },
-    {
-      id: 7,
-      title: t('servicesDestinations.attractions.a7Title'),
-      desc: t('servicesDestinations.attractions.a7Desc'),
-      bgImage: "/images/monumental.jpg",
-    },
-    {
-      id: 8,
-      title: t('servicesDestinations.attractions.a8Title'),
-      desc: t('servicesDestinations.attractions.a8Desc'),
-      bgImage: "/images/gastro/cafe-tortoni-fachada-muneco1500x610.jpg",
-    },
-    {
-      id: 9,
-      title: t('servicesDestinations.attractions.a9Title'),
-      desc: t('servicesDestinations.attractions.a9Desc'),
-      bgImage: "/images/gastro/ateneo_grand_splendid_1500x610.jpg",
-    },
-    {
-      id: 10,
-      title: t('servicesDestinations.attractions.a10Title'),
-      desc: t('servicesDestinations.attractions.a10Desc'),
-      bgImage: "/images/gastro/casa_rosada_1200_fachada_sol_4.jpg",
-    },
-    {
-      id: 11,
-      title: t('servicesDestinations.attractions.a11Title'),
-      desc: t('servicesDestinations.attractions.a11Desc'),
-      bgImage: "/images/gastro/cementerio-recoleta-fachada-1500x610-nn_0.jpg",
-    },
-    {
-      id: 12,
-      title: t('servicesDestinations.attractions.a12Title'),
-      desc: t('servicesDestinations.attractions.a12Desc'),
-      bgImage: "/images/gastro/feria-mataderos-24-1500x610-show.jpg",
     }
   ];
 
@@ -345,57 +372,65 @@ export default function ServicesDestinationsSection() {
             </div>
           </div>
 
-          {/* Destinations Tab */}
+          {/* Destinations & Tourism Tab */}
           <div className={`${styles.tabPanel} ${activeTab === 'destinations' ? styles.panelVisible : styles.panelHidden}`}>
-            <div className={styles.gridDestinations}>
-              {destinationsData.map((dest) => {
-                if (dest.id === 6) {
-                  return (
-                    <div
-                      key={dest.id}
-                      className={`${styles.cardDestination} ${dest.gridClass} ${activeCard === `dest-${dest.id}` ? styles.cardActive : ''}`}
-                      style={{ padding: 0, overflow: 'hidden' }}
-                      onClick={() => setActiveCard(activeCard === `dest-${dest.id}` ? null : `dest-${dest.id}`)}
-                    >
-                      <img 
-                        src={dest.bgImage}
-                        alt={dest.title}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                          objectPosition: 'center',
-                          background: '#06060e'
-                        }}
-                      />
-                      <div className={styles.destinationOverlay}>
-                        <h3>{dest.title.toUpperCase()}</h3>
-                        <p>{dest.desc}</p>
-                      </div>
-                    </div>
-                  );
-                }
-                return (
-                  <div
-                    key={dest.id}
-                    className={`${styles.cardDestination} ${dest.gridClass} ${activeCard === `dest-${dest.id}` ? styles.cardActive : ''}`}
-                    style={{ backgroundImage: `url(${dest.bgImage})` }}
-                    onClick={() => setActiveCard(activeCard === `dest-${dest.id}` ? null : `dest-${dest.id}`)}
-                  >
-                    <div className={styles.cardContent}>
-                      <h3 className={styles.cardTitle}>{dest.title}</h3>
-                      <p className={styles.cardDesc}>{dest.desc}</p>
-                    </div>
-                  </div>
-                );
-              })}
+            
+            {/* Subcategory 1: Estadios & Eventos */}
+            <div className={styles.gastroHeader}>
+              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.estadiosEventosTitle')}</h3>
+              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.estadiosEventosSubtitle')}</p>
             </div>
+
+            <div className={styles.gridGastro}>
+              {stadiumsData.map((dest) => (
+                <div
+                  key={dest.id}
+                  className={`${styles.cardGastro} ${activeCard === `dest-${dest.id}` ? styles.cardActive : ''} ${!dest.bgImage ? styles.gradientPlaceholder : ''}`}
+                  style={dest.bgImage ? { backgroundImage: `url('${dest.bgImage}')` } : {}}
+                  onClick={() => setActiveCard(activeCard === `dest-${dest.id}` ? null : `dest-${dest.id}`)}
+                >
+                  <div className={styles.cardGastroContent}>
+                    <h3 className={styles.cardGastroTitle}>{dest.title}</h3>
+                    <p className={styles.cardGastroDesc}>{dest.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Divider */}
+            <div className={styles.dividerContainer}>
+              <div className={styles.dividerLine}></div>
+              <span className={styles.dividerText}>🏛 {t('servicesDestinations.turismoCulturaTitle')}</span>
+              <div className={styles.dividerLine}></div>
+            </div>
+
+            {/* Subcategory 2: Turismo & Cultura */}
+            <div className={styles.gastroHeader}>
+              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.turismoCulturaTitle')}</h3>
+              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.turismoCulturaSubtitle')}</p>
+            </div>
+
+            <div className={styles.gridGastro}>
+              {cultureAttractionsData.map((attr) => (
+                <div
+                  key={attr.id}
+                  className={`${styles.cardGastro} ${activeCard === `attr-${attr.id}` ? styles.cardActive : ''} ${!attr.bgImage ? styles.gradientPlaceholder : ''}`}
+                  style={attr.bgImage ? { backgroundImage: `url('${attr.bgImage}')` } : {}}
+                  onClick={() => setActiveCard(activeCard === `attr-${attr.id}` ? null : `attr-${attr.id}`)}
+                >
+                  <div className={styles.cardGastroContent}>
+                    <h3 className={styles.cardGastroTitle}>{attr.title}</h3>
+                    <p className={styles.cardGastroDesc}>{attr.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
           </div>
 
-          {/* Gastronomy & Tourism Tab */}
+          {/* Pueblos Gastronómicos Tab */}
           <div className={`${styles.tabPanel} ${activeTab === 'gastro' ? styles.panelVisible : styles.panelHidden}`}>
             
-            {/* Subcategory 1: Pueblos Gastronómicos */}
             <div className={styles.gastroHeader}>
               <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.gastroTitle')}</h3>
               <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.gastroSubtitle')}</p>
@@ -416,35 +451,6 @@ export default function ServicesDestinationsSection() {
                     </div>
                     <h3 className={styles.cardGastroTitle}>{town.title}</h3>
                     <p className={styles.cardGastroDesc}>{town.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Separator Divider */}
-            <div className={styles.dividerContainer}>
-              <div className={styles.dividerLine}></div>
-              <span className={styles.dividerText}>🏛 ATRACTIVOS TURÍSTICOS DE BUENOS AIRES</span>
-              <div className={styles.dividerLine}></div>
-            </div>
-
-            {/* Subcategory 2: Atractivos Turísticos */}
-            <div className={styles.gastroHeader}>
-              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.attractionsTitle')}</h3>
-              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.attractionsSubtitle')}</p>
-            </div>
-
-            <div className={styles.gridGastro}>
-              {gastroAttractionsData.map((attr) => (
-                <div
-                  key={attr.id}
-                  className={`${styles.cardGastro} ${activeCard === `attr-${attr.id}` ? styles.cardActive : ''} ${!attr.bgImage ? styles.gradientPlaceholder : ''}`}
-                  style={attr.bgImage ? { backgroundImage: `url('${attr.bgImage}')` } : {}}
-                  onClick={() => setActiveCard(activeCard === `attr-${attr.id}` ? null : `attr-${attr.id}`)}
-                >
-                  <div className={styles.cardGastroContent}>
-                    <h3 className={styles.cardGastroTitle}>{attr.title}</h3>
-                    <p className={styles.cardGastroDesc}>{attr.desc}</p>
                   </div>
                 </div>
               ))}

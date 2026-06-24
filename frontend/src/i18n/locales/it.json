@@ -168,8 +168,8 @@
     "subtitle": "Scegli il tuo servizio e destinazione — prenotazione online a breve",
     "phase2Badge": "🚀 Fase 2 — A breve",
     "tabServices": "✈ SERVIZI",
-    "tabDestinations": "📍 DESTINAZIONI",
-    "tabGastro": "🍽 GASTRONOMIA & TURISMO",
+    "tabDestinations": "📍 DESTINAZIONI & TURISMO",
+    "tabGastro": "🍽 BORGHI GASTRONOMICI",
     "gastroTitle": "PAESI GASTRONOMICI",
     "gastroSubtitle": "Fughe uniche a meno di 2 ore da Buenos Aires",
     "attractionsTitle": "ATTRAZIONI TURISTICHE",
@@ -234,7 +234,27 @@
       "a11Title": "Cementerio de la Recoleta",
       "a11Desc": "90 cappelle dichiarate Monumento Storico Nazionale",
       "a12Title": "Feria de Mataderos",
-      "a12Desc": "Artigianato, gastronomia tipica e spettacoli folcloristici"
-    }
+      "a12Desc": "Artigianato, gastronomia tipica e spettacoli folcloristici",
+      "a13Title": "El Cabildo",
+      "a13Desc": "Sede del primo governo patriottico",
+      "a14Title": "Floralis Genérica",
+      "a14Desc": "Monumento metallico mobile a Recoleta",
+      "a15Title": "Catedral Metropolitana",
+      "a15Desc": "Principale tempio cattolico dell'Argentina",
+      "a16Title": "Palacio Barolo",
+      "a16Desc": "Gioiello architettonico ispirato alla Divina Commedia",
+      "a17Title": "Museo Nacional de Bellas Artes",
+      "a17Desc": "La più grande collezione d'arte del paese",
+      "a18Title": "Reserva Ecológica",
+      "a18Desc": "Spazio verde selvaggio di fronte al fiume",
+      "a19Title": "Galerías Pacífico",
+      "a19Desc": "Centro commerciale storico con murales artistici",
+      "a20Title": "Plaza Dorrego",
+      "a20Desc": "Fiera di San Telmo, antiquariato e tango di strada"
+    },
+    "estadiosEventosTitle": "STADI & EVENTI",
+    "estadiosEventosSubtitle": "I più importanti stadi e luoghi di eventi a Buenos Aires",
+    "turismoCulturaTitle": "TURISMO & CULTURA",
+    "turismoCulturaSubtitle": "Esplora la storia, l'arte e i monumenti iconici della città"
   }
 }
