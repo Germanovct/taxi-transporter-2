@@ -5,7 +5,7 @@ import SectionWrapper from '../components/SectionWrapper';
 
 export default function ServicesDestinationsSection() {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState('services'); // 'services' | 'destinations' | 'gastro'
+  const [activeTab, setActiveTab] = useState('services'); // 'services' | 'destinations' | 'gastro' | 'costa'
   const [activeCard, setActiveCard] = useState(null);
 
   const servicesData = [
@@ -226,6 +226,12 @@ export default function ServicesDestinationsSection() {
       title: t('servicesDestinations.attractions.a20Title'), // Plaza Dorrego
       desc: t('servicesDestinations.attractions.a20Desc'),
       bgImage: "/images/gastro/feria_de_san_telmo_1200_plaza_1.jpg",
+    },
+    {
+      id: 21,
+      title: t('servicesDestinations.attractions.a21Title'), // Luján
+      desc: t('servicesDestinations.attractions.a21Desc'),
+      bgImage: "/images/gastro/lujan.jpg",
     }
   ];
 
@@ -269,7 +275,7 @@ export default function ServicesDestinationsSection() {
       location: t('servicesDestinations.towns.t5Loc'),
       desc: t('servicesDestinations.towns.t5Desc'),
       distance: t('servicesDestinations.towns.t5Dist'),
-      bgImage: null, // Gradient placeholder
+      bgImage: "/images/gastro/suipacha.jpg",
     },
     {
       id: 6,
@@ -285,7 +291,35 @@ export default function ServicesDestinationsSection() {
       location: t('servicesDestinations.towns.t7Loc'),
       desc: t('servicesDestinations.towns.t7Desc'),
       distance: t('servicesDestinations.towns.t7Dist'),
-      bgImage: null, // Gradient placeholder
+      bgImage: "/images/gastro/gouin.webp",
+    },
+    {
+      id: 8,
+      title: t('servicesDestinations.towns.t8Title'),
+      location: t('servicesDestinations.towns.t8Loc'),
+      desc: t('servicesDestinations.towns.t8Desc'),
+      distance: t('servicesDestinations.towns.t8Dist'),
+      bgImage: "/images/gastro/villa ruiz.jpg",
+    }
+  ];
+
+  // 🌊 Tab 4: Costa Atlántica
+  const costaData = [
+    {
+      id: 1,
+      title: t('servicesDestinations.costa.c1Title'),
+      desc: t('servicesDestinations.costa.c1Desc'),
+      distance: t('servicesDestinations.costa.c1Dist'),
+      badge: t('servicesDestinations.costa.c1Badge'),
+      bgImage: "/images/gastro/mar del plata.jpg"
+    },
+    {
+      id: 2,
+      title: t('servicesDestinations.costa.c2Title'),
+      desc: t('servicesDestinations.costa.c2Desc'),
+      distance: t('servicesDestinations.costa.c2Dist'),
+      badge: t('servicesDestinations.costa.c2Badge'),
+      bgImage: "/images/gastro/partido de la costa.webp"
     }
   ];
 
@@ -338,6 +372,16 @@ export default function ServicesDestinationsSection() {
               }}
             >
               {t('servicesDestinations.tabGastro')}
+            </button>
+            <button
+              type="button"
+              className={`${styles.tabBtn} ${activeTab === 'costa' ? styles.tabBtnActive : ''}`}
+              onClick={() => {
+                setActiveTab('costa');
+                setActiveCard(null);
+              }}
+            >
+              {t('servicesDestinations.tabCosta')}
             </button>
           </div>
         </div>
@@ -454,6 +498,52 @@ export default function ServicesDestinationsSection() {
                   </div>
                 </div>
               ))}
+            </div>
+
+          </div>
+
+          {/* Costa Atlántica Tab */}
+          <div className={`${styles.tabPanel} ${activeTab === 'costa' ? styles.panelVisible : styles.panelHidden}`}>
+            
+            <div className={styles.gastroHeader}>
+              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.costaTitle')}</h3>
+              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.costaSubtitle')}</p>
+            </div>
+
+            <div className={styles.gridCosta}>
+              {costaData.map((item) => (
+                <div
+                  key={item.id}
+                  className={`${styles.cardCosta} ${activeCard === `costa-${item.id}` ? styles.cardActive : ''}`}
+                  style={{ backgroundImage: `url('${item.bgImage}')` }}
+                  onClick={() => setActiveCard(activeCard === `costa-${item.id}` ? null : `costa-${item.id}`)}
+                >
+                  <div className={styles.cardCostaContent}>
+                    <div className={styles.badgeGroup}>
+                      <span className={styles.gastroBadgeDist}>{item.distance}</span>
+                      <span className={styles.gastroBadgeLoc}>{item.badge}</span>
+                    </div>
+                    <h3 className={styles.cardCostaTitle}>{item.title}</h3>
+                    <p className={styles.cardCostaDesc}>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Banner CTA */}
+            <div className={styles.costaBanner}>
+              <div className={styles.costaBannerText}>
+                <h4 className={styles.costaBannerTitle}>{t('servicesDestinations.costaCta')}</h4>
+                <p className={styles.costaBannerSub}>{t('servicesDestinations.costaCtaDesc')}</p>
+              </div>
+              <a
+                href="https://wa.me/541126281011"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.costaBannerBtn}
+              >
+                💬 {t('servicesDestinations.costaCtaBtn')}
+              </a>
             </div>
 
           </div>

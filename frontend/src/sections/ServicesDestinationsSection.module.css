@@ -722,3 +722,179 @@
     grid-row: span 1;
   }
 }
+
+/* 🌊 Costa Atlántica Styles */
+.gridCosta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 4rem;
+}
+
+.cardCosta {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 380px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.cardCosta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(6, 6, 14, 0.95) 0%,
+    rgba(6, 6, 14, 0.3) 60%,
+    transparent 100%
+  );
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+.cardCosta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, rgba(79, 142, 247, 0.4), rgba(168, 85, 247, 0.4)) border-box;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: 3;
+}
+
+.cardCosta:hover,
+.cardCosta.cardActive {
+  transform: translateY(-6px);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(168, 85, 247, 0.2);
+}
+
+.cardCosta:hover::before,
+.cardCosta.cardActive::before {
+  background: linear-gradient(
+    to top,
+    rgba(6, 6, 14, 0.98) 0%,
+    rgba(6, 6, 14, 0.4) 60%,
+    transparent 100%
+  );
+}
+
+.cardCosta:hover::after,
+.cardCosta.cardActive::after {
+  opacity: 1;
+}
+
+.cardCostaContent {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 2;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cardCostaTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  color: #fff;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.cardCostaDesc {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.costaBanner {
+  background: linear-gradient(135deg, rgba(79, 142, 247, 0.15), rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(79, 142, 247, 0.2);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 2rem;
+}
+
+.costaBannerText {
+  flex: 1;
+}
+
+.costaBannerTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: #fff;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.5px;
+}
+
+.costaBannerSub {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.costaBannerBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #128c7e 0%, #25d366 100%);
+  color: #fff;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.15);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.costaBannerBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 25px rgba(37, 211, 102, 0.25);
+}
+
+@media (max-width: 768px) {
+  .gridCosta {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .costaBanner {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+    gap: 16px;
+  }
+  
+  .costaBannerBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

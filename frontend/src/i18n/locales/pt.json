@@ -170,8 +170,24 @@
     "tabServices": "✈ SERVIÇOS",
     "tabDestinations": "📍 DESTINOS & TURISMO",
     "tabGastro": "🍽 PUEBLOS GASTRONÔMICOS",
+    "tabCosta": "🌊 COSTA ATLÂNTICA",
     "gastroTitle": "VILAS GASTRONÔMICAS",
     "gastroSubtitle": "Passeios únicos a menos de 2 horas de Buenos Aires",
+    "costaTitle": "COSTA ATLÂNTICA",
+    "costaSubtitle": "Os melhores destinos do litoral de Buenos Aires",
+    "costaCta": "Planejando ir para a costa?",
+    "costaCtaDesc": "Coordenamos seu traslado de ida e volta",
+    "costaCtaBtn": "CONSULTAR POR WHATSAPP",
+    "costa": {
+      "c1Title": "MAR DEL PLATA",
+      "c1Desc": "A cidade mais popular da costa atlântica argentina. Praias, gastronomia, cassino e vida noturna 365 dias por ano.",
+      "c1Dist": "~400 km de CABA",
+      "c1Badge": "Traslado disponível",
+      "c2Title": "PARTIDO DE LA COSTA",
+      "c2Desc": "San Bernardo, Santa Teresita, Mar de Ajó e mais — o destino familiar por excelência do litoral de Buenos Aires.",
+      "c2Dist": "~350 km de CABA",
+      "c2Badge": "Traslado disponível"
+    },
     "attractionsTitle": "ATRAÇÕES TURÍSTICAS",
     "attractionsSubtitle": "Os lugares imperdíveis da Cidade de Buenos Aires",
     "ctaTitle": "Já sabe para onde vai?",
@@ -208,7 +224,11 @@
       "t7Title": "Gouin",
       "t7Loc": "Carmen de Areco, Bs. As.",
       "t7Desc": "Capital do pastel — empanadas fritas, churrasco e confeitaria de época",
-      "t7Dist": "~120 km de CABA"
+      "t7Dist": "~120 km de CABA",
+      "t8Title": "Villa Ruiz",
+      "t8Loc": "San Pedro, Bs. As.",
+      "t8Desc": "Povoado com charme colonial às margens do Rio Paraná",
+      "t8Dist": "~100 km de CABA"
     },
     "attractions": {
       "a1Title": "Teatro Colón",
@@ -250,7 +270,9 @@
       "a19Title": "Galerías Pacífico",
       "a19Desc": "Shopping histórico com murais artísticos",
       "a20Title": "Plaza Dorrego",
-      "a20Desc": "Feira de San Telmo, antiguidades e tango de rua"
+      "a20Desc": "Feira de San Telmo, antiguidades e tango de rua",
+      "a21Title": "Luján",
+      "a21Desc": "Cidade de peregrinação e lar da Basílica Nacional"
     },
     "estadiosEventosTitle": "ESTÁDIOS & EVENTOS",
     "estadiosEventosSubtitle": "Os mais importantes estádios e locais de eventos em Buenos Aires",

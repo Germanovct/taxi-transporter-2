@@ -170,8 +170,24 @@
     "tabServices": "✈ SERVIZI",
     "tabDestinations": "📍 DESTINAZIONI & TURISMO",
     "tabGastro": "🍽 BORGHI GASTRONOMICI",
+    "tabCosta": "🌊 COSTA ATLANTICA",
     "gastroTitle": "PAESI GASTRONOMICI",
     "gastroSubtitle": "Fughe uniche a meno di 2 ore da Buenos Aires",
+    "costaTitle": "COSTA ATLANTICA",
+    "costaSubtitle": "Le migliori destinazioni della costa di Buenos Aires",
+    "costaCta": "Pianifichi un viaggio sulla costa?",
+    "costaCtaDesc": "Coordiniamo il tuo trasferimento di andata e ritorno",
+    "costaCtaBtn": "CONSULTA SU WHATSAPP",
+    "costa": {
+      "c1Title": "MAR DEL PLATA",
+      "c1Desc": "La città più popolare della costa atlantica argentina. Spiagge, gastronomia, casinò e vita notturna 365 giorni all'anno.",
+      "c1Dist": "~400 km da CABA",
+      "c1Badge": "Trasferimento disponibile",
+      "c2Title": "PARTIDO DE LA COSTA",
+      "c2Desc": "San Bernardo, Santa Teresita, Mar de Ajó e altro ancora — la destinazione familiare per eccellenza della costa di Buenos Aires.",
+      "c2Dist": "~350 km da CABA",
+      "c2Badge": "Trasferimento disponibile"
+    },
     "attractionsTitle": "ATTRAZIONI TURISTICHE",
     "attractionsSubtitle": "I luoghi imperdibili della città di Buenos Aires",
     "ctaTitle": "Sai già dove andare?",
@@ -208,7 +224,11 @@
       "t7Title": "Gouin",
       "t7Loc": "Carmen de Areco, Bs. As.",
       "t7Desc": "Capitale della pasticceria — empanadas fritte, asado e dolci d'epoca",
-      "t7Dist": "~120 km da CABA"
+      "t7Dist": "~120 km da CABA",
+      "t8Title": "Villa Ruiz",
+      "t8Loc": "San Pedro, Bs. As.",
+      "t8Desc": "Paese dal fascino coloniale sulle sponde del fiume Paraná",
+      "t8Dist": "~100 km da CABA"
     },
     "attractions": {
       "a1Title": "Teatro Colón",
@@ -250,7 +270,9 @@
       "a19Title": "Galerías Pacífico",
       "a19Desc": "Centro commerciale storico con murales artistici",
       "a20Title": "Plaza Dorrego",
-      "a20Desc": "Fiera di San Telmo, antiquariato e tango di strada"
+      "a20Desc": "Fiera di San Telmo, antiquariato e tango di strada",
+      "a21Title": "Luján",
+      "a21Desc": "Città di pellegrinaggio e sede della Basilica Nazionale"
     },
     "estadiosEventosTitle": "STADI & EVENTI",
     "estadiosEventosSubtitle": "I più importanti stadi e luoghi di eventi a Buenos Aires",

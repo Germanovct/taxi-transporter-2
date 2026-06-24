@@ -170,8 +170,24 @@
     "tabServices": "✈ SERVICES",
     "tabDestinations": "📍 DESTINATIONS & TOURISME",
     "tabGastro": "🍽 VILLAGES GASTRONOMIQUES",
+    "tabCosta": "🌊 CÔTE ATLANTIQUE",
     "gastroTitle": "VILLAGES GASTRONOMIQUES",
     "gastroSubtitle": "Escapades uniques à moins de 2 heures de Buenos Aires",
+    "costaTitle": "CÔTE ATLANTIQUE",
+    "costaSubtitle": "Les meilleures destinations sur la côte de Buenos Aires",
+    "costaCta": "Vous prévoyez d'aller sur la côte ?",
+    "costaCtaDesc": "Nous coordonnons votre transfert aller-retour",
+    "costaCtaBtn": "CONSULTER SUR WHATSAPP",
+    "costa": {
+      "c1Title": "MAR DEL PLATA",
+      "c1Desc": "La ville la plus populaire de la côte atlantique argentine. Plages, gastronomie, casino et vie nocturne 365 jours par an.",
+      "c1Dist": "~400 km de CABA",
+      "c1Badge": "Transfert disponible",
+      "c2Title": "PARTIDO DE LA COSTA",
+      "c2Desc": "San Bernardo, Santa Teresita, Mar de Ajó et plus — la destination familiale par excellence sur la côte de Buenos Aires.",
+      "c2Dist": "~350 km de CABA",
+      "c2Badge": "Transfert disponible"
+    },
     "attractionsTitle": "ATTRACTIONS TOURISTIQUES",
     "attractionsSubtitle": "Les lieux incontournables de la ville de Buenos Aires",
     "ctaTitle": "Vous savez déjà où vous allez ?",
@@ -208,7 +224,11 @@
       "t7Title": "Gouin",
       "t7Loc": "Carmen de Areco, Bs. As.",
       "t7Desc": "Capitale du gâteau — empanadas frites, barbecue et pâtisserie d'époque",
-      "t7Dist": "~120 km de CABA"
+      "t7Dist": "~120 km de CABA",
+      "t8Title": "Villa Ruiz",
+      "t8Loc": "San Pedro, Bs. As.",
+      "t8Desc": "Village au charme colonial au bord du fleuve Paraná",
+      "t8Dist": "~100 km de CABA"
     },
     "attractions": {
       "a1Title": "Teatro Colón",
@@ -250,7 +270,9 @@
       "a19Title": "Galerías Pacífico",
       "a19Desc": "Centre commercial historique avec fresques artistiques",
       "a20Title": "Plaza Dorrego",
-      "a20Desc": "Foire de San Telmo, antiquités et tango de rue"
+      "a20Desc": "Foire de San Telmo, antiquités et tango de rue",
+      "a21Title": "Luján",
+      "a21Desc": "Ville de pèlerinage et abri de la Basilique Nationale"
     },
     "estadiosEventosTitle": "STADES & ÉVÉNEMENTS",
     "estadiosEventosSubtitle": "Les stades et lieux d'événements les plus importants de Buenos Aires",

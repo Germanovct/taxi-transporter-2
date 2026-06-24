@@ -170,8 +170,24 @@
     "tabServices": "✈ SERVICES",
     "tabDestinations": "📍 DESTINATIONS & TOURISM",
     "tabGastro": "🍽 GASTRONOMIC VILLAGES",
+    "tabCosta": "🌊 ATLANTIC COAST",
     "gastroTitle": "GASTRONOMIC TOWNS",
     "gastroSubtitle": "Unique getaways less than 2 hours from Buenos Aires",
+    "costaTitle": "ATLANTIC COAST",
+    "costaSubtitle": "The best destinations on the Buenos Aires coast",
+    "costaCta": "Planning a trip to the coast?",
+    "costaCtaDesc": "We coordinate your round trip transfer",
+    "costaCtaBtn": "CONSULT ON WHATSAPP",
+    "costa": {
+      "c1Title": "MAR DEL PLATA",
+      "c1Desc": "The most popular city on the Argentine Atlantic coast. Beaches, gastronomy, casino and nightlife 365 days a year.",
+      "c1Dist": "~400 km from CABA",
+      "c1Badge": "Transfer available",
+      "c2Title": "PARTIDO DE LA COSTA",
+      "c2Desc": "San Bernardo, Santa Teresita, Mar de Ajó and more — the ultimate family destination on the Buenos Aires coast.",
+      "c2Dist": "~350 km from CABA",
+      "c2Badge": "Transfer available"
+    },
     "attractionsTitle": "TOURIST ATTRACTIONS",
     "attractionsSubtitle": "Must-see places in the City of Buenos Aires",
     "ctaTitle": "Already know where you're going?",
@@ -208,7 +224,11 @@
       "t7Title": "Gouin",
       "t7Loc": "Carmen de Areco, Bs. As.",
       "t7Desc": "Pastry Capital — fried empanadas, barbecue and vintage baking",
-      "t7Dist": "~120 km from CABA"
+      "t7Dist": "~120 km from CABA",
+      "t8Title": "Villa Ruiz",
+      "t8Loc": "San Pedro, Bs. As.",
+      "t8Desc": "Charming colonial town on the banks of the Paraná River",
+      "t8Dist": "~100 km from CABA"
     },
     "attractions": {
       "a1Title": "Teatro Colón",
@@ -250,7 +270,9 @@
       "a19Title": "Galerías Pacífico",
       "a19Desc": "Historic shopping mall with artistic murals",
       "a20Title": "Plaza Dorrego",
-      "a20Desc": "San Telmo Fair, antiques and street tango"
+      "a20Desc": "San Telmo Fair, antiques and street tango",
+      "a21Title": "Luján",
+      "a21Desc": "Pilgrimage city and home of the National Basilica"
     },
     "estadiosEventosTitle": "STADIUMS & EVENTS",
     "estadiosEventosSubtitle": "The most important stadiums and event venues in Buenos Aires",
