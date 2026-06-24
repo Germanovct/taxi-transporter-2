@@ -266,3 +266,12 @@
     padding-right: 8px;
   }
 }
+
+/* Mobile touch-activated hover effect */
+.card.cardActive {
+  transform: scale(1.03);
+}
+
+.card.cardActive::before {
+  opacity: 0.75;
+}

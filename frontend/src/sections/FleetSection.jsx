@@ -5,6 +5,7 @@ import SectionWrapper from '../components/SectionWrapper';
 
 export default function FleetSection() {
   const [mediaItems, setMediaItems] = useState([]);
+  const [activeCard, setActiveCard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const { t } = useTranslation();
@@ -100,8 +101,9 @@ export default function FleetSection() {
             ].map((vehicle, idx) => (
               <div
                 key={idx}
-                className={styles.fleetCard}
+                className={`${styles.fleetCard} ${activeCard === idx ? styles.cardActive : ''}`}
                 style={{ backgroundImage: `url(${vehicle.image})` }}
+                onClick={() => setActiveCard(activeCard === idx ? null : idx)}
               >
                 <div className={styles.fleetCardContent}>
                   <span className={styles.fleetBadge}>{vehicle.badge}</span>
@@ -113,7 +115,11 @@ export default function FleetSection() {
           ) : (
             // Show photos from API
             photos.map((photo) => (
-              <div key={photo.id} className={styles.photoCard}>
+              <div
+                key={photo.id}
+                className={`${styles.photoCard} ${activeCard === `photo-${photo.id}` ? styles.cardActive : ''}`}
+                onClick={() => setActiveCard(activeCard === `photo-${photo.id}` ? null : `photo-${photo.id}`)}
+              >
                 <img src={photo.url} alt={photo.description || photo.original_name} loading="lazy" />
                 <div className={styles.photoOverlay}>
                   <div className={styles.photoTitle}>{photo.description || "Taxi El Transporter 2"}</div>

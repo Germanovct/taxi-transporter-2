@@ -92,6 +92,7 @@ export default function Navbar() {
                 <option value="en">🇺🇸 EN</option>
                 <option value="pt">🇧🇷 PT</option>
                 <option value="fr">🇫🇷 FR</option>
+                <option value="it">🇮🇹 IT</option>
               </select>
             </li>
             <li>
@@ -168,6 +169,7 @@ export default function Navbar() {
               <option value="en">🇺🇸 EN</option>
               <option value="pt">🇧🇷 PT</option>
               <option value="fr">🇫🇷 FR</option>
+              <option value="it">🇮🇹 IT</option>
             </select>
           </li>
         </ul>

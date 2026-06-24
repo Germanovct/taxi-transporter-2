@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './DestinationsSection.module.css';
 import SectionWrapper from '../components/SectionWrapper';
 
 export default function DestinationsSection() {
   const { t } = useTranslation();
+  const [activeCard, setActiveCard] = useState(null);
 
   const destinationsData = [
     {
@@ -76,8 +78,9 @@ export default function DestinationsSection() {
               return (
                 <div
                   key={dest.id}
-                  className={`${styles.card} ${dest.gridClass} ${styles.destinationCard}`}
+                  className={`${styles.card} ${dest.gridClass} ${styles.destinationCard} ${activeCard === dest.id ? styles.cardActive : ''}`}
                   style={{ padding: 0, overflow: 'hidden' }}
+                  onClick={() => setActiveCard(activeCard === dest.id ? null : dest.id)}
                 >
                   <img 
                     src={dest.bgImage}
@@ -100,8 +103,9 @@ export default function DestinationsSection() {
             return (
               <div
                 key={dest.id}
-                className={`${styles.card} ${dest.gridClass}`}
+                className={`${styles.card} ${dest.gridClass} ${activeCard === dest.id ? styles.cardActive : ''}`}
                 style={{ backgroundImage: `url(${dest.bgImage})` }}
+                onClick={() => setActiveCard(activeCard === dest.id ? null : dest.id)}
               >
                 <div className={styles.cardContent}>
                   <h3 className={styles.cardTitle}>{dest.title}</h3>

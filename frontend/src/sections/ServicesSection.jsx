@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './ServicesSection.module.css';
 import SectionWrapper from '../components/SectionWrapper';
 
 export default function ServicesSection() {
   const { t } = useTranslation();
+  const [activeCard, setActiveCard] = useState(null);
 
   const servicesData = [
     {
@@ -89,8 +91,9 @@ export default function ServicesSection() {
           {servicesData.map((service) => (
             <div
               key={service.id}
-              className={styles.card}
+              className={`${styles.card} ${activeCard === service.id ? styles.cardActive : ''}`}
               style={{ backgroundImage: `url('${service.bgImage}')` }}
+              onClick={() => setActiveCard(activeCard === service.id ? null : service.id)}
             >
               <div className={styles.cardContent}>
                 <div className={styles.iconWrapper}>
