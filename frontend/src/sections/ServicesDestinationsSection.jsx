@@ -5,7 +5,7 @@ import SectionWrapper from '../components/SectionWrapper';
 
 export default function ServicesDestinationsSection() {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState('services'); // 'services' | 'destinations'
+  const [activeTab, setActiveTab] = useState('services'); // 'services' | 'destinations' | 'gastro'
   const [activeCard, setActiveCard] = useState(null);
 
   const servicesData = [
@@ -128,6 +128,140 @@ export default function ServicesDestinationsSection() {
     },
   ];
 
+  const gastroTownsData = [
+    {
+      id: 1,
+      title: t('servicesDestinations.towns.t1Title'),
+      location: t('servicesDestinations.towns.t1Loc'),
+      desc: t('servicesDestinations.towns.t1Desc'),
+      distance: t('servicesDestinations.towns.t1Dist'),
+      bgImage: "/images/gastro/Tomas-Jofre-7.jpg",
+    },
+    {
+      id: 2,
+      title: t('servicesDestinations.towns.t2Title'),
+      location: t('servicesDestinations.towns.t2Loc'),
+      desc: t('servicesDestinations.towns.t2Desc'),
+      distance: t('servicesDestinations.towns.t2Dist'),
+      bgImage: "/images/gastro/carlos-keen-ba.jpg",
+    },
+    {
+      id: 3,
+      title: t('servicesDestinations.towns.t3Title'),
+      location: t('servicesDestinations.towns.t3Loc'),
+      desc: t('servicesDestinations.towns.t3Desc'),
+      distance: t('servicesDestinations.towns.t3Dist'),
+      bgImage: "/images/gastro/Uribelarrea.jpg",
+    },
+    {
+      id: 4,
+      title: t('servicesDestinations.towns.t4Title'),
+      location: t('servicesDestinations.towns.t4Loc'),
+      desc: t('servicesDestinations.towns.t4Desc'),
+      distance: t('servicesDestinations.towns.t4Dist'),
+      bgImage: "/images/gastro/san antorio de areco.jpg",
+    },
+    {
+      id: 5,
+      title: t('servicesDestinations.towns.t5Title'),
+      location: t('servicesDestinations.towns.t5Loc'),
+      desc: t('servicesDestinations.towns.t5Desc'),
+      distance: t('servicesDestinations.towns.t5Dist'),
+      bgImage: null, // Gradient placeholder
+    },
+    {
+      id: 6,
+      title: t('servicesDestinations.towns.t6Title'),
+      location: t('servicesDestinations.towns.t6Loc'),
+      desc: t('servicesDestinations.towns.t6Desc'),
+      distance: t('servicesDestinations.towns.t6Dist'),
+      bgImage: "/images/gastro/azcuenaga.jpg",
+    },
+    {
+      id: 7,
+      title: t('servicesDestinations.towns.t7Title'),
+      location: t('servicesDestinations.towns.t7Loc'),
+      desc: t('servicesDestinations.towns.t7Desc'),
+      distance: t('servicesDestinations.towns.t7Dist'),
+      bgImage: null, // Gradient placeholder
+    }
+  ];
+
+  const gastroAttractionsData = [
+    {
+      id: 1,
+      title: t('servicesDestinations.attractions.a1Title'),
+      desc: t('servicesDestinations.attractions.a1Desc'),
+      bgImage: "/images/gastro/teatro-colon-panoramica-1500x610.jpg",
+    },
+    {
+      id: 2,
+      title: t('servicesDestinations.attractions.a2Title'),
+      desc: t('servicesDestinations.attractions.a2Desc'),
+      bgImage: "/images/caminito.jpg",
+    },
+    {
+      id: 3,
+      title: t('servicesDestinations.attractions.a3Title'),
+      desc: t('servicesDestinations.attractions.a3Desc'),
+      bgImage: "/images/gastro/puente-de-la-mujer-puerto-madero-gente-atardecer1500x610.jpg",
+    },
+    {
+      id: 4,
+      title: t('servicesDestinations.attractions.a4Title'),
+      desc: t('servicesDestinations.attractions.a4Desc'),
+      bgImage: "/images/gastro/obelisco-atardecer-1500x610-2026-cm.jpg",
+    },
+    {
+      id: 5,
+      title: t('servicesDestinations.attractions.a5Title'),
+      desc: t('servicesDestinations.attractions.a5Desc'),
+      bgImage: "/images/gastro/planetario-noche-luces2025-1500x610.jpg",
+    },
+    {
+      id: 6,
+      title: t('servicesDestinations.attractions.a6Title'),
+      desc: t('servicesDestinations.attractions.a6Desc'),
+      bgImage: "/images/gastro/rosedal-de-palermo-rosas-1500x610.jpg",
+    },
+    {
+      id: 7,
+      title: t('servicesDestinations.attractions.a7Title'),
+      desc: t('servicesDestinations.attractions.a7Desc'),
+      bgImage: "/images/monumental.jpg",
+    },
+    {
+      id: 8,
+      title: t('servicesDestinations.attractions.a8Title'),
+      desc: t('servicesDestinations.attractions.a8Desc'),
+      bgImage: "/images/gastro/cafe-tortoni-fachada-muneco1500x610.jpg",
+    },
+    {
+      id: 9,
+      title: t('servicesDestinations.attractions.a9Title'),
+      desc: t('servicesDestinations.attractions.a9Desc'),
+      bgImage: "/images/gastro/ateneo_grand_splendid_1500x610.jpg",
+    },
+    {
+      id: 10,
+      title: t('servicesDestinations.attractions.a10Title'),
+      desc: t('servicesDestinations.attractions.a10Desc'),
+      bgImage: "/images/gastro/casa_rosada_1200_fachada_sol_4.jpg",
+    },
+    {
+      id: 11,
+      title: t('servicesDestinations.attractions.a11Title'),
+      desc: t('servicesDestinations.attractions.a11Desc'),
+      bgImage: "/images/gastro/cementerio-recoleta-fachada-1500x610-nn_0.jpg",
+    },
+    {
+      id: 12,
+      title: t('servicesDestinations.attractions.a12Title'),
+      desc: t('servicesDestinations.attractions.a12Desc'),
+      bgImage: "/images/gastro/feria-mataderos-24-1500x610-show.jpg",
+    }
+  ];
+
   return (
     <SectionWrapper id="services-destinations" className={styles.section}>
       <div className="container">
@@ -167,6 +301,16 @@ export default function ServicesDestinationsSection() {
               }}
             >
               {t('servicesDestinations.tabDestinations')}
+            </button>
+            <button
+              type="button"
+              className={`${styles.tabBtn} ${activeTab === 'gastro' ? styles.tabBtnActive : ''}`}
+              onClick={() => {
+                setActiveTab('gastro');
+                setActiveCard(null);
+              }}
+            >
+              {t('servicesDestinations.tabGastro')}
             </button>
           </div>
         </div>
@@ -246,6 +390,66 @@ export default function ServicesDestinationsSection() {
                 );
               })}
             </div>
+          </div>
+
+          {/* Gastronomy & Tourism Tab */}
+          <div className={`${styles.tabPanel} ${activeTab === 'gastro' ? styles.panelVisible : styles.panelHidden}`}>
+            
+            {/* Subcategory 1: Pueblos Gastronómicos */}
+            <div className={styles.gastroHeader}>
+              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.gastroTitle')}</h3>
+              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.gastroSubtitle')}</p>
+            </div>
+
+            <div className={styles.gridGastro}>
+              {gastroTownsData.map((town) => (
+                <div
+                  key={town.id}
+                  className={`${styles.cardGastro} ${activeCard === `town-${town.id}` ? styles.cardActive : ''} ${!town.bgImage ? styles.gradientPlaceholder : ''}`}
+                  style={town.bgImage ? { backgroundImage: `url('${town.bgImage}')` } : {}}
+                  onClick={() => setActiveCard(activeCard === `town-${town.id}` ? null : `town-${town.id}`)}
+                >
+                  <div className={styles.cardGastroContent}>
+                    <div className={styles.badgeGroup}>
+                      <span className={styles.gastroBadgeLoc}>{town.location}</span>
+                      <span className={styles.gastroBadgeDist}>{town.distance}</span>
+                    </div>
+                    <h3 className={styles.cardGastroTitle}>{town.title}</h3>
+                    <p className={styles.cardGastroDesc}>{town.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Separator Divider */}
+            <div className={styles.dividerContainer}>
+              <div className={styles.dividerLine}></div>
+              <span className={styles.dividerText}>🏛 ATRACTIVOS TURÍSTICOS DE BUENOS AIRES</span>
+              <div className={styles.dividerLine}></div>
+            </div>
+
+            {/* Subcategory 2: Atractivos Turísticos */}
+            <div className={styles.gastroHeader}>
+              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.attractionsTitle')}</h3>
+              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.attractionsSubtitle')}</p>
+            </div>
+
+            <div className={styles.gridGastro}>
+              {gastroAttractionsData.map((attr) => (
+                <div
+                  key={attr.id}
+                  className={`${styles.cardGastro} ${activeCard === `attr-${attr.id}` ? styles.cardActive : ''} ${!attr.bgImage ? styles.gradientPlaceholder : ''}`}
+                  style={attr.bgImage ? { backgroundImage: `url('${attr.bgImage}')` } : {}}
+                  onClick={() => setActiveCard(activeCard === `attr-${attr.id}` ? null : `attr-${attr.id}`)}
+                >
+                  <div className={styles.cardGastroContent}>
+                    <h3 className={styles.cardGastroTitle}>{attr.title}</h3>
+                    <p className={styles.cardGastroDesc}>{attr.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
           </div>
 
         </div>
