@@ -57,13 +57,8 @@ export default function Navbar() {
               </a>
             </li>
             <li>
-              <a href="#services" className={styles.navLink} onClick={(e) => handleLinkClick(e, 'services')}>
-                {t('nav.servicios')}
-              </a>
-            </li>
-            <li>
-              <a href="#destinations" className={styles.navLink} onClick={(e) => handleLinkClick(e, 'destinations')}>
-                {t('nav.destinos')}
+              <a href="#services-destinations" className={styles.navLink} onClick={(e) => handleLinkClick(e, 'services-destinations')}>
+                {t('nav.serviciosDestinos')}
               </a>
             </li>
             <li>
@@ -131,13 +126,8 @@ export default function Navbar() {
             </a>
           </li>
           <li>
-            <a href="#services" className={styles.drawerLink} onClick={(e) => handleLinkClick(e, 'services')}>
-              {t('nav.servicios')}
-            </a>
-          </li>
-          <li>
-            <a href="#destinations" className={styles.drawerLink} onClick={(e) => handleLinkClick(e, 'destinations')}>
-              {t('nav.destinos')}
+            <a href="#services-destinations" className={styles.drawerLink} onClick={(e) => handleLinkClick(e, 'services-destinations')}>
+              {t('nav.serviciosDestinos')}
             </a>
           </li>
           <li>

@@ -1,8 +1,7 @@
 {
   "nav": {
     "inicio": "Home",
-    "servicios": "Servizi",
-    "destinos": "Destinazioni",
+    "serviciosDestinos": "Servizi & Destinazioni",
     "flota": "Flotta",
     "porQueElegirnos": "Perché sceglierci",
     "contacto": "Contatti",
@@ -162,25 +161,19 @@
     "socials": "Social Network",
     "developedBy": "Sviluppato da"
   },
-  "bookingWidget": {
-    "title": "Cerca Trasferimento",
-    "tabAirport": "Trasferimento Aeroporto",
-    "tabLongDistance": "Lunga Distanza",
-    "tabCityTour": "City Tour & Eventi",
-    "origin": "Origine",
-    "destination": "Destinazione",
-    "dateTime": "Data e Ora",
-    "passengers": "Passeggeri",
-    "vehicle": "Veicolo Suggerito",
-    "submit": "Verifica e Prenota",
-    "placeholderOrigin": "Es: Indirizzo, Hotel o Aeroporto",
-    "placeholderDestination": "Es: Ezeiza, Aeroparque, Hotel..."
-  },
-  "servicesAndDestinations": {
-    "badge": "✦ IL TUO VIAGGIO SU MISURA ✦",
-    "title1": "PIANIFICA E",
-    "title2": "PRENOTA IL TRASFERIMENTO",
-    "tabServices": "I Nostri Servizi",
-    "tabDestinations": "Destinazioni Popolari"
+  "servicesDestinations": {
+    "badge": "✦ SERVIZI & DESTINAZIONI ✦",
+    "title1": "TUTTO QUELLO DI CUI",
+    "title2": "HAI BISOGNO",
+    "subtitle": "Scegli il tuo servizio e destinazione — prenotazione online a breve",
+    "phase2Badge": "🚀 Fase 2 — A breve",
+    "tabServices": "✈ SERVIZI",
+    "tabDestinations": "📍 DESTINAZIONI",
+    "ctaTitle": "Sai già dove andare?",
+    "ctaSubtitle": "Contattaci e coordiniamo il tuo trasferimento ora",
+    "ctaButton": "PRENOTA SU WHATSAPP",
+    "phase2Title": "A BREVE",
+    "phase2Desc": "Prenotazione online con pagamento integrato — Fase 2",
+    "reservaBadge": "Prenotazione disponibile — Fase 2"
   }
 }

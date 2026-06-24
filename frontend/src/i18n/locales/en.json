@@ -1,8 +1,7 @@
 {
   "nav": {
     "inicio": "Home",
-    "servicios": "Services",
-    "destinos": "Destinations",
+    "serviciosDestinos": "Services & Destinations",
     "flota": "Fleet",
     "porQueElegirnos": "Why Choose Us",
     "contacto": "Contact",
@@ -162,25 +161,19 @@
     "socials": "Social Media",
     "developedBy": "Developed by"
   },
-  "bookingWidget": {
-    "title": "Transfer Finder",
-    "tabAirport": "Airport Transfer",
-    "tabLongDistance": "Long Distance",
-    "tabCityTour": "City Tour & Events",
-    "origin": "Origin",
-    "destination": "Destination",
-    "dateTime": "Date & Time",
-    "passengers": "Passengers",
-    "vehicle": "Suggested Vehicle",
-    "submit": "Check Availability & Book",
-    "placeholderOrigin": "e.g. Address, Hotel or Airport",
-    "placeholderDestination": "e.g. Ezeiza, Aeroparque, Hotel..."
-  },
-  "servicesAndDestinations": {
-    "badge": "✦ YOUR TAILORED TRIP ✦",
-    "title1": "PLAN AND",
-    "title2": "BOOK YOUR TRANSFER",
-    "tabServices": "Our Services",
-    "tabDestinations": "Popular Destinations"
+  "servicesDestinations": {
+    "badge": "✦ SERVICES & DESTINATIONS ✦",
+    "title1": "EVERYTHING YOU",
+    "title2": "NEED",
+    "subtitle": "Choose your service and destination — online booking coming soon",
+    "phase2Badge": "🚀 Phase 2 — Coming Soon",
+    "tabServices": "✈ SERVICES",
+    "tabDestinations": "📍 DESTINATIONS",
+    "ctaTitle": "Already know where you're going?",
+    "ctaSubtitle": "Contact us and coordinate your transfer now",
+    "ctaButton": "BOOK VIA WHATSAPP",
+    "phase2Title": "COMING SOON",
+    "phase2Desc": "Online booking with integrated payment — Phase 2",
+    "reservaBadge": "Booking available — Phase 2"
   }
 }
