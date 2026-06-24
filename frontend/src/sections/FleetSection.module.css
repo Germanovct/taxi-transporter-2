@@ -316,6 +316,12 @@
   .videoContainer {
     margin-bottom: 3rem;
   }
+
+  .card, [class*="Card"], [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
 }
 
 /* Mobile touch-activated hover effect */

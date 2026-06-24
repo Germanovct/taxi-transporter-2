@@ -392,6 +392,12 @@
     font-size: clamp(32px, 8vw, 52px);
     word-break: break-word;
   }
+
+  .card, [class*="Card"], [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
 }
 
 @media (max-width: 480px) {
