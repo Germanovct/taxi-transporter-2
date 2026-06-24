@@ -161,5 +161,26 @@
     "contact": "Contato",
     "socials": "Redes Sociais",
     "developedBy": "Desenvolvido por"
+  },
+  "bookingWidget": {
+    "title": "Buscador de Traslados",
+    "tabAirport": "Trânsfer Aeroporto",
+    "tabLongDistance": "Longa Distância",
+    "tabCityTour": "City Tour & Eventos",
+    "origin": "Origem",
+    "destination": "Destino",
+    "dateTime": "Data e Hora",
+    "passengers": "Passageiros",
+    "vehicle": "Veículo Sugerido",
+    "submit": "Consultar e Reservar",
+    "placeholderOrigin": "Ex: Endereço, Hotel ou Aeroporto",
+    "placeholderDestination": "Ex: Ezeiza, Aeroparque, Hotel..."
+  },
+  "servicesAndDestinations": {
+    "badge": "✦ SUA VIAGEM PERSONALIZADA ✦",
+    "title1": "PLANEJE E",
+    "title2": "RESERVE SEU TRÂNFER",
+    "tabServices": "Nossos Serviços",
+    "tabDestinations": "Destinos Populares"
   }
 }

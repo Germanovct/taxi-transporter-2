@@ -161,5 +161,26 @@
     "contact": "Contact",
     "socials": "Social Media",
     "developedBy": "Developed by"
+  },
+  "bookingWidget": {
+    "title": "Transfer Finder",
+    "tabAirport": "Airport Transfer",
+    "tabLongDistance": "Long Distance",
+    "tabCityTour": "City Tour & Events",
+    "origin": "Origin",
+    "destination": "Destination",
+    "dateTime": "Date & Time",
+    "passengers": "Passengers",
+    "vehicle": "Suggested Vehicle",
+    "submit": "Check Availability & Book",
+    "placeholderOrigin": "e.g. Address, Hotel or Airport",
+    "placeholderDestination": "e.g. Ezeiza, Aeroparque, Hotel..."
+  },
+  "servicesAndDestinations": {
+    "badge": "✦ YOUR TAILORED TRIP ✦",
+    "title1": "PLAN AND",
+    "title2": "BOOK YOUR TRANSFER",
+    "tabServices": "Our Services",
+    "tabDestinations": "Popular Destinations"
   }
 }

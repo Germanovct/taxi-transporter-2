@@ -3,8 +3,7 @@ import WhatsAppFAB from './components/WhatsAppFAB';
 import HeroSection from './sections/HeroSection';
 import StatsSection from './sections/StatsSection';
 import AboutSection from './sections/AboutSection';
-import DestinationsSection from './sections/DestinationsSection';
-import ServicesSection from './sections/ServicesSection';
+import ServicesAndDestinationsSection from './sections/ServicesAndDestinationsSection';
 import WhyUsSection from './sections/WhyUsSection';
 import FleetSection from './sections/FleetSection';
 import TestimonialsSection from './sections/TestimonialsSection';
@@ -19,8 +18,7 @@ export default function App() {
         <HeroSection />
         <StatsSection />
         <AboutSection />
-        <DestinationsSection />
-        <ServicesSection />
+        <ServicesAndDestinationsSection />
         <WhyUsSection />
         <FleetSection />
         <TestimonialsSection />

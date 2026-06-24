@@ -161,5 +161,26 @@
     "contact": "Contact",
     "socials": "Réseaux Sociaux",
     "developedBy": "Développé par"
+  },
+  "bookingWidget": {
+    "title": "Recherche de Transfert",
+    "tabAirport": "Transfert Aéroport",
+    "tabLongDistance": "Longue Distance",
+    "tabCityTour": "City Tour & Événements",
+    "origin": "Origine",
+    "destination": "Destination",
+    "dateTime": "Date & Heure",
+    "passengers": "Passagers",
+    "vehicle": "Véhicule Suggéré",
+    "submit": "Vérifier & Réserver",
+    "placeholderOrigin": "Ex: Adresse, Hôtel ou Aéroport",
+    "placeholderDestination": "Ex: Ezeiza, Aeroparque, Hôtel..."
+  },
+  "servicesAndDestinations": {
+    "badge": "✦ VOTRE VOYAGE SUR MESURE ✦",
+    "title1": "PLANIFIER ET",
+    "title2": "RÉSERVER VOTRE TRANSFERT",
+    "tabServices": "Nos Services",
+    "tabDestinations": "Destinations Populaires"
   }
 }
