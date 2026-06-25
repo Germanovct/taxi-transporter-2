@@ -91,7 +91,7 @@ export default function Navbar() {
               </select>
             </li>
             <li>
-              <a href="https://wa.me/5491134324040" className={styles.ctaBtn} target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/541126281011" className={styles.ctaBtn} target="_blank" rel="noopener noreferrer">
                 {t('nav.reservar')}
               </a>
             </li>
@@ -165,7 +165,7 @@ export default function Navbar() {
         </ul>
         <div className={styles.drawerCta}>
           <a 
-            href="https://wa.me/5491134324040" 
+            href="https://wa.me/541126281011" 
             className={`${styles.ctaBtn} ${styles.drawerCta}`} 
             target="_blank"
             rel="noopener noreferrer"

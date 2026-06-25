@@ -10,7 +10,7 @@ export default function FleetSection() {
   const [error, setError] = useState(false);
   const { t } = useTranslation();
 
-  const whatsappUrl = "https://wa.me/5491134324040";
+  const whatsappUrl = "https://wa.me/541126281011";
   const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
   useEffect(() => {
