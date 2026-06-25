@@ -43,8 +43,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#services" className={styles.link} onClick={(e) => handleLinkClick(e, 'services')}>
-                  {t('nav.servicios')}
+                <a href="#services-destinations" className={styles.link} onClick={(e) => handleLinkClick(e, 'services-destinations')}>
+                  {t('nav.serviciosDestinos')}
                 </a>
               </li>
               <li>
@@ -87,12 +87,12 @@ export default function Footer() {
             <h4 className={styles.colTitle}>{t('footer.socials')}</h4>
             <ul className={styles.linksList}>
               <li>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.link}>
+                <a href="#" target="_blank" rel="noopener noreferrer" className={styles.link}>
                   Facebook
                 </a>
               </li>
               <li>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.link}>
+                <a href="#" target="_blank" rel="noopener noreferrer" className={styles.link}>
                   Instagram
                 </a>
               </li>
