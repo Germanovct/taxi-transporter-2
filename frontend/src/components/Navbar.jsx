@@ -57,11 +57,6 @@ export default function Navbar() {
               </a>
             </li>
             <li>
-              <a href="#booking" className={styles.navLink} onClick={(e) => handleLinkClick(e, 'booking')}>
-                {t('nav.reservar')}
-              </a>
-            </li>
-            <li>
               <a href="#services-destinations" className={styles.navLink} onClick={(e) => handleLinkClick(e, 'services-destinations')}>
                 {t('nav.serviciosDestinos')}
               </a>
@@ -128,11 +123,6 @@ export default function Navbar() {
           <li>
             <a href="#hero" className={styles.drawerLink} onClick={(e) => handleLinkClick(e, 'hero')}>
               {t('nav.inicio')}
-            </a>
-          </li>
-          <li>
-            <a href="#booking" className={styles.drawerLink} onClick={(e) => handleLinkClick(e, 'booking')}>
-              {t('nav.reservar')}
             </a>
           </li>
           <li>

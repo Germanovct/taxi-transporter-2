@@ -8,6 +8,146 @@ export default function ServicesDestinationsSection() {
   const [activeTab, setActiveTab] = useState('services'); // 'services' | 'destinations' | 'gastro' | 'costa'
   const [activeCard, setActiveCard] = useState(null);
 
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    service: '',
+    origin: '',
+    destination: '',
+    date: '',
+    time: '',
+    passengers: '1',
+    luggage: 'None',
+    notes: ''
+  });
+
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState(false);
+
+  const serviceOptions = [
+    { value: 'Ezeiza', labelKey: 'booking.serviceEzeiza' },
+    { value: 'Aeroparque', labelKey: 'booking.serviceAeroparque' },
+    { value: 'Terminal', labelKey: 'booking.serviceTerminal' },
+    { value: 'Fluvio', labelKey: 'booking.serviceFluvio' },
+    { value: 'Distance', labelKey: 'booking.serviceDistance' },
+    { value: 'City', labelKey: 'booking.serviceCity' },
+    { value: 'Stadium', labelKey: 'booking.serviceStadium' },
+    { value: 'Gastro', labelKey: 'booking.serviceGastro' },
+    { value: 'Costa', labelKey: 'booking.serviceCosta' },
+    { value: 'Tourism', labelKey: 'booking.serviceTourism' },
+    { value: 'Other', labelKey: 'booking.serviceOther' }
+  ];
+
+  const luggageOptions = [
+    { value: 'None', labelKey: 'booking.luggageNone' },
+    { value: 'Medium', labelKey: 'booking.luggageMedium' },
+    { value: 'Large', labelKey: 'booking.luggageLarge' },
+    { value: 'Special', labelKey: 'booking.luggageSpecial' }
+  ];
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: null }));
+    }
+  };
+
+  const handleCardClick = (cardType, cardTitle, serviceValue) => {
+    setFormData((prev) => {
+      const updated = { ...prev };
+      if (cardType === 'service') {
+        updated.service = serviceValue;
+      } else {
+        updated.destination = cardTitle;
+        if (cardType === 'gastro') {
+          updated.service = 'Gastro';
+        } else if (cardType === 'costa') {
+          updated.service = 'Costa';
+        } else if (cardType === 'destination') {
+          updated.service = serviceValue;
+        }
+      }
+      return updated;
+    });
+
+    const formEl = document.getElementById('booking-form');
+    if (formEl) {
+      formEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    const requiredFields = ['name', 'phone', 'service', 'origin', 'destination', 'date', 'time'];
+    const newErrors = {};
+    requiredFields.forEach((field) => {
+      if (!formData[field] || formData[field].trim() === '') {
+        newErrors[field] = t('booking.required');
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      const firstErrorKey = Object.keys(newErrors)[0];
+      const errorEl = document.getElementById(`booking-${firstErrorKey}`);
+      if (errorEl) {
+        errorEl.focus();
+      }
+      return;
+    }
+
+    const selectedServiceObj = serviceOptions.find((opt) => opt.value === formData.service);
+    const serviceLabel = selectedServiceObj ? t(selectedServiceObj.labelKey) : formData.service;
+
+    const selectedLuggageObj = luggageOptions.find((opt) => opt.value === formData.luggage);
+    const luggageLabel = selectedLuggageObj ? t(selectedLuggageObj.labelKey) : formData.luggage;
+
+    const message = `🚗 *NUEVA RESERVA — TAXI EL TRANSPORTER 2*
+
+👤 *Nombre:* ${formData.name}
+📞 *Teléfono:* ${formData.phone}
+📧 *Email:* ${formData.email || '-'}
+
+🚘 *Servicio:* ${serviceLabel}
+📍 *Origen:* ${formData.origin}
+🎯 *Destino:* ${formData.destination}
+📅 *Fecha:* ${formData.date}
+⏰ *Hora:* ${formData.time}
+👥 *Pasajeros:* ${formData.passengers}
+🧳 *Equipaje:* ${luggageLabel}
+${formData.notes.trim() ? `📝 *Notas:* ${formData.notes.trim()}` : ''}
+
+_Enviado desde taxieltransporter2.com_`;
+
+    const whatsappUrl = `https://wa.me/541126281011?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+
+    setSuccess(true);
+
+    setFormData({
+      name: '',
+      phone: '',
+      email: '',
+      service: '',
+      origin: '',
+      destination: '',
+      date: '',
+      time: '',
+      passengers: '1',
+      luggage: 'None',
+      notes: ''
+    });
+
+    setErrors({});
+
+    setTimeout(() => {
+      setSuccess(false);
+    }, 5000);
+  };
+
   const servicesData = [
     {
       id: 1,
@@ -349,6 +489,7 @@ export default function ServicesDestinationsSection() {
               onClick={() => {
                 setActiveTab('services');
                 setActiveCard(null);
+                setFormData(prev => ({ ...prev, service: '' }));
               }}
             >
               {t('servicesDestinations.tabServices')}
@@ -369,6 +510,7 @@ export default function ServicesDestinationsSection() {
               onClick={() => {
                 setActiveTab('gastro');
                 setActiveCard(null);
+                setFormData(prev => ({ ...prev, service: 'Gastro' }));
               }}
             >
               {t('servicesDestinations.tabGastro')}
@@ -379,6 +521,7 @@ export default function ServicesDestinationsSection() {
               onClick={() => {
                 setActiveTab('costa');
                 setActiveCard(null);
+                setFormData(prev => ({ ...prev, service: 'Costa' }));
               }}
             >
               {t('servicesDestinations.tabCosta')}
@@ -397,7 +540,18 @@ export default function ServicesDestinationsSection() {
                   key={service.id}
                   className={`${styles.cardService} ${activeCard === `service-${service.id}` ? styles.cardActive : ''}`}
                   style={{ backgroundImage: `url('${service.bgImage}')` }}
-                  onClick={() => setActiveCard(activeCard === `service-${service.id}` ? null : `service-${service.id}`)}
+                  onClick={() => {
+                    setActiveCard(activeCard === `service-${service.id}` ? null : `service-${service.id}`);
+                    const serviceValuesMap = {
+                      1: 'Ezeiza',
+                      2: 'Aeroparque',
+                      3: 'Terminal',
+                      4: 'Fluvio',
+                      5: 'Distance',
+                      6: 'City'
+                    };
+                    handleCardClick('service', service.title, serviceValuesMap[service.id]);
+                  }}
                 >
                   <div className={styles.cardContent}>
                     <div className={styles.iconWrapper}>
@@ -415,7 +569,7 @@ export default function ServicesDestinationsSection() {
               ))}
             </div>
           </div>
-
+ 
           {/* Destinations & Tourism Tab */}
           <div className={`${styles.tabPanel} ${activeTab === 'destinations' ? styles.panelVisible : styles.panelHidden}`}>
             
@@ -424,14 +578,17 @@ export default function ServicesDestinationsSection() {
               <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.estadiosEventosTitle')}</h3>
               <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.estadiosEventosSubtitle')}</p>
             </div>
-
+ 
             <div className={styles.gridGastro}>
               {stadiumsData.map((dest) => (
                 <div
                   key={dest.id}
                   className={`${styles.cardGastro} ${activeCard === `dest-${dest.id}` ? styles.cardActive : ''} ${!dest.bgImage ? styles.gradientPlaceholder : ''}`}
                   style={dest.bgImage ? { backgroundImage: `url('${dest.bgImage}')` } : {}}
-                  onClick={() => setActiveCard(activeCard === `dest-${dest.id}` ? null : `dest-${dest.id}`)}
+                  onClick={() => {
+                    setActiveCard(activeCard === `dest-${dest.id}` ? null : `dest-${dest.id}`);
+                    handleCardClick('destination', dest.title, 'Stadium');
+                  }}
                 >
                   <div className={styles.cardGastroContent}>
                     <h3 className={styles.cardGastroTitle}>{dest.title}</h3>
@@ -460,7 +617,10 @@ export default function ServicesDestinationsSection() {
                   key={attr.id}
                   className={`${styles.cardGastro} ${activeCard === `attr-${attr.id}` ? styles.cardActive : ''} ${!attr.bgImage ? styles.gradientPlaceholder : ''}`}
                   style={attr.bgImage ? { backgroundImage: `url('${attr.bgImage}')` } : {}}
-                  onClick={() => setActiveCard(activeCard === `attr-${attr.id}` ? null : `attr-${attr.id}`)}
+                  onClick={() => {
+                    setActiveCard(activeCard === `attr-${attr.id}` ? null : `attr-${attr.id}`);
+                    handleCardClick('destination', attr.title, 'Tourism');
+                  }}
                 >
                   <div className={styles.cardGastroContent}>
                     <h3 className={styles.cardGastroTitle}>{attr.title}</h3>
@@ -486,7 +646,10 @@ export default function ServicesDestinationsSection() {
                   key={town.id}
                   className={`${styles.cardGastro} ${activeCard === `town-${town.id}` ? styles.cardActive : ''} ${!town.bgImage ? styles.gradientPlaceholder : ''}`}
                   style={town.bgImage ? { backgroundImage: `url('${town.bgImage}')` } : {}}
-                  onClick={() => setActiveCard(activeCard === `town-${town.id}` ? null : `town-${town.id}`)}
+                  onClick={() => {
+                    setActiveCard(activeCard === `town-${town.id}` ? null : `town-${town.id}`);
+                    handleCardClick('gastro', town.title, 'Gastro');
+                  }}
                 >
                   <div className={styles.cardGastroContent}>
                     <div className={styles.badgeGroup}>
@@ -516,7 +679,10 @@ export default function ServicesDestinationsSection() {
                   key={item.id}
                   className={`${styles.cardCosta} ${activeCard === `costa-${item.id}` ? styles.cardActive : ''}`}
                   style={{ backgroundImage: `url('${item.bgImage}')` }}
-                  onClick={() => setActiveCard(activeCard === `costa-${item.id}` ? null : `costa-${item.id}`)}
+                  onClick={() => {
+                    setActiveCard(activeCard === `costa-${item.id}` ? null : `costa-${item.id}`);
+                    handleCardClick('costa', item.title, 'Costa');
+                  }}
                 >
                   <div className={styles.cardCostaContent}>
                     <div className={styles.badgeGroup}>
@@ -548,6 +714,204 @@ export default function ServicesDestinationsSection() {
 
           </div>
 
+        </div>
+
+        {/* Formulario de Reserva */}
+        <div id="booking-form" className={styles.bookingFormContainer}>
+          <div className={styles.bookingHeader}>
+            <span className={styles.bookingBadge}>{t('booking.badgeCompact')}</span>
+            <h3 className={styles.bookingTitle}>{t('booking.titleCompact')}</h3>
+          </div>
+
+          {success && (
+            <div className={styles.successBanner}>
+              <span className={styles.successIcon}>✅</span>
+              <p>{t('booking.success')}</p>
+            </div>
+          )}
+
+          <form onSubmit={handleFormSubmit} className={styles.form} noValidate>
+            <div className={styles.formGrid}>
+              {/* Nombre completo */}
+              <div className={`${styles.formGroup} ${styles.colName}`}>
+                <label htmlFor="booking-name" className={styles.label}>{t('booking.labelName')}</label>
+                <input
+                  type="text"
+                  id="booking-name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleFormChange}
+                  placeholder={t('booking.placeholderName')}
+                  className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
+                />
+                {errors.name && <span className={styles.errorText}>{errors.name}</span>}
+              </div>
+
+              {/* Teléfono */}
+              <div className={`${styles.formGroup} ${styles.colPhone}`}>
+                <label htmlFor="booking-phone" className={styles.label}>{t('booking.labelPhone')}</label>
+                <input
+                  type="tel"
+                  id="booking-phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleFormChange}
+                  placeholder={t('booking.placeholderPhone')}
+                  className={`${styles.input} ${errors.phone ? styles.inputError : ''}`}
+                />
+                {errors.phone && <span className={styles.errorText}>{errors.phone}</span>}
+              </div>
+
+              {/* Email */}
+              <div className={`${styles.formGroup} ${styles.colEmail}`}>
+                <label htmlFor="booking-email" className={styles.label}>{t('booking.labelEmail')}</label>
+                <input
+                  type="email"
+                  id="booking-email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleFormChange}
+                  placeholder={t('booking.placeholderEmail')}
+                  className={styles.input}
+                />
+              </div>
+
+              {/* Tipo de servicio */}
+              <div className={`${styles.formGroup} ${styles.colService}`}>
+                <label htmlFor="booking-service" className={styles.label}>{t('booking.labelService')}</label>
+                <select
+                  id="booking-service"
+                  name="service"
+                  value={formData.service}
+                  onChange={handleFormChange}
+                  className={`${styles.select} ${errors.service ? styles.inputError : ''}`}
+                >
+                  <option value="">{t('booking.serviceSelect')}</option>
+                  {serviceOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {t(opt.labelKey)}
+                    </option>
+                  ))}
+                </select>
+                {errors.service && <span className={styles.errorText}>{errors.service}</span>}
+              </div>
+
+              {/* Origen */}
+              <div className={`${styles.formGroup} ${styles.colOrigin}`}>
+                <label htmlFor="booking-origin" className={styles.label}>{t('booking.labelOrigin')}</label>
+                <input
+                  type="text"
+                  id="booking-origin"
+                  name="origin"
+                  value={formData.origin}
+                  onChange={handleFormChange}
+                  placeholder={t('booking.placeholderOrigin')}
+                  className={`${styles.input} ${errors.origin ? styles.inputError : ''}`}
+                />
+                {errors.origin && <span className={styles.errorText}>{errors.origin}</span>}
+              </div>
+
+              {/* Destino */}
+              <div className={`${styles.formGroup} ${styles.colDestination}`}>
+                <label htmlFor="booking-destination" className={styles.label}>{t('booking.labelDestination')}</label>
+                <input
+                  type="text"
+                  id="booking-destination"
+                  name="destination"
+                  value={formData.destination}
+                  onChange={handleFormChange}
+                  placeholder={t('booking.placeholderDestination')}
+                  className={`${styles.input} ${errors.destination ? styles.inputError : ''}`}
+                />
+                {errors.destination && <span className={styles.errorText}>{errors.destination}</span>}
+              </div>
+
+              {/* Fecha */}
+              <div className={`${styles.formGroup} ${styles.colDate}`}>
+                <label htmlFor="booking-date" className={styles.label}>{t('booking.labelDate')}</label>
+                <input
+                  type="date"
+                  id="booking-date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleFormChange}
+                  className={`${styles.input} ${errors.date ? styles.inputError : ''}`}
+                />
+                {errors.date && <span className={styles.errorText}>{errors.date}</span>}
+              </div>
+
+              {/* Hora */}
+              <div className={`${styles.formGroup} ${styles.colTime}`}>
+                <label htmlFor="booking-time" className={styles.label}>{t('booking.labelTime')}</label>
+                <input
+                  type="time"
+                  id="booking-time"
+                  name="time"
+                  value={formData.time}
+                  onChange={handleFormChange}
+                  className={`${styles.input} ${errors.time ? styles.inputError : ''}`}
+                />
+                {errors.time && <span className={styles.errorText}>{errors.time}</span>}
+              </div>
+
+              {/* Pasajeros */}
+              <div className={`${styles.formGroup} ${styles.colPassengers}`}>
+                <label htmlFor="booking-passengers" className={styles.label}>{t('booking.labelPassengers')}</label>
+                <input
+                  type="number"
+                  id="booking-passengers"
+                  name="passengers"
+                  min="1"
+                  max="7"
+                  value={formData.passengers}
+                  onChange={handleFormChange}
+                  className={styles.input}
+                />
+              </div>
+
+              {/* Equipaje */}
+              <div className={`${styles.formGroup} ${styles.colLuggage}`}>
+                <label htmlFor="booking-luggage" className={styles.label}>{t('booking.labelLuggage')}</label>
+                <select
+                  id="booking-luggage"
+                  name="luggage"
+                  value={formData.luggage}
+                  onChange={handleFormChange}
+                  className={styles.select}
+                >
+                  {luggageOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {t(opt.labelKey)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Notas adicionales */}
+              <div className={`${styles.formGroup} ${styles.colNotes}`}>
+                <label htmlFor="booking-notes" className={styles.label}>{t('booking.labelNotes')}</label>
+                <textarea
+                  id="booking-notes"
+                  name="notes"
+                  rows="3"
+                  value={formData.notes}
+                  onChange={handleFormChange}
+                  placeholder={t('booking.placeholderNotes')}
+                  className={styles.textarea}
+                />
+              </div>
+
+              {/* Botón submit */}
+              <div className={`${styles.formGroup} ${styles.colSubmit}`}>
+                <button type="submit" className={styles.submitBtn}>
+                  <svg className={styles.whatsappIcon} viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.031 2c-5.516 0-9.984 4.478-9.984 10 0 1.768.462 3.424 1.258 4.88l-1.305 4.81 4.908-1.298c1.427.778 3.05 1.22 4.773 1.22 5.516 0 9.984-4.478 9.984-10 0-5.522-4.468-10-9.984-10zm4.973 14.155c-.206.581-1.019 1.127-1.402 1.18-.383.053-.873.08-2.65-.64-2.277-.92-3.708-3.238-3.822-3.39-.115-.152-.924-1.229-.924-2.353 0-1.124.584-1.677.795-1.905.206-.228.459-.286.613-.286.154 0 .307.006.441.012.14.006.329-.053.513.393.189.46.647 1.58.704 1.701.057.12.096.262.015.427-.077.166-.118.269-.236.407-.118.138-.25.31-.355.414-.115.115-.236.241-.102.473.134.228.599.988 1.286 1.6 1.137 1.01 1.944 1.34 2.219 1.45.275.11.435.093.596-.093.161-.186.689-.806.873-1.082.183-.275.367-.23.619-.136.253.093 1.6.755 1.876.893.275.138.459.206.527.323.067.117.067.68-.139 1.261z" />
+                  </svg>
+                  <span>{t('booking.submit')}</span>
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
 
         {/* CTA Final */}

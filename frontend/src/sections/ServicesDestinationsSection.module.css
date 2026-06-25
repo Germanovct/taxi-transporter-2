@@ -931,3 +931,290 @@
   }
 }
 
+/* Booking Form Container in ServicesDestinations */
+.bookingFormContainer {
+  margin-top: 80px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+}
+
+.bookingHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.bookingBadge {
+  display: inline-block;
+  font-family: var(--font-subtitle);
+  color: var(--accent-blue);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  padding: 4px 12px;
+  background: rgba(79, 142, 247, 0.06);
+  border: 1px dashed rgba(79, 142, 247, 0.3);
+  border-radius: 50px;
+}
+
+.bookingTitle {
+  font-family: var(--font-title);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: normal;
+  letter-spacing: 2px;
+  line-height: 1.1;
+  color: white;
+  margin: 0;
+}
+
+/* Success Banner */
+.successBanner {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.successIcon {
+  font-size: 18px;
+}
+
+.successBanner p {
+  color: #4ade80;
+  font-size: 14px;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Form Styles */
+.form {
+  width: 100%;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Row 1 Grid Spans */
+.colName {
+  grid-column: span 1;
+}
+.colPhone {
+  grid-column: span 1;
+}
+.colEmail {
+  grid-column: span 1;
+}
+
+/* Row 2 Grid Spans */
+.colService {
+  grid-column: span 1;
+}
+.colOrigin {
+  grid-column: span 1;
+}
+.colDestination {
+  grid-column: span 1;
+}
+
+/* Row 3 Grid Spans */
+.colDate {
+  grid-column: span 1;
+}
+.colTime {
+  grid-column: span 1;
+}
+.colPassengers {
+  grid-column: span 1;
+}
+
+/* Row 4 Grid Spans */
+.colLuggage {
+  grid-column: span 1;
+}
+.colNotes {
+  grid-column: span 2;
+}
+
+/* Row 5 Grid Spans */
+.colSubmit {
+  grid-column: span 3;
+}
+
+.label {
+  font-family: var(--font-subtitle);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.input,
+.select,
+.textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: white;
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(79, 142, 247, 0.15);
+}
+
+.select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+  padding-right: 35px;
+}
+
+.inputError {
+  border-color: #ef4444 !important;
+}
+
+.errorText {
+  color: #ef4444;
+  font-size: 11px;
+  margin-top: 4px;
+  font-family: var(--font-body);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 44px;
+}
+
+/* Submit Button */
+.submitBtn {
+  width: 100%;
+  font-family: var(--font-subtitle);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 14px;
+  background: var(--gradient-main);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3), 0 0 12px rgba(79, 142, 247, 0.2);
+  text-transform: uppercase;
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 0 25px rgba(124, 58, 237, 0.5), 0 0 16px rgba(79, 142, 247, 0.4);
+}
+
+.submitBtn:active {
+  transform: translateY(1px);
+}
+
+.whatsappIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gridCosta {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .costaBanner {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+    gap: 16px;
+  }
+  
+  .costaBannerBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bookingFormContainer {
+    margin-top: 60px;
+    padding: 20px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .colName,
+  .colPhone,
+  .colEmail,
+  .colService,
+  .colOrigin,
+  .colDestination,
+  .colDate,
+  .colTime,
+  .colPassengers,
+  .colLuggage,
+  .colNotes,
+  .colSubmit {
+    grid-column: span 1 !important;
+  }
+
+  .submitBtn {
+    padding: 14px;
+    font-size: 14px;
+  }
+}
+
