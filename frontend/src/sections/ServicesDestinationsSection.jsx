@@ -36,6 +36,7 @@ export default function ServicesDestinationsSection() {
     { value: 'Gastro', labelKey: 'booking.serviceGastro' },
     { value: 'Costa', labelKey: 'booking.serviceCosta' },
     { value: 'Tourism', labelKey: 'booking.serviceTourism' },
+    { value: 'Groups', labelKey: 'booking.serviceGroups' },
     { value: 'Other', labelKey: 'booking.serviceOther' }
   ];
 
@@ -212,6 +213,17 @@ _Enviado desde taxieltransporter2.com_`;
       icon: (
         <svg className={styles.icon} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+      )
+    },
+    {
+      id: 7,
+      title: t('services.s7Title'),
+      desc: t('services.s7Desc'),
+      bgImage: "/images/contingentes.jpg",
+      icon: (
+        <svg className={styles.icon} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
         </svg>
       )
     }
@@ -538,7 +550,7 @@ _Enviado desde taxieltransporter2.com_`;
               {servicesData.map((service) => (
                 <div
                   key={service.id}
-                  className={`${styles.cardService} ${activeCard === `service-${service.id}` ? styles.cardActive : ''}`}
+                  className={`${styles.cardService} ${activeCard === `service-${service.id}` ? styles.cardActive : ''} ${service.id === 7 ? styles.cardServiceWide : ''}`}
                   style={{ backgroundImage: `url('${service.bgImage}')` }}
                   onClick={() => {
                     setActiveCard(activeCard === `service-${service.id}` ? null : `service-${service.id}`);
@@ -548,7 +560,8 @@ _Enviado desde taxieltransporter2.com_`;
                       3: 'Terminal',
                       4: 'Fluvio',
                       5: 'Distance',
-                      6: 'City'
+                      6: 'City',
+                      7: 'Groups'
                     };
                     handleCardClick('service', service.title, serviceValuesMap[service.id]);
                   }}

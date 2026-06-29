@@ -59,7 +59,9 @@
     "s5Title": "Larga Distancia",
     "s5Desc": "Mar del Plata, Córdoba, Rosario, Mendoza y todo el país.",
     "s6Title": "City Tour Buenos Aires",
-    "s6Desc": "Caminito, Obelisco, Tigre y los lugares más icónicos de la ciudad."
+    "s6Desc": "Caminito, Obelisco, Tigre y los lugares más icónicos de la ciudad.",
+    "s7Title": "Viajes a Contingentes y Grupos Familiares",
+    "s7Desc": "Unidades de hasta 19 personas para viajes express y micros de larga distancia para traslados de grupos grandes."
   },
   "whyUs": {
     "badge": "✦ POR QUÉ ELEGIRNOS ✦",
@@ -317,6 +319,7 @@
     "serviceGastro": "🍽️ Pueblos Gastronómicos",
     "serviceCosta": "🌊 Costa Atlántica",
     "serviceTourism": "🗺️ Turismo y Cultura",
+    "serviceGroups": "👥 Viajes a Contingentes / Grupos",
     "serviceOther": "Otro",
     "luggageNone": "Sin equipaje extra",
     "luggageMedium": "1-2 valijas medianas",

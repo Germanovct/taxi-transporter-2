@@ -59,7 +59,9 @@
     "s5Title": "Longa Distância",
     "s5Desc": "Mar del Plata, Córdoba, Rosário, Mendoza e todo o país.",
     "s6Title": "City Tour Buenos Aires",
-    "s6Desc": "Caminito, Obelisco, Tigre e os locais mais icônicos da cidade."
+    "s6Desc": "Caminito, Obelisco, Tigre e os locais mais icônicos da cidade.",
+    "s7Title": "Viagens de Contingentes e Grupos Familiares",
+    "s7Desc": "Temos unidades de até 19 pessoas para viagens expressas e ônibus de longa distância para traslados de grupos maiores."
   },
   "whyUs": {
     "badge": "✦ POR QUE NOS ESCOLHER? ✦",
@@ -317,6 +319,7 @@
     "serviceGastro": "🍽️ Vilas Gastronômicas",
     "serviceCosta": "🌊 Costa Atlântica",
     "serviceTourism": "🗺️ Turismo e Cultura",
+    "serviceGroups": "👥 Viagens de Contingentes e Grupos",
     "serviceOther": "Outro",
     "luggageNone": "Sem bagagem extra",
     "luggageMedium": "1-2 malas médias",

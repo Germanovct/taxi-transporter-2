@@ -59,7 +59,9 @@
     "s5Title": "Long Distance",
     "s5Desc": "Mar del Plata, Cordoba, Rosario, Mendoza, and the entire country.",
     "s6Title": "Buenos Aires City Tour",
-    "s6Desc": "Caminito, Obelisco, Tigre, and the most iconic locations in the city."
+    "s6Desc": "Caminito, Obelisco, Tigre, and the most iconic locations in the city.",
+    "s7Title": "Contingents & Family Groups Trips",
+    "s7Desc": "Vehicles up to 19 passengers for express trips and long-distance coaches for larger transfers."
   },
   "whyUs": {
     "badge": "✦ WHY CHOOSE US ✦",
@@ -317,6 +319,7 @@
     "serviceGastro": "🍽️ Gastronomic Towns",
     "serviceCosta": "🌊 Atlantic Coast",
     "serviceTourism": "🗺️ Tourism & Culture",
+    "serviceGroups": "👥 Contingent & Family Group Trips",
     "serviceOther": "Other",
     "luggageNone": "No extra luggage",
     "luggageMedium": "1-2 medium suitcases",

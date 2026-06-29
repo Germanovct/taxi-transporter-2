@@ -1218,3 +1218,19 @@
   }
 }
 
+/* 7th card spanning wide */
+.cardServiceWide {
+  grid-column: span 3;
+}
+
+@media (max-width: 1200px) {
+  .cardServiceWide {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .cardServiceWide {
+    grid-column: span 1;
+  }
+}
