@@ -25,6 +25,15 @@ export default function ServicesDestinationsSection() {
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
 
+  // Phase 2 — Booking stepper state
+  const [bookingStep, setBookingStep] = useState(1); // 1: form, 2: quote, 3: payment
+  const [quoteData, setQuoteData] = useState(null);
+  const [isQuoting, setIsQuoting] = useState(false);
+  const [isCreatingPayment, setIsCreatingPayment] = useState(false);
+  const [quoteError, setQuoteError] = useState(null);
+
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
   const serviceOptions = [
     { value: 'Ezeiza', labelKey: 'booking.serviceEzeiza' },
     { value: 'Aeroparque', labelKey: 'booking.serviceAeroparque' },
@@ -79,7 +88,7 @@ export default function ServicesDestinationsSection() {
     }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     const requiredFields = ['name', 'phone', 'service', 'origin', 'destination', 'date', 'time'];
@@ -100,53 +109,98 @@ export default function ServicesDestinationsSection() {
       return;
     }
 
-    const selectedServiceObj = serviceOptions.find((opt) => opt.value === formData.service);
-    const serviceLabel = selectedServiceObj ? t(selectedServiceObj.labelKey) : formData.service;
+    // Phase 2 — Call quote API instead of WhatsApp
+    setIsQuoting(true);
+    setQuoteError(null);
+
+    try {
+      const response = await fetch(`${API_URL}/booking/quote`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          origin: formData.origin,
+          destination: formData.destination,
+          passengers: parseInt(formData.passengers) || 1
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || 'Error al calcular el precio');
+      }
+
+      const data = await response.json();
+      setQuoteData(data);
+      setBookingStep(2);
+      
+      // Scroll to the booking form area
+      const formEl = document.getElementById('booking-form');
+      if (formEl) {
+        formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } catch (error) {
+      console.error('Quote error:', error);
+      setQuoteError(error.message || 'No se pudo calcular el precio. Intentá de nuevo.');
+    } finally {
+      setIsQuoting(false);
+    }
+  };
+
+  const handleBackToForm = () => {
+    setBookingStep(1);
+    setQuoteData(null);
+    setQuoteError(null);
+  };
+
+  const handleConfirmAndPay = async () => {
+    if (!quoteData) return;
+
+    setIsCreatingPayment(true);
+    setBookingStep(3);
 
     const selectedLuggageObj = luggageOptions.find((opt) => opt.value === formData.luggage);
     const luggageLabel = selectedLuggageObj ? t(selectedLuggageObj.labelKey) : formData.luggage;
 
-    const message = `🚗 *NUEVA RESERVA — TAXI EL TRANSPORTER 2*
+    try {
+      const response = await fetch(`${API_URL}/booking/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          passenger_name: formData.name,
+          passenger_email: formData.email || 'sin-email@taxieltransporter2.com',
+          passenger_phone: formData.phone,
+          origin: quoteData.origin_formatted || formData.origin,
+          destination: quoteData.destination_formatted || formData.destination,
+          distance_km: quoteData.distance_km,
+          duration_minutes: quoteData.duration_minutes,
+          price_ars: quoteData.price_ars,
+          date: formData.date,
+          time: formData.time,
+          passengers: parseInt(formData.passengers) || 1,
+          luggage: luggageLabel,
+          notes: formData.notes || ''
+        })
+      });
 
-👤 *Nombre:* ${formData.name}
-📞 *Teléfono:* ${formData.phone}
-📧 *Email:* ${formData.email || '-'}
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || 'Error al crear la reserva');
+      }
 
-🚘 *Servicio:* ${serviceLabel}
-📍 *Origen:* ${formData.origin}
-🎯 *Destino:* ${formData.destination}
-📅 *Fecha:* ${formData.date}
-⏰ *Hora:* ${formData.time}
-👥 *Pasajeros:* ${formData.passengers}
-🧳 *Equipaje:* ${luggageLabel}
-${formData.notes.trim() ? `📝 *Notas:* ${formData.notes.trim()}` : ''}
+      const data = await response.json();
+      
+      // Redirect to Mercado Pago checkout
+      window.location.href = data.init_point;
+    } catch (error) {
+      console.error('Booking creation error:', error);
+      setQuoteError(error.message || 'No se pudo preparar el pago. Intentá de nuevo.');
+      setBookingStep(2);
+      setIsCreatingPayment(false);
+    }
+  };
 
-_Enviado desde taxieltransporter2.com_`;
-
-    const whatsappUrl = `https://wa.me/541126281011?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-
-    setSuccess(true);
-
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      service: '',
-      origin: '',
-      destination: '',
-      date: '',
-      time: '',
-      passengers: '1',
-      luggage: 'None',
-      notes: ''
-    });
-
-    setErrors({});
-
-    setTimeout(() => {
-      setSuccess(false);
-    }, 5000);
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('es-AR').format(price);
   };
 
   const servicesData = [
@@ -729,202 +783,351 @@ _Enviado desde taxieltransporter2.com_`;
 
         </div>
 
-        {/* Formulario de Reserva */}
+        {/* Formulario de Reserva — Stepper */}
         <div id="booking-form" className={styles.bookingFormContainer}>
           <div className={styles.bookingHeader}>
             <span className={styles.bookingBadge}>{t('booking.badgeCompact')}</span>
             <h3 className={styles.bookingTitle}>{t('booking.titleCompact')}</h3>
           </div>
 
-          {success && (
-            <div className={styles.successBanner}>
-              <span className={styles.successIcon}>✅</span>
-              <p>{t('booking.success')}</p>
+          {/* Stepper Visual */}
+          <div className={styles.stepper}>
+            {/* Step 1 */}
+            <div className={styles.stepItem}>
+              <div className={`${styles.stepCircle} ${
+                bookingStep === 1 ? styles.stepCircleActive : 
+                bookingStep > 1 ? styles.stepCircleCompleted : styles.stepCirclePending
+              }`}>
+                {bookingStep > 1 ? '✓' : '1'}
+              </div>
+              <span className={`${styles.stepLabel} ${
+                bookingStep === 1 ? styles.stepLabelActive : 
+                bookingStep > 1 ? styles.stepLabelCompleted : styles.stepLabelPending
+              }`}>{t('booking.step1')}</span>
+            </div>
+            {/* Line 1→2 */}
+            <div className={`${styles.stepLine} ${bookingStep > 1 ? styles.stepLineCompleted : styles.stepLinePending}`} />
+            {/* Step 2 */}
+            <div className={styles.stepItem}>
+              <div className={`${styles.stepCircle} ${
+                bookingStep === 2 ? styles.stepCircleActive : 
+                bookingStep > 2 ? styles.stepCircleCompleted : styles.stepCirclePending
+              }`}>
+                {bookingStep > 2 ? '✓' : '2'}
+              </div>
+              <span className={`${styles.stepLabel} ${
+                bookingStep === 2 ? styles.stepLabelActive : 
+                bookingStep > 2 ? styles.stepLabelCompleted : styles.stepLabelPending
+              }`}>{t('booking.step2')}</span>
+            </div>
+            {/* Line 2→3 */}
+            <div className={`${styles.stepLine} ${bookingStep > 2 ? styles.stepLineCompleted : styles.stepLinePending}`} />
+            {/* Step 3 */}
+            <div className={styles.stepItem}>
+              <div className={`${styles.stepCircle} ${
+                bookingStep === 3 ? styles.stepCircleActive : styles.stepCirclePending
+              }`}>
+                3
+              </div>
+              <span className={`${styles.stepLabel} ${
+                bookingStep === 3 ? styles.stepLabelActive : styles.stepLabelPending
+              }`}>{t('booking.step3')}</span>
+            </div>
+          </div>
+
+          {/* Quote Error Banner */}
+          {quoteError && (
+            <div className={styles.successBanner} style={{ 
+              background: 'rgba(239, 68, 68, 0.1)', 
+              borderColor: 'rgba(239, 68, 68, 0.4)' 
+            }}>
+              <span className={styles.successIcon}>⚠️</span>
+              <p style={{ color: '#f87171' }}>{quoteError}</p>
             </div>
           )}
 
-          <form onSubmit={handleFormSubmit} className={styles.form} noValidate>
-            <div className={styles.formGrid}>
-              {/* Nombre completo */}
-              <div className={`${styles.formGroup} ${styles.colName}`}>
-                <label htmlFor="booking-name" className={styles.label}>{t('booking.labelName')}</label>
-                <input
-                  type="text"
-                  id="booking-name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleFormChange}
-                  placeholder={t('booking.placeholderName')}
-                  className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
-                />
-                {errors.name && <span className={styles.errorText}>{errors.name}</span>}
-              </div>
+          {/* ═══ STEP 1: Form ═══ */}
+          {bookingStep === 1 && (
+            <div className={styles.stepContent}>
+              <form onSubmit={handleFormSubmit} className={styles.form} noValidate>
+                <div className={styles.formGrid}>
+                  {/* Nombre completo */}
+                  <div className={`${styles.formGroup} ${styles.colName}`}>
+                    <label htmlFor="booking-name" className={styles.label}>{t('booking.labelName')}</label>
+                    <input
+                      type="text"
+                      id="booking-name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleFormChange}
+                      placeholder={t('booking.placeholderName')}
+                      className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
+                    />
+                    {errors.name && <span className={styles.errorText}>{errors.name}</span>}
+                  </div>
 
-              {/* Teléfono */}
-              <div className={`${styles.formGroup} ${styles.colPhone}`}>
-                <label htmlFor="booking-phone" className={styles.label}>{t('booking.labelPhone')}</label>
-                <input
-                  type="tel"
-                  id="booking-phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleFormChange}
-                  placeholder={t('booking.placeholderPhone')}
-                  className={`${styles.input} ${errors.phone ? styles.inputError : ''}`}
-                />
-                {errors.phone && <span className={styles.errorText}>{errors.phone}</span>}
-              </div>
+                  {/* Teléfono */}
+                  <div className={`${styles.formGroup} ${styles.colPhone}`}>
+                    <label htmlFor="booking-phone" className={styles.label}>{t('booking.labelPhone')}</label>
+                    <input
+                      type="tel"
+                      id="booking-phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleFormChange}
+                      placeholder={t('booking.placeholderPhone')}
+                      className={`${styles.input} ${errors.phone ? styles.inputError : ''}`}
+                    />
+                    {errors.phone && <span className={styles.errorText}>{errors.phone}</span>}
+                  </div>
 
-              {/* Email */}
-              <div className={`${styles.formGroup} ${styles.colEmail}`}>
-                <label htmlFor="booking-email" className={styles.label}>{t('booking.labelEmail')}</label>
-                <input
-                  type="email"
-                  id="booking-email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleFormChange}
-                  placeholder={t('booking.placeholderEmail')}
-                  className={styles.input}
-                />
-              </div>
+                  {/* Email */}
+                  <div className={`${styles.formGroup} ${styles.colEmail}`}>
+                    <label htmlFor="booking-email" className={styles.label}>{t('booking.labelEmail')}</label>
+                    <input
+                      type="email"
+                      id="booking-email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleFormChange}
+                      placeholder={t('booking.placeholderEmail')}
+                      className={styles.input}
+                    />
+                  </div>
 
-              {/* Tipo de servicio */}
-              <div className={`${styles.formGroup} ${styles.colService}`}>
-                <label htmlFor="booking-service" className={styles.label}>{t('booking.labelService')}</label>
-                <select
-                  id="booking-service"
-                  name="service"
-                  value={formData.service}
-                  onChange={handleFormChange}
-                  className={`${styles.select} ${errors.service ? styles.inputError : ''}`}
-                >
-                  <option value="">{t('booking.serviceSelect')}</option>
-                  {serviceOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {t(opt.labelKey)}
-                    </option>
-                  ))}
-                </select>
-                {errors.service && <span className={styles.errorText}>{errors.service}</span>}
-              </div>
+                  {/* Tipo de servicio */}
+                  <div className={`${styles.formGroup} ${styles.colService}`}>
+                    <label htmlFor="booking-service" className={styles.label}>{t('booking.labelService')}</label>
+                    <select
+                      id="booking-service"
+                      name="service"
+                      value={formData.service}
+                      onChange={handleFormChange}
+                      className={`${styles.select} ${errors.service ? styles.inputError : ''}`}
+                    >
+                      <option value="">{t('booking.serviceSelect')}</option>
+                      {serviceOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {t(opt.labelKey)}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.service && <span className={styles.errorText}>{errors.service}</span>}
+                  </div>
 
-              {/* Origen */}
-              <div className={`${styles.formGroup} ${styles.colOrigin}`}>
-                <label htmlFor="booking-origin" className={styles.label}>{t('booking.labelOrigin')}</label>
-                <input
-                  type="text"
-                  id="booking-origin"
-                  name="origin"
-                  value={formData.origin}
-                  onChange={handleFormChange}
-                  placeholder={t('booking.placeholderOrigin')}
-                  className={`${styles.input} ${errors.origin ? styles.inputError : ''}`}
-                />
-                {errors.origin && <span className={styles.errorText}>{errors.origin}</span>}
-              </div>
+                  {/* Origen */}
+                  <div className={`${styles.formGroup} ${styles.colOrigin}`}>
+                    <label htmlFor="booking-origin" className={styles.label}>{t('booking.labelOrigin')}</label>
+                    <input
+                      type="text"
+                      id="booking-origin"
+                      name="origin"
+                      value={formData.origin}
+                      onChange={handleFormChange}
+                      placeholder={t('booking.placeholderOrigin')}
+                      className={`${styles.input} ${errors.origin ? styles.inputError : ''}`}
+                    />
+                    {errors.origin && <span className={styles.errorText}>{errors.origin}</span>}
+                  </div>
 
-              {/* Destino */}
-              <div className={`${styles.formGroup} ${styles.colDestination}`}>
-                <label htmlFor="booking-destination" className={styles.label}>{t('booking.labelDestination')}</label>
-                <input
-                  type="text"
-                  id="booking-destination"
-                  name="destination"
-                  value={formData.destination}
-                  onChange={handleFormChange}
-                  placeholder={t('booking.placeholderDestination')}
-                  className={`${styles.input} ${errors.destination ? styles.inputError : ''}`}
-                />
-                {errors.destination && <span className={styles.errorText}>{errors.destination}</span>}
-              </div>
+                  {/* Destino */}
+                  <div className={`${styles.formGroup} ${styles.colDestination}`}>
+                    <label htmlFor="booking-destination" className={styles.label}>{t('booking.labelDestination')}</label>
+                    <input
+                      type="text"
+                      id="booking-destination"
+                      name="destination"
+                      value={formData.destination}
+                      onChange={handleFormChange}
+                      placeholder={t('booking.placeholderDestination')}
+                      className={`${styles.input} ${errors.destination ? styles.inputError : ''}`}
+                    />
+                    {errors.destination && <span className={styles.errorText}>{errors.destination}</span>}
+                  </div>
 
-              {/* Fecha */}
-              <div className={`${styles.formGroup} ${styles.colDate}`}>
-                <label htmlFor="booking-date" className={styles.label}>{t('booking.labelDate')}</label>
-                <input
-                  type="date"
-                  id="booking-date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleFormChange}
-                  className={`${styles.input} ${errors.date ? styles.inputError : ''}`}
-                />
-                {errors.date && <span className={styles.errorText}>{errors.date}</span>}
-              </div>
+                  {/* Fecha */}
+                  <div className={`${styles.formGroup} ${styles.colDate}`}>
+                    <label htmlFor="booking-date" className={styles.label}>{t('booking.labelDate')}</label>
+                    <input
+                      type="date"
+                      id="booking-date"
+                      name="date"
+                      value={formData.date}
+                      onChange={handleFormChange}
+                      className={`${styles.input} ${errors.date ? styles.inputError : ''}`}
+                    />
+                    {errors.date && <span className={styles.errorText}>{errors.date}</span>}
+                  </div>
 
-              {/* Hora */}
-              <div className={`${styles.formGroup} ${styles.colTime}`}>
-                <label htmlFor="booking-time" className={styles.label}>{t('booking.labelTime')}</label>
-                <input
-                  type="time"
-                  id="booking-time"
-                  name="time"
-                  value={formData.time}
-                  onChange={handleFormChange}
-                  className={`${styles.input} ${errors.time ? styles.inputError : ''}`}
-                />
-                {errors.time && <span className={styles.errorText}>{errors.time}</span>}
-              </div>
+                  {/* Hora */}
+                  <div className={`${styles.formGroup} ${styles.colTime}`}>
+                    <label htmlFor="booking-time" className={styles.label}>{t('booking.labelTime')}</label>
+                    <input
+                      type="time"
+                      id="booking-time"
+                      name="time"
+                      value={formData.time}
+                      onChange={handleFormChange}
+                      className={`${styles.input} ${errors.time ? styles.inputError : ''}`}
+                    />
+                    {errors.time && <span className={styles.errorText}>{errors.time}</span>}
+                  </div>
 
-              {/* Pasajeros */}
-              <div className={`${styles.formGroup} ${styles.colPassengers}`}>
-                <label htmlFor="booking-passengers" className={styles.label}>{t('booking.labelPassengers')}</label>
-                <input
-                  type="number"
-                  id="booking-passengers"
-                  name="passengers"
-                  min="1"
-                  max="7"
-                  value={formData.passengers}
-                  onChange={handleFormChange}
-                  className={styles.input}
-                />
-              </div>
+                  {/* Pasajeros */}
+                  <div className={`${styles.formGroup} ${styles.colPassengers}`}>
+                    <label htmlFor="booking-passengers" className={styles.label}>{t('booking.labelPassengers')}</label>
+                    <input
+                      type="number"
+                      id="booking-passengers"
+                      name="passengers"
+                      min="1"
+                      max="19"
+                      value={formData.passengers}
+                      onChange={handleFormChange}
+                      className={styles.input}
+                    />
+                  </div>
 
-              {/* Equipaje */}
-              <div className={`${styles.formGroup} ${styles.colLuggage}`}>
-                <label htmlFor="booking-luggage" className={styles.label}>{t('booking.labelLuggage')}</label>
-                <select
-                  id="booking-luggage"
-                  name="luggage"
-                  value={formData.luggage}
-                  onChange={handleFormChange}
-                  className={styles.select}
-                >
-                  {luggageOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {t(opt.labelKey)}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                  {/* Equipaje */}
+                  <div className={`${styles.formGroup} ${styles.colLuggage}`}>
+                    <label htmlFor="booking-luggage" className={styles.label}>{t('booking.labelLuggage')}</label>
+                    <select
+                      id="booking-luggage"
+                      name="luggage"
+                      value={formData.luggage}
+                      onChange={handleFormChange}
+                      className={styles.select}
+                    >
+                      {luggageOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {t(opt.labelKey)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
-              {/* Notas adicionales */}
-              <div className={`${styles.formGroup} ${styles.colNotes}`}>
-                <label htmlFor="booking-notes" className={styles.label}>{t('booking.labelNotes')}</label>
-                <textarea
-                  id="booking-notes"
-                  name="notes"
-                  rows="3"
-                  value={formData.notes}
-                  onChange={handleFormChange}
-                  placeholder={t('booking.placeholderNotes')}
-                  className={styles.textarea}
-                />
-              </div>
+                  {/* Notas adicionales */}
+                  <div className={`${styles.formGroup} ${styles.colNotes}`}>
+                    <label htmlFor="booking-notes" className={styles.label}>{t('booking.labelNotes')}</label>
+                    <textarea
+                      id="booking-notes"
+                      name="notes"
+                      rows="3"
+                      value={formData.notes}
+                      onChange={handleFormChange}
+                      placeholder={t('booking.placeholderNotes')}
+                      className={styles.textarea}
+                    />
+                  </div>
 
-              {/* Botón submit */}
-              <div className={`${styles.formGroup} ${styles.colSubmit}`}>
-                <button type="submit" className={styles.submitBtn}>
-                  <svg className={styles.whatsappIcon} viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12.031 2c-5.516 0-9.984 4.478-9.984 10 0 1.768.462 3.424 1.258 4.88l-1.305 4.81 4.908-1.298c1.427.778 3.05 1.22 4.773 1.22 5.516 0 9.984-4.478 9.984-10 0-5.522-4.468-10-9.984-10zm4.973 14.155c-.206.581-1.019 1.127-1.402 1.18-.383.053-.873.08-2.65-.64-2.277-.92-3.708-3.238-3.822-3.39-.115-.152-.924-1.229-.924-2.353 0-1.124.584-1.677.795-1.905.206-.228.459-.286.613-.286.154 0 .307.006.441.012.14.006.329-.053.513.393.189.46.647 1.58.704 1.701.057.12.096.262.015.427-.077.166-.118.269-.236.407-.118.138-.25.31-.355.414-.115.115-.236.241-.102.473.134.228.599.988 1.286 1.6 1.137 1.01 1.944 1.34 2.219 1.45.275.11.435.093.596-.093.161-.186.689-.806.873-1.082.183-.275.367-.23.619-.136.253.093 1.6.755 1.876.893.275.138.459.206.527.323.067.117.067.68-.139 1.261z" />
-                  </svg>
-                  <span>{t('booking.submit')}</span>
-                </button>
+                  {/* Botón submit */}
+                  <div className={`${styles.formGroup} ${styles.colSubmit}`}>
+                    <button type="submit" className={styles.submitBtn} disabled={isQuoting}>
+                      {isQuoting ? (
+                        <>
+                          <div className={styles.spinner} style={{ width: 20, height: 20, borderWidth: 2 }} />
+                          <span>{t('booking.calculating')}</span>
+                        </>
+                      ) : (
+                        <span>{t('booking.submitQuote')}</span>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          )}
+
+          {/* ═══ STEP 2: Quotation ═══ */}
+          {bookingStep === 2 && quoteData && (
+            <div className={styles.stepContent}>
+              <div className={styles.quoteCard}>
+                {/* Route */}
+                <div className={styles.quoteRoute}>
+                  <span className={styles.quoteRoutePoint}>
+                    {quoteData.origin_formatted}
+                  </span>
+                  <div className={styles.quoteRouteArrow}>
+                    <span>→</span>
+                  </div>
+                  <span className={styles.quoteRoutePoint}>
+                    {quoteData.destination_formatted}
+                  </span>
+                </div>
+
+                {/* Details */}
+                <div className={styles.quoteDetails}>
+                  <div className={styles.quoteDetailItem}>
+                    <div className={styles.quoteDetailLabel}>{t('booking.distance')}</div>
+                    <div className={styles.quoteDetailValue}>{quoteData.distance_km} km</div>
+                  </div>
+                  <div className={styles.quoteDetailItem}>
+                    <div className={styles.quoteDetailLabel}>{t('booking.duration')}</div>
+                    <div className={styles.quoteDetailValue}>~{quoteData.duration_minutes} min</div>
+                  </div>
+                </div>
+
+                {/* Price */}
+                <div className={styles.quotePriceContainer}>
+                  <div className={styles.quotePrice}>${formatPrice(quoteData.price_ars)} ARS</div>
+                  <div className={styles.quotePriceSubtext}>{t('booking.totalPrice')}</div>
+                </div>
+
+                {/* Breakdown */}
+                <div className={styles.quoteBreakdown}>
+                  <p className={styles.quoteBreakdownText}>
+                    {t('booking.priceBreakdown')}: <strong>{quoteData.distance_km} km × ${formatPrice(quoteData.price_per_km)} ARS/km = ${formatPrice(quoteData.price_ars)} ARS</strong>
+                  </p>
+                </div>
+
+                {/* Legal Warnings */}
+                <div className={styles.warningsBox}>
+                  <div className={styles.warningsTitle}>{t('booking.warningTitle')}</div>
+                  <ul className={styles.warningsList}>
+                    <li className={styles.warningItem}>{t('booking.warningTolls')}</li>
+                    <li className={styles.warningItem}>{t('booking.warningWaiting')}</li>
+                    <li className={styles.warningItem}>{t('booking.warningPerTrip')}</li>
+                    <li className={styles.warningItem}>{t('booking.warningConsult')}</li>
+                  </ul>
+                </div>
+
+                {/* Action Buttons */}
+                <div className={styles.quoteActions}>
+                  <button 
+                    type="button" 
+                    className={styles.btnModify}
+                    onClick={handleBackToForm}
+                  >
+                    {t('booking.btnModify')}
+                  </button>
+                  <button 
+                    type="button" 
+                    className={styles.btnPay}
+                    onClick={handleConfirmAndPay}
+                    disabled={isCreatingPayment}
+                  >
+                    {t('booking.btnPay')}
+                  </button>
+                  <a
+                    href="https://wa.me/541126281011"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.btnWhatsappSecondary}
+                  >
+                    💬 {t('booking.btnWhatsapp')}
+                  </a>
+                </div>
               </div>
             </div>
-          </form>
+          )}
+
+          {/* ═══ STEP 3: Payment Loading ═══ */}
+          {bookingStep === 3 && (
+            <div className={styles.loadingOverlay}>
+              <div className={styles.spinner} />
+              <p className={styles.loadingText}>{t('booking.preparingPayment')}</p>
+            </div>
+          )}
         </div>
 
         {/* CTA Final */}

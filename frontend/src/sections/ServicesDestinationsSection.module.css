@@ -1234,3 +1234,485 @@
     grid-column: span 1;
   }
 }
+
+/* ═══════════════════════════════════════════════
+   PHASE 2 — Booking Stepper, Quotation & Payment
+   ═══════════════════════════════════════════════ */
+
+/* ── Stepper ── */
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 36px;
+  padding: 0 1rem;
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stepCircle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-subtitle);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.stepCirclePending {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stepCircleActive {
+  background: var(--gradient-main);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+}
+
+.stepCircleCompleted {
+  background: #22c55e;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+}
+
+.stepLabel {
+  font-family: var(--font-subtitle);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.stepLabelPending {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.stepLabelActive {
+  color: #fff;
+}
+
+.stepLabelCompleted {
+  color: #4ade80;
+}
+
+.stepLine {
+  width: 60px;
+  height: 2px;
+  margin: 0 16px;
+  transition: background 0.4s ease;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.stepLinePending {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.stepLineCompleted {
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+/* ── Quotation Card ── */
+.quoteCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 32px;
+  animation: fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.quoteRoute {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.quoteRoutePoint {
+  font-family: var(--font-subtitle);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-align: center;
+  max-width: 300px;
+}
+
+.quoteRouteArrow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-blue);
+  flex-shrink: 0;
+}
+
+.quoteRouteArrow span {
+  display: inline-block;
+  animation: arrowPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowPulse {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50% { transform: translateX(4px); opacity: 1; }
+}
+
+.quoteDetails {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 28px;
+}
+
+.quoteDetailItem {
+  text-align: center;
+}
+
+.quoteDetailLabel {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: var(--font-subtitle);
+  margin-bottom: 4px;
+}
+
+.quoteDetailValue {
+  font-family: var(--font-subtitle);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ── Price Display ── */
+.quotePriceContainer {
+  text-align: center;
+  margin: 32px 0;
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.quotePrice {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 8vw, 56px);
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.quotePriceSubtext {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: var(--font-subtitle);
+}
+
+/* ── Price Breakdown ── */
+.quoteBreakdown {
+  text-align: center;
+  margin-bottom: 8px;
+  padding: 12px 0;
+}
+
+.quoteBreakdownText {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-body);
+}
+
+.quoteBreakdownText strong {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ── Legal Warnings Box ── */
+.warningsBox {
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+}
+
+.warningsTitle {
+  font-family: var(--font-subtitle);
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(251, 191, 36, 0.95);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.warningsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.warningItem {
+  font-size: 13px;
+  color: rgba(251, 191, 36, 0.85);
+  line-height: 1.5;
+  padding-left: 8px;
+  border-left: 2px solid rgba(251, 191, 36, 0.3);
+}
+
+/* ── Quote Action Buttons ── */
+.quoteActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.btnModify {
+  flex: 1;
+  min-width: 160px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-family: var(--font-subtitle);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btnModify:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btnPay {
+  flex: 2;
+  min-width: 200px;
+  background: var(--gradient-main);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-family: var(--font-subtitle);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3), 0 0 12px rgba(79, 142, 247, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.btnPay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.6s ease;
+}
+
+.btnPay:hover::before {
+  left: 100%;
+}
+
+.btnPay:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.5), 0 0 16px rgba(79, 142, 247, 0.4);
+  filter: brightness(1.1);
+}
+
+.btnPay:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  filter: none;
+}
+
+.btnWhatsappSecondary {
+  flex: 1;
+  min-width: 200px;
+  background: linear-gradient(135deg, rgba(18, 140, 126, 0.15), rgba(37, 211, 102, 0.15));
+  color: #25d366;
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-family: var(--font-subtitle);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btnWhatsappSecondary:hover {
+  background: linear-gradient(135deg, rgba(18, 140, 126, 0.25), rgba(37, 211, 102, 0.25));
+  border-color: rgba(37, 211, 102, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ── Loading Overlay ── */
+.loadingOverlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 20px;
+  animation: fadeSlideUp 0.4s ease forwards;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  border-top: 3px solid;
+  border-image: var(--gradient-main) 1;
+  border-top-color: var(--accent-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loadingText {
+  font-family: var(--font-subtitle);
+  font-size: 14px;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ── Step transitions ── */
+.stepContent {
+  animation: fadeSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Responsive: Stepper & Quote ── */
+@media (max-width: 768px) {
+  .stepper {
+    gap: 0;
+    padding: 0;
+    flex-wrap: nowrap;
+  }
+
+  .stepCircle {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .stepLabel {
+    display: none;
+  }
+
+  .stepLine {
+    width: 32px;
+    margin: 0 8px;
+  }
+
+  .quoteCard {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .quoteRoute {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .quoteRouteArrow {
+    transform: rotate(90deg);
+  }
+
+  .quoteDetails {
+    gap: 20px;
+  }
+
+  .quoteActions {
+    flex-direction: column;
+  }
+
+  .btnModify,
+  .btnPay,
+  .btnWhatsappSecondary {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .stepLabel {
+    font-size: 10px;
+  }
+
+  .stepLine {
+    width: 40px;
+    margin: 0 10px;
+  }
+}
+
+/* ── Mobile stepper labels visible below circles ── */
+@media (max-width: 768px) {
+  .stepItem {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stepLabel {
+    display: block;
+    font-size: 8px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    max-width: 70px;
+    line-height: 1.2;
+  }
+}
+

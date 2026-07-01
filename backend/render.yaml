@@ -13,3 +13,13 @@ services:
         value: media
       - key: ALLOWED_ORIGINS
         sync: false
+      - key: GOOGLE_MAPS_API_KEY
+        sync: false
+      - key: MP_ACCESS_TOKEN
+        sync: false
+      - key: MP_WEBHOOK_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: BACKEND_URL
+        sync: false

@@ -1,3 +1,4 @@
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import WhatsAppFAB from './components/WhatsAppFAB';
 import HeroSection from './sections/HeroSection';
@@ -9,11 +10,13 @@ import FleetSection from './sections/FleetSection';
 import TestimonialsSection from './sections/TestimonialsSection';
 import ContactSection from './sections/ContactSection';
 import Footer from './sections/Footer';
+import ReservaConfirmada from './pages/ReservaConfirmada';
+import ReservaError from './pages/ReservaError';
+import ReservaPendiente from './pages/ReservaPendiente';
 
-export default function App() {
+function LandingPage() {
   return (
     <>
-      <Navbar />
       <main>
         <HeroSection />
         <StatsSection />
@@ -25,6 +28,20 @@ export default function App() {
         <ContactSection />
       </main>
       <Footer />
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/reserva/confirmada" element={<ReservaConfirmada />} />
+        <Route path="/reserva/error" element={<ReservaError />} />
+        <Route path="/reserva/pendiente" element={<ReservaPendiente />} />
+      </Routes>
       <WhatsAppFAB />
     </>
   );
