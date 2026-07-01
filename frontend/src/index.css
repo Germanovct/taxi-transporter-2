@@ -143,4 +143,11 @@ button {
     overflow-wrap: break-word;
     word-break: break-word;
   }
+
+  /* Disable reveal animations on mobile for performance and to fix hidden section bugs */
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
