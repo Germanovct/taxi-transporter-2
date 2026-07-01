@@ -1,18 +1,27 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './AudioPlayer.module.css';
+
+const TRACKS = [
+  { src: '/audio/el-transporter2.mp3', title: 'El Transporter' },
+  { src: '/audio/sara-perche-ti-amo.mp3', title: 'Sarà Perché Ti Amo' },
+];
 
 export default function AudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.3); // Iniciar en 30% para no ser molesto
   const [isMuted, setIsMuted] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showTrackList, setShowTrackList] = useState(false);
   const audioRef = useRef(null);
+  const trackListRef = useRef(null);
 
+  // Inicializar audio
   useEffect(() => {
-    // Crear el elemento de audio si no existe
     if (!audioRef.current) {
-      const audio = new Audio('/audio/el-transporter2.mp3');
-      audio.loop = true;
+      const audio = new Audio(TRACKS[0].src);
+      audio.loop = false; // Ya no loop individual, pasamos al siguiente track
       audio.volume = volume;
       audioRef.current = audio;
     }
@@ -52,12 +61,66 @@ export default function AudioPlayer() {
     };
   }, []);
 
+  // Cerrar la lista de tracks al hacer click fuera
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (trackListRef.current && !trackListRef.current.contains(e.target)) {
+        setShowTrackList(false);
+      }
+    };
+    if (showTrackList) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [showTrackList]);
+
+  // Cuando un track termina, pasar al siguiente
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleTrackEnd = () => {
+      const nextIndex = (currentTrack + 1) % TRACKS.length;
+      changeTrack(nextIndex);
+    };
+
+    audio.addEventListener('ended', handleTrackEnd);
+    return () => audio.removeEventListener('ended', handleTrackEnd);
+  }, [currentTrack]);
+
   // Controlar volumen
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = isMuted ? 0 : volume;
     }
   }, [volume, isMuted]);
+
+  const changeTrack = useCallback((newIndex) => {
+    if (!audioRef.current || isTransitioning) return;
+
+    setIsTransitioning(true);
+
+    const wasPlaying = !audioRef.current.paused;
+
+    // Pausar y cambiar fuente
+    audioRef.current.pause();
+    audioRef.current.src = TRACKS[newIndex].src;
+    audioRef.current.volume = isMuted ? 0 : volume;
+    setCurrentTrack(newIndex);
+
+    if (wasPlaying) {
+      audioRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch(err => console.error("Error playing audio:", err));
+    }
+
+    // Breve delay para la animación de transición del nombre
+    setTimeout(() => setIsTransitioning(false), 400);
+  }, [isMuted, volume, isTransitioning]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -73,6 +136,37 @@ export default function AudioPlayer() {
     // Mantener expandido temporalmente tras interactuar en móvil
     setIsExpanded(true);
     setTimeout(() => setIsExpanded(false), 3000);
+  };
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    const prevIndex = (currentTrack - 1 + TRACKS.length) % TRACKS.length;
+    changeTrack(prevIndex);
+    setIsExpanded(true);
+    setTimeout(() => setIsExpanded(false), 3000);
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    const nextIndex = (currentTrack + 1) % TRACKS.length;
+    changeTrack(nextIndex);
+    setIsExpanded(true);
+    setTimeout(() => setIsExpanded(false), 3000);
+  };
+
+  const handleSelectTrack = (index) => {
+    if (index !== currentTrack) {
+      changeTrack(index);
+    }
+    setShowTrackList(false);
+    setIsExpanded(true);
+    setTimeout(() => setIsExpanded(false), 3000);
+  };
+
+  const toggleTrackList = (e) => {
+    e.stopPropagation();
+    setShowTrackList(prev => !prev);
+    setIsExpanded(true);
   };
 
   const handleVolumeChange = (e) => {
@@ -91,10 +185,21 @@ export default function AudioPlayer() {
     <div 
       className={`${styles.playerContainer} ${
         (isExpanded || isPlaying) ? styles.playerContainerActive : ''
-      }`}
+      } ${showTrackList ? styles.playerContainerListOpen : ''}`}
       onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
+      onMouseLeave={() => { if (!showTrackList) setIsExpanded(false); }}
     >
+      {/* Botón Prev */}
+      <button
+        onClick={handlePrev}
+        className={styles.skipBtn}
+        aria-label="Canción anterior"
+      >
+        <svg style={{ width: '10px', height: '10px', fill: 'currentColor' }} viewBox="0 0 24 24">
+          <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+        </svg>
+      </button>
+
       {/* Botón de reproducción */}
       <button 
         onClick={togglePlay} 
@@ -112,6 +217,17 @@ export default function AudioPlayer() {
             <path d="M8 5v14l11-7z"/>
           </svg>
         )}
+      </button>
+
+      {/* Botón Next */}
+      <button
+        onClick={handleNext}
+        className={styles.skipBtn}
+        aria-label="Canción siguiente"
+      >
+        <svg style={{ width: '10px', height: '10px', fill: 'currentColor' }} viewBox="0 0 24 24">
+          <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+        </svg>
       </button>
 
       {/* Ondas animadas */}
@@ -159,10 +275,44 @@ export default function AudioPlayer() {
         />
       </div>
 
-      {/* Nombre de la canción (sutil) */}
-      <span className={styles.trackName}>
-        El Transporter
-      </span>
+      {/* Nombre de la canción + selector de tracks */}
+      <div className={styles.trackSelector} ref={trackListRef}>
+        <button
+          onClick={toggleTrackList}
+          className={`${styles.trackName} ${styles.trackNameClickable} ${isTransitioning ? styles.trackNameTransition : ''}`}
+          aria-label="Seleccionar canción"
+        >
+          {TRACKS[currentTrack].title}
+          <svg 
+            className={`${styles.trackListArrow} ${showTrackList ? styles.trackListArrowOpen : ''}`}
+            style={{ width: '8px', height: '8px', fill: 'currentColor', marginLeft: '4px' }} 
+            viewBox="0 0 24 24"
+          >
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+        </button>
+
+        {showTrackList && (
+          <div className={styles.trackListPopup}>
+            {TRACKS.map((track, index) => (
+              <button
+                key={index}
+                onClick={() => handleSelectTrack(index)}
+                className={`${styles.trackListItem} ${index === currentTrack ? styles.trackListItemActive : ''}`}
+              >
+                {index === currentTrack && isPlaying ? (
+                  <svg style={{ width: '10px', height: '10px', fill: 'currentColor', marginRight: '6px', flexShrink: 0 }} viewBox="0 0 24 24">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+                  </svg>
+                ) : (
+                  <span className={styles.trackListNumber}>{index + 1}.</span>
+                )}
+                {track.title}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

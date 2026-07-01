@@ -18,14 +18,22 @@
   backdrop-filter: none;
   box-shadow: none;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  max-width: 60px; /* Compacto por defecto */
+  max-width: 110px; /* Compacto: muestra prev + play + next */
   overflow: hidden;
   white-space: nowrap;
 }
 
 .playerContainer:hover,
 .playerContainerActive {
-  max-width: 240px; /* Se expande para mostrar los controles */
+  max-width: 340px; /* Se expande para mostrar los controles */
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+}
+
+.playerContainerListOpen {
+  overflow: visible;
+  max-width: 340px;
   background: rgba(0, 0, 0, 0.4);
   border-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
@@ -57,6 +65,34 @@
 
 .playBtn:active {
   transform: scale(0.95);
+}
+
+/* ═══ Botones Skip (Prev / Next) ═══ */
+.skipBtn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.skipBtn:hover {
+  border-color: #a855f7;
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.25);
+}
+
+.skipBtn:active {
+  transform: scale(0.9);
 }
 
 /* ═══ Ondas de Audio Animadas ═══ */
@@ -163,7 +199,22 @@
   background: var(--accent-blue);
 }
 
-/* ═══ Track Title ═══ */
+/* ═══ Track Selector ═══ */
+.trackSelector {
+  position: relative;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.playerContainer:hover .trackSelector,
+.playerContainerActive .trackSelector {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ═══ Track Title (ahora es botón clickeable) ═══ */
 .trackName {
   font-family: var(--font-subtitle);
   font-size: 10px;
@@ -172,17 +223,123 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   margin-left: 4px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  max-width: 60px;
+  max-width: 140px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  border-radius: 6px;
+  cursor: default;
+  transition: all 0.3s ease;
 }
 
-.playerContainer:hover .trackName,
-.playerContainerActive .trackName {
-  opacity: 1;
+.trackNameClickable {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.trackNameClickable:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.trackListArrow {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.trackListArrowOpen {
+  transform: rotate(180deg);
+}
+
+.trackNameTransition {
+  animation: trackFade 0.4s ease;
+}
+
+@keyframes trackFade {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══ Track List Popup ═══ */
+.trackListPopup {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  min-width: 200px;
+  background: rgba(15, 15, 20, 0.92);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(168, 85, 247, 0.08);
+  animation: popupSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+  white-space: normal;
+}
+
+@keyframes popupSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.trackListItem {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-subtitle);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.trackListItem:hover {
+  background: rgba(168, 85, 247, 0.12);
+  color: #fff;
+}
+
+.trackListItemActive {
+  color: #a855f7;
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.trackListItemActive:hover {
+  color: #c084fc;
+}
+
+.trackListNumber {
+  margin-right: 6px;
+  opacity: 0.5;
+  font-size: 10px;
+  flex-shrink: 0;
 }
 
 /* ═══ Responsive ═══ */
@@ -195,10 +352,15 @@
   
   /* En móviles se expande al tocar (clase active) */
   .playerContainerActive {
-    max-width: 220px;
+    max-width: 300px;
   }
 
   .volumeSlider {
     width: 60px;
+  }
+
+  .trackListPopup {
+    min-width: 180px;
+    left: -8px;
   }
 }
