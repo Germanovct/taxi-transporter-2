@@ -1,6 +1,6 @@
 # Taxi El Transporter 2
 
-Este proyecto comprende el desarrollo completo del sitio web y backend para **Taxi El Transporter 2**, un servicio premium de traslados ejecutivos y turísticos en Buenos Aires. Cuenta con una landing page de alto impacto visual y un backend dedicado para la administración de imágenes y videos de la flota.
+Este proyecto comprende el desarrollo completo del sitio web y backend para **Taxi El Transporter 2**, un servicio premium de traslados ejecutivos y turísticos en Buenos Aires. Cuenta con una landing page de alto impacto visual con cotizador en tiempo real integrado a Mercado Pago y un backend dedicado para la administración de imágenes y el procesamiento de reservas.
 
 ---
 
@@ -12,10 +12,11 @@ El proyecto está organizado en un monorepo con las siguientes carpetas principa
 taxi-transporter-2/
 ├── frontend/          # Aplicación React + Vite
 │   ├── src/
-│   │   ├── components/  # Componentes reutilizables
+│   │   ├── components/  # Componentes (Navbar, AudioPlayer, etc.)
 │   │   ├── sections/    # Secciones principales de la Landing Page
+│   │   ├── pages/       # Páginas de confirmación de reserva (Mercado Pago)
 │   │   ├── hooks/       # Hooks de React (IntersectionObserver y breakpoints)
-│   │   └── assets/
+│   │   └── i18n/        # Configuración de localización multi-idioma (i18next)
 │   ├── index.html
 │   ├── package.json
 │   ├── vite.config.js
@@ -23,12 +24,12 @@ taxi-transporter-2/
 ├── backend/           # API en FastAPI
 │   ├── main.py        # Punto de entrada de la aplicación
 │   ├── routers/
-│   │   └── media.py   # Rutas y validación de archivos multimedia
-│   ├── services/
-│   │   └── supabase.py# Cliente de integración con Supabase
+│   │   ├── media.py   # Rutas y validación de archivos de la flota
+│   │   └── booking.py # Rutas del cotizador de distancias y pagos en Mercado Pago
 │   ├── requirements.txt
 │   ├── render.yaml    # Configuración de despliegue en Render
 │   └── .env.example
+├── scripts/           # Scripts de migración SQL y carga de archivos
 └── README.md          # Documentación general
 ```
 
@@ -36,18 +37,19 @@ taxi-transporter-2/
 
 ## Setup de Supabase (Base de Datos & Almacenamiento)
 
-El backend interactúa directamente con Supabase para el almacenamiento de archivos (Bucket) y registros en la base de datos.
+El backend interactúa directamente con Supabase para almacenar archivos (Bucket) y persistir las reservas y la flota.
 
 ### 1. Bucket de Storage
 Crea un bucket público en Supabase llamado `"media"` con las siguientes carpetas internas:
 - `flota/` (para almacenar las fotos de los vehículos)
 - `videos/` (para almacenar los videos de la flota)
 
-Asegúrate de que la política del bucket permita el acceso de lectura público (`SELECT`) sin autenticación.
+Asegúrate de habilitar el acceso público al bucket (`SELECT` y opcionalmente `INSERT`/`UPDATE` para la service_role).
 
-### 2. Tabla de Base de Datos
-Ejecuta la siguiente consulta SQL en el editor de Supabase para crear la tabla `fleet_media`:
+### 2. Tablas en la Base de Datos
+Ejecuta las siguientes consultas SQL en el editor SQL de Supabase para crear las tablas del proyecto:
 
+#### Tabla `fleet_media`
 ```sql
 CREATE TABLE fleet_media (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -61,16 +63,36 @@ CREATE TABLE fleet_media (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Habilitar RLS (Row Level Security)
 ALTER TABLE fleet_media ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public Read Access" ON fleet_media FOR SELECT USING (active = true);
+```
 
--- Crear política de lectura pública (SELECT)
-CREATE POLICY "Public Read Access" 
-ON fleet_media 
-FOR SELECT 
-USING (active = true);
+#### Tabla `bookings`
+```sql
+CREATE TABLE bookings (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  passenger_name TEXT NOT NULL,
+  passenger_email TEXT NOT NULL,
+  passenger_phone TEXT NOT NULL,
+  origin TEXT NOT NULL,
+  destination TEXT NOT NULL,
+  distance_km NUMERIC(10, 2) NOT NULL,
+  duration_minutes NUMERIC(10, 2) NOT NULL,
+  price_ars NUMERIC(15, 2) NOT NULL,
+  date DATE NOT NULL,
+  time TIME NOT NULL,
+  passengers INTEGER NOT NULL DEFAULT 1,
+  luggage TEXT,
+  notes TEXT,
+  payment_status TEXT NOT NULL DEFAULT 'pending', -- 'pending', 'approved', 'rejected'
+  payment_id TEXT,
+  preference_id TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
--- Las operaciones de INSERT/UPDATE/DELETE quedan restringidas al backend a través de la service_role key.
+ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public Read Bookings" ON bookings FOR SELECT USING (true);
+CREATE POLICY "Anon Insert Bookings" ON bookings FOR INSERT WITH CHECK (true);
 ```
 
 ---
@@ -81,10 +103,20 @@ USING (active = true);
 Crea un archivo `.env` en el directorio `backend/` basándote en `.env.example`:
 
 ```env
-SUPABASE_URL=your_supabase_url
-SUPABASE_SERVICE_KEY=your_service_role_key
+SUPABASE_URL=https://your_supabase_project.supabase.co
+SUPABASE_SERVICE_KEY=your_supabase_service_role_secret_key
 SUPABASE_BUCKET=media
-ALLOWED_ORIGINS=http://localhost:5173,https://taxieltransportador2.com
+
+# Mercado Pago Credentials
+MERCADO_PAGO_PUBLIC_KEY=APP_USR-xxxx
+MERCADO_PAGO_ACCESS_TOKEN=APP_USR-xxxx
+
+# OSRM Fallback & Routing (Opcional, si no se tiene Google Maps API Key)
+GOOGLE_MAPS_API_KEY=
+
+# URL del Frontend (Utilizado para redirección post-pago)
+FRONTEND_URL=https://taxi-eltransporter2.netlify.app
+ALLOWED_ORIGINS=http://localhost:5173,https://taxieltransporter2.com,https://taxi-eltransporter2.netlify.app
 ```
 
 ### Frontend (`frontend/.env`)
@@ -92,8 +124,8 @@ Crea un archivo `.env` en el directorio `frontend/` basándote en `.env.example`
 
 ```env
 VITE_API_URL=http://localhost:8000
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_anon_key
+VITE_SUPABASE_URL=https://your_supabase_project.supabase.co
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_public_key
 ```
 
 ---
@@ -106,7 +138,7 @@ VITE_SUPABASE_ANON_KEY=your_anon_key
    ```bash
    cd backend
    ```
-2. Crea un entorno virtual e instálalo:
+2. Crea un entorno virtual e instala dependencias:
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate
@@ -136,24 +168,10 @@ VITE_SUPABASE_ANON_KEY=your_anon_key
 
 ---
 
-## Instrucciones de Despliegue (Deploy)
+## Integraciones y Mejoras Implementadas (Fase 2)
 
-### Frontend (Netlify)
-La carpeta `frontend/` incluye una configuración lista para Netlify en [netlify.toml](file:///Users/germanocampo/dtsanddog-studio/taxi-transporter-2/frontend/netlify.toml).
-- **Comando de compilación:** `npm run build`
-- **Directorio de publicación:** `dist`
-- **Redirecciones:** Configurado para Single Page Application (SPA), redirigiendo todas las rutas a `/index.html`.
-
-### Backend (Render)
-La carpeta `backend/` contiene el archivo [render.yaml](file:///Users/germanocampo/dtsanddog-studio/taxi-transporter-2/backend/render.yaml) configurado para despliegues tipo Web Service de Render.
-- Al crear el Web Service en Render, conecta tu repositorio Git, selecciona el directorio `backend/` y proporciona las variables de entorno especificadas.
-
----
-
-## Fase 2 — Funcionalidades Pendientes (Futuras Mejoras)
-
-En la siguiente etapa de desarrollo se planea implementar:
-1. **Panel de Administración (Admin Dashboard):**
-   - Panel web privado seguro (protegido por Supabase Auth) para que el propietario pueda subir, modificar el orden, ocultar o eliminar fotos/videos de los autos de la flota sin usar el cliente Supabase directamente.
-2. **Formulario de Contacto Activo:**
-   - Integrar un endpoint `POST /contact` en el backend para enviar correos electrónicos automatizados con las consultas y reservas recibidas.
+1. **Cotizador inteligente multi-paso:** Formulario guiado que permite cargar origen, destino, fecha, hora, pasajeros y equipaje. Consume la API de enrutamiento OSRM de OpenStreetMap para calcular kilómetros y tiempo de viaje reales de forma gratuita y calcular tarifas dinámicas.
+2. **Checkout Pro de Mercado Pago:** Pasarela de pago integrada que redirecciona a los usuarios para abonar con tarjeta, saldo o transferencia.
+3. **Páginas de resultado dinámicas:** Páginas diseñadas específicamente para éxito (`/reserva/confirmada`), pendiente (`/reserva/pendiente`) y error (`/reserva/error`) con un botón CTA para contactar directamente a Marcelo por WhatsApp.
+4. **Reproductor de Música flotante:** Widget minimalista y transparente de audio con ondas animadas neón y control slider de volumen que se activa tras la primera interacción del usuario en cualquier parte de la web.
+5. **Optimización Móvil extrema:** Reducción de más del 90% en recursos de imágenes, desactivación de animaciones IntersectionObserver en móviles para fluidez del scroll, y adaptabilidad multi-idioma (i18n) en todas las secciones.
