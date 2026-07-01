@@ -13,6 +13,7 @@ import Footer from './sections/Footer';
 import ReservaConfirmada from './pages/ReservaConfirmada';
 import ReservaError from './pages/ReservaError';
 import ReservaPendiente from './pages/ReservaPendiente';
+import AudioPlayer from './components/AudioPlayer';
 
 function LandingPage() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="/reserva/pendiente" element={<ReservaPendiente />} />
       </Routes>
       <WhatsAppFAB />
+      <AudioPlayer />
     </>
   );
 }
