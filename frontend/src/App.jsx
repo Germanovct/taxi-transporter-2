@@ -14,6 +14,8 @@ import ReservaConfirmada from './pages/ReservaConfirmada';
 import ReservaError from './pages/ReservaError';
 import ReservaPendiente from './pages/ReservaPendiente';
 import AudioPlayer from './components/AudioPlayer';
+import DriverPopup from './components/DriverPopup';
+import DriverPanel from './pages/DriverPanel';
 
 function LandingPage() {
   return (
@@ -42,9 +44,11 @@ export default function App() {
         <Route path="/reserva/confirmada" element={<ReservaConfirmada />} />
         <Route path="/reserva/error" element={<ReservaError />} />
         <Route path="/reserva/pendiente" element={<ReservaPendiente />} />
+        <Route path="/conductor" element={<DriverPanel />} />
       </Routes>
       <WhatsAppFAB />
       <AudioPlayer />
+      <DriverPopup />
     </>
   );
 }

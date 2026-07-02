@@ -355,5 +355,12 @@
     "pendingTitle": "Pagamento Pendente",
     "pendingDesc": "Seu pagamento está sendo processado. Avisaremos quando for confirmado.",
     "pendingContact": "Em caso de dúvidas, entre em contato pelo WhatsApp."
+  },
+  "driverPopup": {
+    "available": "Motorista disponível!",
+    "online": "ONLINE",
+    "nearYou": "da sua localização atual",
+    "cta": "RESERVAR AGORA →",
+    "minutes": "MIN"
   }
 }

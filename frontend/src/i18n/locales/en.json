@@ -355,5 +355,12 @@
     "pendingTitle": "Payment Pending",
     "pendingDesc": "Your payment is being processed. We'll notify you when it's confirmed.",
     "pendingContact": "If you have questions, contact us via WhatsApp."
+  },
+  "driverPopup": {
+    "available": "Driver available!",
+    "online": "ONLINE",
+    "nearYou": "from your current location",
+    "cta": "BOOK NOW →",
+    "minutes": "MIN"
   }
 }

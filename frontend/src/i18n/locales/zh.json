@@ -355,5 +355,12 @@
     "pendingTitle": "付款待处理",
     "pendingDesc": "您的付款正在处理中。确认后我们会通知您。",
     "pendingContact": "如有疑问，请通过WhatsApp联系我们。"
+  },
+  "driverPopup": {
+    "available": "司机在线！",
+    "online": "在线",
+    "nearYou": "距您当前位置",
+    "cta": "立即预订 →",
+    "minutes": "分钟"
   }
 }

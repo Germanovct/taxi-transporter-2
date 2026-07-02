@@ -355,5 +355,12 @@
     "pendingTitle": "Paiement en attente",
     "pendingDesc": "Votre paiement est en cours de traitement. Nous vous informerons dès confirmation.",
     "pendingContact": "En cas de doute, contactez-nous par WhatsApp."
+  },
+  "driverPopup": {
+    "available": "Chauffeur disponible !",
+    "online": "EN LIGNE",
+    "nearYou": "de votre position actuelle",
+    "cta": "RÉSERVER MAINTENANT →",
+    "minutes": "MIN"
   }
 }

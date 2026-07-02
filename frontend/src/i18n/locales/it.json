@@ -355,5 +355,12 @@
     "pendingTitle": "Pagamento in sospeso",
     "pendingDesc": "Il tuo pagamento è in fase di elaborazione. Ti avviseremo quando sarà confermato.",
     "pendingContact": "In caso di dubbi, contattaci via WhatsApp."
+  },
+  "driverPopup": {
+    "available": "Autista disponibile!",
+    "online": "ONLINE",
+    "nearYou": "dalla tua posizione attuale",
+    "cta": "PRENOTA ORA →",
+    "minutes": "MIN"
   }
 }

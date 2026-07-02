@@ -4,7 +4,7 @@ from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from routers import media, booking
+from routers import media, booking, location
 
 # Initialize logs
 logging.basicConfig(
@@ -38,6 +38,7 @@ app.add_middleware(
 # Include Routers
 app.include_router(media.router)
 app.include_router(booking.router)
+app.include_router(location.router)
 
 # Health check endpoint
 @app.get("/health")
