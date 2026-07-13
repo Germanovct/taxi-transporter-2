@@ -25,15 +25,6 @@ app = FastAPI(
 allowed_origins_str = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173")
 origins = [origin.strip() for origin in allowed_origins_str.split(",") if origin.strip()]
 
-# Agregamos los dominios de producción oficiales siempre para evitar errores de CORS
-prod_origins = [
-    "https://www.taxieltransporter2.com.ar",
-    "https://taxieltransporter2.com.ar"
-]
-for p in prod_origins:
-    if p not in origins:
-        origins.append(p)
-
 logger.info(f"Configuring CORS with allowed origins: {origins}")
 
 app.add_middleware(

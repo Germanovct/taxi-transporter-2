@@ -22,9 +22,9 @@ function LandingPage() {
     <>
       <main>
         <HeroSection />
+        <ServicesDestinationsSection />
         <StatsSection />
         <AboutSection />
-        <ServicesDestinationsSection />
         <WhyUsSection />
         <FleetSection />
         <TestimonialsSection />

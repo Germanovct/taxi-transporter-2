@@ -532,256 +532,6 @@ export default function ServicesDestinationsSection() {
   return (
     <SectionWrapper id="services-destinations" className={styles.section}>
       <div className="container">
-        
-        {/* Header */}
-        <div className={styles.titleGroup}>
-          <span className={styles.badge}>{t('servicesDestinations.badge')}</span>
-          <h2 className={styles.title}>
-            {t('servicesDestinations.title1')} <br />
-            <span className="text-gradient">{t('servicesDestinations.title2')}</span>
-          </h2>
-          <div className={styles.subtitleWrapper}>
-            <p className={styles.subtitle}>{t('servicesDestinations.subtitle')}</p>
-            <span className={styles.phase2Badge}>{t('servicesDestinations.phase2Badge')}</span>
-          </div>
-        </div>
-
-        {/* Tab System Selector */}
-        <div className={styles.tabContainerWrapper}>
-          <div className={styles.tabContainer}>
-            <button
-              type="button"
-              className={`${styles.tabBtn} ${activeTab === 'services' ? styles.tabBtnActive : ''}`}
-              onClick={() => {
-                setActiveTab('services');
-                setActiveCard(null);
-                setFormData(prev => ({ ...prev, service: '' }));
-              }}
-            >
-              {t('servicesDestinations.tabServices')}
-            </button>
-            <button
-              type="button"
-              className={`${styles.tabBtn} ${activeTab === 'destinations' ? styles.tabBtnActive : ''}`}
-              onClick={() => {
-                setActiveTab('destinations');
-                setActiveCard(null);
-              }}
-            >
-              {t('servicesDestinations.tabDestinations')}
-            </button>
-            <button
-              type="button"
-              className={`${styles.tabBtn} ${activeTab === 'gastro' ? styles.tabBtnActive : ''}`}
-              onClick={() => {
-                setActiveTab('gastro');
-                setActiveCard(null);
-                setFormData(prev => ({ ...prev, service: 'Gastro' }));
-              }}
-            >
-              {t('servicesDestinations.tabGastro')}
-            </button>
-            <button
-              type="button"
-              className={`${styles.tabBtn} ${activeTab === 'costa' ? styles.tabBtnActive : ''}`}
-              onClick={() => {
-                setActiveTab('costa');
-                setActiveCard(null);
-                setFormData(prev => ({ ...prev, service: 'Costa' }));
-              }}
-            >
-              {t('servicesDestinations.tabCosta')}
-            </button>
-          </div>
-        </div>
-
-        {/* Dynamic Tab Content with Fade Animation */}
-        <div className={styles.tabContentWrapper}>
-          
-          {/* Services Tab */}
-          <div className={`${styles.tabPanel} ${activeTab === 'services' ? styles.panelVisible : styles.panelHidden}`}>
-            <div className={styles.gridServices}>
-              {servicesData.map((service) => (
-                <div
-                  key={service.id}
-                  className={`${styles.cardService} ${activeCard === `service-${service.id}` ? styles.cardActive : ''} ${service.id === 7 ? styles.cardServiceWide : ''}`}
-                  style={{ backgroundImage: `url('${service.bgImage}')` }}
-                  onClick={() => {
-                    setActiveCard(activeCard === `service-${service.id}` ? null : `service-${service.id}`);
-                    const serviceValuesMap = {
-                      1: 'Ezeiza',
-                      2: 'Aeroparque',
-                      3: 'Terminal',
-                      4: 'Fluvio',
-                      5: 'Distance',
-                      6: 'City',
-                      7: 'Groups'
-                    };
-                    handleCardClick('service', service.title, serviceValuesMap[service.id]);
-                  }}
-                >
-                  <div className={styles.cardContent}>
-                    <div className={styles.iconWrapper}>
-                      {service.icon}
-                    </div>
-                    <h3 className={styles.cardTitle}>{service.title}</h3>
-                    <p className={styles.cardDesc}>{service.desc}</p>
-                    <div className={styles.servicePhase2BadgeWrapper}>
-                      <span className={styles.servicePhase2Badge}>
-                        {t('servicesDestinations.reservaBadge')}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
- 
-          {/* Destinations & Tourism Tab */}
-          <div className={`${styles.tabPanel} ${activeTab === 'destinations' ? styles.panelVisible : styles.panelHidden}`}>
-            
-            {/* Subcategory 1: Estadios & Eventos */}
-            <div className={styles.gastroHeader}>
-              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.estadiosEventosTitle')}</h3>
-              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.estadiosEventosSubtitle')}</p>
-            </div>
- 
-            <div className={styles.gridGastro}>
-              {stadiumsData.map((dest) => (
-                <div
-                  key={dest.id}
-                  className={`${styles.cardGastro} ${activeCard === `dest-${dest.id}` ? styles.cardActive : ''} ${!dest.bgImage ? styles.gradientPlaceholder : ''}`}
-                  style={dest.bgImage ? { backgroundImage: `url('${dest.bgImage}')` } : {}}
-                  onClick={() => {
-                    setActiveCard(activeCard === `dest-${dest.id}` ? null : `dest-${dest.id}`);
-                    handleCardClick('destination', dest.title, 'Stadium');
-                  }}
-                >
-                  <div className={styles.cardGastroContent}>
-                    <h3 className={styles.cardGastroTitle}>{dest.title}</h3>
-                    <p className={styles.cardGastroDesc}>{dest.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Divider */}
-            <div className={styles.dividerContainer}>
-              <div className={styles.dividerLine}></div>
-              <span className={styles.dividerText}>🏛 {t('servicesDestinations.turismoCulturaTitle')}</span>
-              <div className={styles.dividerLine}></div>
-            </div>
-
-            {/* Subcategory 2: Turismo & Cultura */}
-            <div className={styles.gastroHeader}>
-              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.turismoCulturaTitle')}</h3>
-              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.turismoCulturaSubtitle')}</p>
-            </div>
-
-            <div className={styles.gridGastro}>
-              {cultureAttractionsData.map((attr) => (
-                <div
-                  key={attr.id}
-                  className={`${styles.cardGastro} ${activeCard === `attr-${attr.id}` ? styles.cardActive : ''} ${!attr.bgImage ? styles.gradientPlaceholder : ''}`}
-                  style={attr.bgImage ? { backgroundImage: `url('${attr.bgImage}')` } : {}}
-                  onClick={() => {
-                    setActiveCard(activeCard === `attr-${attr.id}` ? null : `attr-${attr.id}`);
-                    handleCardClick('destination', attr.title, 'Tourism');
-                  }}
-                >
-                  <div className={styles.cardGastroContent}>
-                    <h3 className={styles.cardGastroTitle}>{attr.title}</h3>
-                    <p className={styles.cardGastroDesc}>{attr.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-          </div>
-
-          {/* Pueblos Gastronómicos Tab */}
-          <div className={`${styles.tabPanel} ${activeTab === 'gastro' ? styles.panelVisible : styles.panelHidden}`}>
-            
-            <div className={styles.gastroHeader}>
-              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.gastroTitle')}</h3>
-              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.gastroSubtitle')}</p>
-            </div>
-
-            <div className={styles.gridGastro}>
-              {gastroTownsData.map((town) => (
-                <div
-                  key={town.id}
-                  className={`${styles.cardGastro} ${activeCard === `town-${town.id}` ? styles.cardActive : ''} ${!town.bgImage ? styles.gradientPlaceholder : ''}`}
-                  style={town.bgImage ? { backgroundImage: `url('${town.bgImage}')` } : {}}
-                  onClick={() => {
-                    setActiveCard(activeCard === `town-${town.id}` ? null : `town-${town.id}`);
-                    handleCardClick('gastro', town.title, 'Gastro');
-                  }}
-                >
-                  <div className={styles.cardGastroContent}>
-                    <div className={styles.badgeGroup}>
-                      <span className={styles.gastroBadgeLoc}>{town.location}</span>
-                      <span className={styles.gastroBadgeDist}>{town.distance}</span>
-                    </div>
-                    <h3 className={styles.cardGastroTitle}>{town.title}</h3>
-                    <p className={styles.cardGastroDesc}>{town.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-          </div>
-
-          {/* Costa Atlántica Tab */}
-          <div className={`${styles.tabPanel} ${activeTab === 'costa' ? styles.panelVisible : styles.panelHidden}`}>
-            
-            <div className={styles.gastroHeader}>
-              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.costaTitle')}</h3>
-              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.costaSubtitle')}</p>
-            </div>
-
-            <div className={styles.gridCosta}>
-              {costaData.map((item) => (
-                <div
-                  key={item.id}
-                  className={`${styles.cardCosta} ${activeCard === `costa-${item.id}` ? styles.cardActive : ''}`}
-                  style={{ backgroundImage: `url('${item.bgImage}')` }}
-                  onClick={() => {
-                    setActiveCard(activeCard === `costa-${item.id}` ? null : `costa-${item.id}`);
-                    handleCardClick('costa', item.title, 'Costa');
-                  }}
-                >
-                  <div className={styles.cardCostaContent}>
-                    <div className={styles.badgeGroup}>
-                      <span className={styles.gastroBadgeDist}>{item.distance}</span>
-                      <span className={styles.gastroBadgeLoc}>{item.badge}</span>
-                    </div>
-                    <h3 className={styles.cardCostaTitle}>{item.title}</h3>
-                    <p className={styles.cardCostaDesc}>{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Banner CTA */}
-            <div className={styles.costaBanner}>
-              <div className={styles.costaBannerText}>
-                <h4 className={styles.costaBannerTitle}>{t('servicesDestinations.costaCta')}</h4>
-                <p className={styles.costaBannerSub}>{t('servicesDestinations.costaCtaDesc')}</p>
-              </div>
-              <a
-                href="https://wa.me/541126281011"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.costaBannerBtn}
-              >
-                💬 {t('servicesDestinations.costaCtaBtn')}
-              </a>
-            </div>
-
-          </div>
-
-        </div>
 
         {/* Formulario de Reserva — Stepper */}
         <div id="booking-form" className={styles.bookingFormContainer}>
@@ -1129,6 +879,258 @@ export default function ServicesDestinationsSection() {
             </div>
           )}
         </div>
+
+        
+        {/* Header */}
+        <div className={styles.titleGroup}>
+          <span className={styles.badge}>{t('servicesDestinations.badge')}</span>
+          <h2 className={styles.title}>
+            {t('servicesDestinations.title1')} <br />
+            <span className="text-gradient">{t('servicesDestinations.title2')}</span>
+          </h2>
+          <div className={styles.subtitleWrapper}>
+            <p className={styles.subtitle}>{t('servicesDestinations.subtitle')}</p>
+            <span className={styles.phase2Badge}>{t('servicesDestinations.phase2Badge')}</span>
+          </div>
+        </div>
+
+        {/* Tab System Selector */}
+        <div className={styles.tabContainerWrapper}>
+          <div className={styles.tabContainer}>
+            <button
+              type="button"
+              className={`${styles.tabBtn} ${activeTab === 'services' ? styles.tabBtnActive : ''}`}
+              onClick={() => {
+                setActiveTab('services');
+                setActiveCard(null);
+                setFormData(prev => ({ ...prev, service: '' }));
+              }}
+            >
+              {t('servicesDestinations.tabServices')}
+            </button>
+            <button
+              type="button"
+              className={`${styles.tabBtn} ${activeTab === 'destinations' ? styles.tabBtnActive : ''}`}
+              onClick={() => {
+                setActiveTab('destinations');
+                setActiveCard(null);
+              }}
+            >
+              {t('servicesDestinations.tabDestinations')}
+            </button>
+            <button
+              type="button"
+              className={`${styles.tabBtn} ${activeTab === 'gastro' ? styles.tabBtnActive : ''}`}
+              onClick={() => {
+                setActiveTab('gastro');
+                setActiveCard(null);
+                setFormData(prev => ({ ...prev, service: 'Gastro' }));
+              }}
+            >
+              {t('servicesDestinations.tabGastro')}
+            </button>
+            <button
+              type="button"
+              className={`${styles.tabBtn} ${activeTab === 'costa' ? styles.tabBtnActive : ''}`}
+              onClick={() => {
+                setActiveTab('costa');
+                setActiveCard(null);
+                setFormData(prev => ({ ...prev, service: 'Costa' }));
+              }}
+            >
+              {t('servicesDestinations.tabCosta')}
+            </button>
+          </div>
+        </div>
+
+        {/* Dynamic Tab Content with Fade Animation */}
+        <div className={styles.tabContentWrapper}>
+          
+          {/* Services Tab */}
+          <div className={`${styles.tabPanel} ${activeTab === 'services' ? styles.panelVisible : styles.panelHidden}`}>
+            <div className={styles.gridServices}>
+              {servicesData.map((service) => (
+                <div
+                  key={service.id}
+                  className={`${styles.cardService} ${activeCard === `service-${service.id}` ? styles.cardActive : ''} ${service.id === 7 ? styles.cardServiceWide : ''}`}
+                  style={{ backgroundImage: `url('${service.bgImage}')` }}
+                  onClick={() => {
+                    setActiveCard(activeCard === `service-${service.id}` ? null : `service-${service.id}`);
+                    const serviceValuesMap = {
+                      1: 'Ezeiza',
+                      2: 'Aeroparque',
+                      3: 'Terminal',
+                      4: 'Fluvio',
+                      5: 'Distance',
+                      6: 'City',
+                      7: 'Groups'
+                    };
+                    handleCardClick('service', service.title, serviceValuesMap[service.id]);
+                  }}
+                >
+                  <div className={styles.cardContent}>
+                    <div className={styles.iconWrapper}>
+                      {service.icon}
+                    </div>
+                    <h3 className={styles.cardTitle}>{service.title}</h3>
+                    <p className={styles.cardDesc}>{service.desc}</p>
+                    <div className={styles.servicePhase2BadgeWrapper}>
+                      <span className={styles.servicePhase2Badge}>
+                        {t('servicesDestinations.reservaBadge')}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+ 
+          {/* Destinations & Tourism Tab */}
+          <div className={`${styles.tabPanel} ${activeTab === 'destinations' ? styles.panelVisible : styles.panelHidden}`}>
+            
+            {/* Subcategory 1: Estadios & Eventos */}
+            <div className={styles.gastroHeader}>
+              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.estadiosEventosTitle')}</h3>
+              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.estadiosEventosSubtitle')}</p>
+            </div>
+ 
+            <div className={styles.gridGastro}>
+              {stadiumsData.map((dest) => (
+                <div
+                  key={dest.id}
+                  className={`${styles.cardGastro} ${activeCard === `dest-${dest.id}` ? styles.cardActive : ''} ${!dest.bgImage ? styles.gradientPlaceholder : ''}`}
+                  style={dest.bgImage ? { backgroundImage: `url('${dest.bgImage}')` } : {}}
+                  onClick={() => {
+                    setActiveCard(activeCard === `dest-${dest.id}` ? null : `dest-${dest.id}`);
+                    handleCardClick('destination', dest.title, 'Stadium');
+                  }}
+                >
+                  <div className={styles.cardGastroContent}>
+                    <h3 className={styles.cardGastroTitle}>{dest.title}</h3>
+                    <p className={styles.cardGastroDesc}>{dest.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Divider */}
+            <div className={styles.dividerContainer}>
+              <div className={styles.dividerLine}></div>
+              <span className={styles.dividerText}>🏛 {t('servicesDestinations.turismoCulturaTitle')}</span>
+              <div className={styles.dividerLine}></div>
+            </div>
+
+            {/* Subcategory 2: Turismo & Cultura */}
+            <div className={styles.gastroHeader}>
+              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.turismoCulturaTitle')}</h3>
+              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.turismoCulturaSubtitle')}</p>
+            </div>
+
+            <div className={styles.gridGastro}>
+              {cultureAttractionsData.map((attr) => (
+                <div
+                  key={attr.id}
+                  className={`${styles.cardGastro} ${activeCard === `attr-${attr.id}` ? styles.cardActive : ''} ${!attr.bgImage ? styles.gradientPlaceholder : ''}`}
+                  style={attr.bgImage ? { backgroundImage: `url('${attr.bgImage}')` } : {}}
+                  onClick={() => {
+                    setActiveCard(activeCard === `attr-${attr.id}` ? null : `attr-${attr.id}`);
+                    handleCardClick('destination', attr.title, 'Tourism');
+                  }}
+                >
+                  <div className={styles.cardGastroContent}>
+                    <h3 className={styles.cardGastroTitle}>{attr.title}</h3>
+                    <p className={styles.cardGastroDesc}>{attr.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+          {/* Pueblos Gastronómicos Tab */}
+          <div className={`${styles.tabPanel} ${activeTab === 'gastro' ? styles.panelVisible : styles.panelHidden}`}>
+            
+            <div className={styles.gastroHeader}>
+              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.gastroTitle')}</h3>
+              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.gastroSubtitle')}</p>
+            </div>
+
+            <div className={styles.gridGastro}>
+              {gastroTownsData.map((town) => (
+                <div
+                  key={town.id}
+                  className={`${styles.cardGastro} ${activeCard === `town-${town.id}` ? styles.cardActive : ''} ${!town.bgImage ? styles.gradientPlaceholder : ''}`}
+                  style={town.bgImage ? { backgroundImage: `url('${town.bgImage}')` } : {}}
+                  onClick={() => {
+                    setActiveCard(activeCard === `town-${town.id}` ? null : `town-${town.id}`);
+                    handleCardClick('gastro', town.title, 'Gastro');
+                  }}
+                >
+                  <div className={styles.cardGastroContent}>
+                    <div className={styles.badgeGroup}>
+                      <span className={styles.gastroBadgeLoc}>{town.location}</span>
+                      <span className={styles.gastroBadgeDist}>{town.distance}</span>
+                    </div>
+                    <h3 className={styles.cardGastroTitle}>{town.title}</h3>
+                    <p className={styles.cardGastroDesc}>{town.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+          {/* Costa Atlántica Tab */}
+          <div className={`${styles.tabPanel} ${activeTab === 'costa' ? styles.panelVisible : styles.panelHidden}`}>
+            
+            <div className={styles.gastroHeader}>
+              <h3 className={styles.gastroSectionTitle}>{t('servicesDestinations.costaTitle')}</h3>
+              <p className={styles.gastroSectionSubtitle}>{t('servicesDestinations.costaSubtitle')}</p>
+            </div>
+
+            <div className={styles.gridCosta}>
+              {costaData.map((item) => (
+                <div
+                  key={item.id}
+                  className={`${styles.cardCosta} ${activeCard === `costa-${item.id}` ? styles.cardActive : ''}`}
+                  style={{ backgroundImage: `url('${item.bgImage}')` }}
+                  onClick={() => {
+                    setActiveCard(activeCard === `costa-${item.id}` ? null : `costa-${item.id}`);
+                    handleCardClick('costa', item.title, 'Costa');
+                  }}
+                >
+                  <div className={styles.cardCostaContent}>
+                    <div className={styles.badgeGroup}>
+                      <span className={styles.gastroBadgeDist}>{item.distance}</span>
+                      <span className={styles.gastroBadgeLoc}>{item.badge}</span>
+                    </div>
+                    <h3 className={styles.cardCostaTitle}>{item.title}</h3>
+                    <p className={styles.cardCostaDesc}>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Banner CTA */}
+            <div className={styles.costaBanner}>
+              <div className={styles.costaBannerText}>
+                <h4 className={styles.costaBannerTitle}>{t('servicesDestinations.costaCta')}</h4>
+                <p className={styles.costaBannerSub}>{t('servicesDestinations.costaCtaDesc')}</p>
+              </div>
+              <a
+                href="https://wa.me/541126281011"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.costaBannerBtn}
+              >
+                💬 {t('servicesDestinations.costaCtaBtn')}
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
 
         {/* CTA Final */}
         <div className={styles.ctaFinal}>

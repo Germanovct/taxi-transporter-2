@@ -66,7 +66,7 @@ export default function AboutSection() {
               <div className={styles.signatureRow}>
                 <div className={styles.avatar}>M</div>
                 <div className={styles.signatureInfo}>
-                  <div className={styles.signatureName}>Marcelo</div>
+                  <div className={styles.signatureName}>MARCELO RICARDO ALBORNOZ</div>
                   <div className={styles.signatureRole}>{t('about.founderTitle')}</div>
                 </div>
               </div>
